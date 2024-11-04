@@ -290,15 +290,22 @@ MB.scvmFactory = {
   armorDieIfRolledScroll: "1d2",
   // Terribler Traits
   terribleTraitsTable:
-    "Compendium.crysborg.crys-borg-tables.RollTable.JJF947DHebiinnwp",
+    "Compendium.crysborg.crys-borg-tables.RollTable.cu7r9xbByoMfofmM",
   // Brokener Bodies
   brokenBodiesTable:
     "Compendium.crysborg.crys-borg-tables.RollTable.tmQ9sL1SyqgAh2ch",
   // Badder Habits
   badHabitsTable:
     "Compendium.crysborg.crys-borg-tables.RollTable.3NeMMJHRRW517LGP",
-
-
+  // Personality Quirks
+  personalityQuirksTable:
+    "Compendium.crysborg.crys-borg-tables.RollTable.ISl0rKeu2m90swtr",
+  // Weapon Tables
+  weaponTables: [
+    "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
+    "Compendium.crysborg.crys-borg-tables.RollTable.o6wjXShp2CLQEr7X",
+    "Compendium.crysborg.crys-borg-tables.RollTable.rq8zq4VHY3px5hpF",
+  ],
   // modules wanting to add more character classes to the generator should append uuids to this list
   standardclassUuids: [
     // classless adventurer
@@ -366,7 +373,9 @@ MB.scvmFactory = {
     // Svampätare
     "Compendium.crysborg.crys-borg-items.Item.g8JnRKWDxp92Bbs1", 
     // "The" Bellfounder
-    "Compendium.crysborg.crys-borg-items.Item.JNvP1NLKQ577RBQw"
+    "Compendium.crysborg.crys-borg-items.Item.JNvP1NLKQ577RBQw",
+    // Nachtreuter
+    "Compendium.crysborg.crys-borg-items.Item.HfOQu1caHVJWptf5"
   ],
 };
 

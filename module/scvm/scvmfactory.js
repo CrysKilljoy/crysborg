@@ -130,7 +130,7 @@ async function startingWeapons(clazz, rolledScroll) {
       }
     }
     const draw = await drawFromTableUuid(
-      MB.scvmFactory.startingWeaponTable,
+      MB.scvmFactory.weaponTables[clazz.system.weaponTable],
       weaponDie
     );
     const weapons = await documentsFromDraw(draw);
@@ -201,6 +201,10 @@ async function startingDescriptionLines(clazz) {
   if (MB.scvmFactory.badHabitsTable) {
     const badHabit = await drawTextFromTableUuid(MB.scvmFactory.badHabitsTable);
     descriptionLine += ` ${badHabit}`;
+  }
+  if (MB.scvmFactory.personalityQuirksTable) {
+    const personalityQuirks = await drawTextFromTableUuid(MB.scvmFactory.personalityQuirksTable);
+    descriptionLine += ` ${personalityQuirks}`;
   }
   if (descriptionLine) {
     descriptionLines.push(descriptionLine);
