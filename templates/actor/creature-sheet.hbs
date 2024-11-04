@@ -1,0 +1,61 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  {{!-- Sheet Header --}}
+  {{> systems/crysborg/templates/actor/common/npc-header.hbs }} 
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{ localize "MB.TabDescription" }}</a>
+    <a class="item" data-tab="details">{{ localize "MB.TabDetails" }}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
+    {{> systems/crysborg/templates/common/description-tab.hbs }} 
+
+    {{!-- Details Tab --}}
+    <div class="tab" data-group="primary" data-tab="details">
+      {{!-- Morale --}}
+      <div class="form-group">
+        <label>{{ localize "MB.Morale" }}:</label>
+        <input
+          name="system.morale"
+          type="text"
+          value="{{data.system.morale}}"
+          placeholder=""
+          data-dtype="Number"
+        />
+      </div>
+
+      {{!-- Armor --}}
+      <div class="form-group">
+        <label>{{ localize "MB.CreatureArmor" }}:</label>
+        <input
+          type="text"
+          name="system.armor.name"
+          value="{{data.system.armor.name}}"
+          placeholder="None"
+          data-dtype="String"
+        />
+      </div>
+
+      {{!-- Attack --}}
+      <div class="form-group">
+        <label>{{ localize "MB.CreatureAttack" }}:</label>
+        <input
+          type="text"
+          name="system.attack.name"
+          value="{{data.system.attack.name}}"
+          placeholder="None"
+          data-dtype="String"
+        />
+      </div>
+
+      {{!-- Special --}}
+      <div class="form-group">
+        <label>{{ localize "MB.CreatureSpecial" }}:</label>
+        <textarea name="system.special" rows="10">{{data.system.special}}</textarea>
+      </div>
+    </div>
+  </section>
+</form>

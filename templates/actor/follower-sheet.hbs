@@ -1,0 +1,92 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  {{!-- Sheet Header --}}
+  {{> systems/crysborg/templates/actor/common/npc-header.hbs }} 
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{ localize "MB.TabDescription" }}</a>
+    <a class="item" data-tab="details">{{ localize "MB.TabDetails" }}</a>
+    <a class="item" data-tab="treasures">{{ localize "MB.TabTreasures" }}</a>
+    <a class="item" data-tab="violence">{{ localize "MB.TabViolence" }}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Description Tab --}}
+    {{> systems/crysborg/templates/common/description-tab.hbs }} 
+
+    {{!-- Details Tab --}}
+    <div class="tab" data-group="primary" data-tab="details">
+      {{!-- Morale --}}
+      <div class="form-group">
+        <label>{{ localize "MB.Morale" }}:</label>
+        <input
+          name="system.morale"
+          type="text"
+          value="{{data.system.morale}}"
+          placeholder="10"
+          data-dtype="Number"
+        />
+      </div>
+
+      {{!-- Trait --}}
+      <div class="form-group">
+        <label>{{ localize "MB.FollowerTrait" }}:</label>
+        <input
+          type="text"
+          name="system.trait"
+          value="{{data.system.trait}}"
+          placeholder="None"
+          data-dtype="String"
+        />
+      </div>
+
+      {{!-- Speciality --}}
+      <div class="form-group">
+        <label>{{ localize "MB.FollowerSpeciality" }}:</label>
+        <input
+          type="text"
+          name="system.speciality"
+          value="{{data.system.speciality}}"
+          placeholder="None"
+          data-dtype="String"
+        />
+      </div>
+
+      {{!-- Value --}}
+      <div class="form-group">
+        <label>{{ localize "MB.FollowerValue" }}:</label>
+        <input
+          type="text"
+          name="system.value"
+          value="{{data.system.value}}"
+          placeholder="None"
+          data-dtype="String"
+        />
+      </div>
+    </div>
+
+    {{!-- Treasures Tab --}}
+    <div class="tab equipment-tab" data-group="primary" data-tab="treasures">
+      <div class="equipment-top-row">
+        <div class="silver">
+          <span class="stat-label silver-label"
+            >{{ localize "MB.Silver" }}:</span
+          >
+          <input
+            class="stat-input silver-input"
+            name="system.silver"
+            type="number"
+            value="{{data.system.silver}}"
+            data-dtype="Number"
+          />
+        </div>
+      </div>
+      <ol class="items-list equipment-list">
+        {{> "systems/crysborg/templates/actor/common/equipment-list.hbs" }}
+      </ol>
+    </div>
+
+    {{> systems/crysborg/templates/actor/common/violence-tab.hbs }}     
+  </section>
+</form>

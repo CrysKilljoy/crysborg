@@ -1,0 +1,44 @@
+<form class="roll-card defend-roll-card">
+  <div class="card-title">{{localize 'MB.Defend'}}</div>
+  {{#each items as |item id|}}
+  <div class="item-row">
+    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
+    <span class="item-name">{{item.name}}</span>
+  </div>
+  {{/each}}
+  <div class="roll-result">
+    <div class="roll-title">
+      <span
+        >{{localize 'MB.Defend'}}: {{defendFormula}} {{localize 'MB.Vs'}}
+        {{localize 'MB.DR'}} {{defendDR}}</span
+      >
+    </div>
+    <div class="roll-row">
+      <span>{{xtotal defendRoll}}</span>
+    </div>
+  </div>
+  <div class="outcome-row">
+    <span>{{defendOutcome}}</span>
+  </div>
+  {{#if damageRoll}}
+  <div class="roll-result">
+    <div class="roll-title">
+      <span>{{localize 'MB.Damage'}}: {{damageRoll.formula}}</span>
+    </div>
+    <div class="roll-row">
+      <span>{{xtotal damageRoll}}</span>
+    </div>
+  </div>
+  {{/if}} {{#if armorRoll}}
+  <div class="roll-result">
+    <div class="roll-title">{{localize 'MB.Armor'}}: {{armorRoll.formula}}</div>
+    <div class="roll-row">
+      <span>{{xtotal armorRoll}}</span>
+    </div>
+  </div>
+  {{/if}} {{#if takeDamage}}
+  <div class="outcome-row">
+    <span>{{takeDamage}}</span>
+  </div>
+  {{/if}}
+</form>

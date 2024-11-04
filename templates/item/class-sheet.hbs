@@ -1,0 +1,151 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+  {{> systems/crysborg/templates/item/common/sheet-header.hbs }} 
+  
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="abilities">{{ localize "MB.Abilities" }}</a>
+    <a class="item" data-tab="details">{{ localize "MB.TabDetails" }}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Abilities Tab --}}
+    <div class="tab" data-group="primary" data-tab="abilities">
+      {{editor data.system.abilities target="system.abilities" button=true
+      owner=owner editable=true engine="prosemirror"}}
+    </div>
+
+    {{!-- Details Tab --}}
+    <div class="tab" data-group="primary" data-tab="details">
+      {{!-- Description --}}
+      <div class="form-group">
+        <label>{{ localize "MB.Description" }}:</label>
+        <textarea name="system.description" rows="8">{{data.system.description}}</textarea>
+      </div>
+
+      <br />
+
+      {{!-- Starting silver --}}
+      <div class="form-group">
+        <label>{{ localize "MB.Silver" }}:</label>
+        <input
+          type="text"
+          name="system.startingSilver"
+          value="{{data.system.startingSilver}}"
+          placeholder="2d6*10"
+          data-dtype="String"
+        />
+      </div>
+
+      {{!-- Omen Die --}}
+      <div class="form-group">
+        <label>{{ localize "MB.Omens" }}:</label>
+        <input
+          type="text"
+          name="system.omenDie"
+          value="{{data.system.omenDie}}"
+          placeholder="1d2"
+          data-dtype="String"
+        />
+      </div>
+
+      {{!-- Starting hit points --}}
+      <div class="form-group">
+        <label>{{ localize "MB.HitPoints" }}:</label>
+        <input
+          type="text"
+          name="system.startingHitPoints"
+          value="{{data.system.startingHitPoints}}"
+          placeholder="1d8"
+          data-dtype="String"
+        />
+      </div>
+
+      <br />
+
+      {{!-- Starting abilities --}}
+      <div class="form-group">
+        <label>{{ localize "MB.AbilityStrength" }}:</label>
+        <input
+          type="text"
+          name="system.startingStrength"
+          value="{{data.system.startingStrength}}"
+          placeholder="3d6"
+          data-dtype="String"
+        />
+      </div>
+      <div class="form-group">
+        <label>{{ localize "MB.AbilityAgility" }}:</label>
+        <input
+          type="text"
+          name="system.startingAgility"
+          value="{{data.system.startingAgility}}"
+          placeholder="3d6"
+          data-dtype="String"
+        />
+      </div>
+      <div class="form-group">
+        <label>{{ localize "MB.AbilityPresence" }}:</label>
+        <input
+          type="text"
+          name="system.startingPresence"
+          value="{{data.system.startingPresence}}"
+          placeholder="3d6"
+          data-dtype="String"
+        />
+      </div>
+      <div class="form-group">
+        <label>{{ localize "MB.AbilityToughness" }}:</label>
+        <input
+          type="text"
+          name="system.startingToughness"
+          value="{{data.system.startingToughness}}"
+          placeholder="3d6"
+          data-dtype="String"
+        />
+      </div>
+
+      <br />
+
+      {{!-- Starting equipment --}}
+      <div class="form-group">
+        <label>{{ localize "MB.WeaponTable" }}:</label>
+        <input
+          type="text"
+          name="system.weaponTableDie"
+          value="{{data.system.weaponTableDie}}"
+          placeholder="1d10"
+          data-dtype="String"
+        />
+      </div>
+      <div class="form-group">
+        <label>{{ localize "MB.ArmorTable" }}:</label>
+        <input
+          type="text"
+          name="system.armorTableDie"
+          value="{{data.system.armorTableDie}}"
+          placeholder="1d4"
+          data-dtype="String"
+        />
+      </div>
+      <div class="form-group">
+        <label>{{ localize "MB.Items" }}:</label>
+        <textarea name="system.startingItems" rows="4">{{data.system.startingItems}}</textarea>
+      </div>
+      <div class="form-group">
+        <label>{{ localize "MB.Rolls" }}:</label>
+        <textarea name="system.startingRolls" rows="4">{{data.system.startingRolls}}</textarea>
+      </div>
+        <div class="form-group">
+            <label>{{localize "MB.Source"}}</label>
+            <input 
+              type="text" 
+              name="system.systemSource" 
+              value="{{data.system.systemSource}}" 
+              placeholder="Gib die Quelle ein" 
+              data-dtype="String"
+            />
+      </div>
+    </div>
+  </section>
+</form>

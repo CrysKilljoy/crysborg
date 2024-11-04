@@ -1,0 +1,23 @@
+{{!-- Treasures Tab --}}
+<div class="tab equipment-tab" data-group="primary" data-tab="equipment">
+  <div class="equipment-top-row">
+    <div class="carry-block">
+      <div>
+        <span class="stat-label carrying-label">{{ localize "MB.Carrying" }}:</span>
+        <span class="stat-value">{{data.system.carryingWeight}}</span>
+        /
+        <span class="stat-value">{{data.system.carryingCapacity}}</span>
+      </div>
+    </div>
+    <div>
+      <span class="rule-text {{ifPrint data.system.encumbered 'encumbered'}}">
+        {{#if data.system.trackCarryingCapacity}} {{localize
+        'MB.CarryingRule'}} {{else}} {{localize 'MB.CarryingRuleNoPenalty'}}
+        {{/if}}
+      </span>
+    </div>
+  </div>
+  <ol class="items-list equipment-list">
+    {{> "systems/crysborg/templates/actor/common/equipment-list.hbs"}}
+  </ol>
+</div>

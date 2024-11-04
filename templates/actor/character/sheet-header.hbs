@@ -1,0 +1,137 @@
+{{!-- Sheet Header --}}
+<header class="sheet-header">
+  <div class="header-col1">
+    <img
+      class="profile-img"
+      src="{{actor.img}}"
+      data-edit="img"
+      title="{{actor.name}}"
+    />
+  </div>
+  <div class="header-gutter-col"></div>
+  <div class="header-col2">
+    <div class="name-row">
+      <input
+        class="actor-name"
+        name="name"
+        type="text"
+        value="{{actor.name}}"
+        placeholder="{{ localize 'MB.Name' }}"
+        spellcheck="false"
+      />
+    </div>
+    {{!-- we are cheating a bit here, using the 'item' class usually used on LI
+    elements, so we can get the item _id to be found by the common click handler
+    --}}
+    <div class="classname-row item" data-item-id="{{data.system.class._id}}">
+      <span class="stat-label">{{ localize "MB.Class" }}:</span>
+      <label class="classname item-edit rollable"
+        >{{data.system.class.name}}</label
+      >
+    </div>
+    <div class="hitpoints-row">
+      <div class="hp-entries">
+        <span class="stat-label">{{ localize "MB.HP" }}:</span>
+        <input
+          class="stat-input"
+          name="system.hp.value"
+          type="number"
+          value="{{data.system.hp.value}}"
+          data-dtype="Number"
+        />
+        /
+        <input
+          class="stat-input"
+          name="system.hp.max"
+          type="number"
+          value="{{data.system.hp.max}}"
+          data-dtype="Number"
+        />
+      </div>
+      <div class="omens-block">
+        <span
+          class="stat-label omens-label"
+          title="{{ localize 'MB.OmensHelpText' }}"
+          >{{ localize "MB.Omens" }}:</span
+        >
+        <input
+          class="stat-input"
+          name="system.omens.value"
+          type="number"
+          value="{{data.system.omens.value}}"
+          data-dtype="Number"
+        />
+      </div>    
+    </div>
+    <div class="hitpoints-row">
+      <div class="powers-block">
+        <label class="stat-label uses-remaining-label">{{localize "MB.PowerUsesRemaining"}}:</label>
+        <input
+          class="stat-input"
+          name="system.powerUses.value"
+          type="number"
+          value="{{data.system.powerUses.value}}"
+          data-dtype="Number"
+        />
+      </div> 
+      <div class="silver">
+        <span class="stat-label silver-label">{{ localize "MB.Silver" }}:</span>
+        <input
+          class="stat-input silver-input"
+          name="system.silver"
+          type="number"
+          value="{{data.system.silver}}"
+          data-dtype="Number"
+        />
+      </div>         
+    </div>
+    <div class="buttons-row">
+      <button
+        type="button"
+        class="button item-button broken-button rollable"
+        title="{{localize 'MB.Broken'}}"
+      >
+        {{localize 'MB.Broken'}}
+      </button>
+      <button
+        type="button"
+        class="button item-button rest-button rollable"
+        title="{{localize 'MB.Rest'}}"
+      >
+        {{localize 'MB.Rest'}}
+      </button>
+
+      <button
+        type="button"
+        class="button item-button get-better-button rollable"
+        title="{{localize 'MB.GetBetter'}}"
+      >
+        {{localize 'MB.GetBetter'}}
+      </button>  
+      <button
+        type="button"
+        class="button item-button reroll-button rollable"
+        title="{{localize 'MB.Reroll'}}"
+      >
+        {{localize 'MB.Reroll'}}
+      </button> 
+    </div>
+    <br/>
+  </div>
+  <div class="header-gutter-col"></div>
+  <div class="header-col3">
+    {{#each data.system.orderedAbilities}}
+    <div class="ability-row">
+      <input
+        class="ability-input"
+        type="text"
+        name="{{inputName this.label}}"
+        value="{{numberFormat this.value decimals=0 sign=true}}"
+        data-dtype="Number"
+        size="3"
+      />
+      <span class="ability-label rollable {{abilityLabelClass this}}">{{ abbreviate this.label}}</span>
+    </div>
+    {{/each}}
+  </div>
+</header>

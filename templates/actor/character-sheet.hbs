@@ -1,0 +1,19 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  {{> systems/crysborg/templates/actor/character/sheet-header.hbs }} 
+  
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="obituary">{{ localize 'MB.TabObituary' }}</a>
+    <a class="item" data-tab="equipment">{{ localize 'MB.TabTreasures' }}</a>
+    <a class="item" data-tab="violence">{{ localize 'MB.TabViolence' }}</a>
+    <a class="item" data-tab="powers">{{ localize 'MB.TabPowers' }}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{> systems/crysborg/templates/actor/character/obituary-tab.hbs }} 
+    {{> systems/crysborg/templates/actor/common/violence-tab.hbs }} 
+    {{> systems/crysborg/templates/actor/character/powers-tab.hbs }}
+    {{> systems/crysborg/templates/actor/character/treasures-tab.hbs }}
+  </section>
+</form>

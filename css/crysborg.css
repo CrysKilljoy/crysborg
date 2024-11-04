@@ -1,0 +1,2335 @@
+@import url("https://fonts.googleapis.com/css2?family=Alegreya&family=Lato&family=Oswald&family=Rakkas&family=Special+Elite&display=swap");
+:root {
+  --background-color: #000000;
+  --foreground-color: #ffffff;
+  --foreground-alt-color: #ffe900;
+  --highlight-background-color: #ffe900;
+  --highlight-foreground-color: #000000;
+  --sidebar-background-color: #000000;
+  --sidebar-foreground-color: #ffffff;
+  --sidebar-button-background-color: #000000;
+  --sidebar-button-foreground-color: #ffffff;
+  --window-background: #000000;
+  --chat-font: "Alegreya";
+  --chat-info-font: "Oswald";
+  --h1-font: "Deutsch Gothic";
+  --h2-font: "FetteTrumpDeutsch";
+  --h3-font: "Old Cupboard";
+  --item-font: "Calling Code";
+  --button-font: "Rakkas";
+  --journal-font: "Alegreya";
+  --journal-font-size: 18px;
+  --window-border-color: #222222;
+}
+
+.draw-from-table {
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 5px;
+}
+.draw-from-table:hover {
+  text-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+.create-scvm {
+  text-decoration: underline;
+}
+.create-scvm:hover {
+  cursor: pointer;
+  text-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+@font-face {
+  font-family: "Alegreya";
+  src: url("../assets/fonts/Alegreya-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Alegreya";
+  src: url("../assets/fonts/Alegreya-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Burvetica NC";
+  src: url("../assets/fonts/Burvetica NC.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Burvetica Thick NC";
+  src: url("../assets/fonts/Burvetica Thick NC.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Deutsch Gothic";
+  src: url("../assets/fonts/Deutsch.ttf") format("truetype");
+}
+@font-face {
+  font-family: "OldNewspaperTypes";
+  src: url("../assets/fonts/OldNewspaperTypes.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Benjamin Franklin";
+  src: url("../assets/fonts/BenjaminFranklin.ttf") format("truetype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Blood Crow";
+  src: url("../assets/fonts/bloodcrow.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Calling Code";
+  src: url("../assets/fonts/CallingCode-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Cantebriggia";
+  src: url("../assets/fonts/cantebriggia.ttf") format("truetype");
+}
+@font-face {
+  font-family: "FetteTrumpDeutsch";
+  src: url("../assets/fonts/FetteTrumpDeutsch.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Inconsolata";
+  src: url("../assets/fonts/Inconsolata-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Inconsolata";
+  src: url("../assets/fonts/Inconsolata-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "JSL Ancient";
+  src: url("../assets/fonts/jancient.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Old Cupboard";
+  src: url("../assets/fonts/OldCupboard.otf") format("opentype");
+}
+/* ====================== */
+/* Flex */
+/* ====================== */
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.flexrow > *,
+.flexrow .flex1 {
+  flex: 1;
+}
+.flexrow .flex2 {
+  flex: 2;
+}
+.flexrow .flex3 {
+  flex: 3;
+}
+.flexrow .flex4 {
+  flex: 4;
+}
+
+.flexcol {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.flexcol > *,
+.flexcol .flex1 {
+  flex: 1;
+}
+.flexcol .flex2 {
+  flex: 2;
+}
+.flexcol .flex3 {
+  flex: 3;
+}
+.flexcol .flex4 {
+  flex: 4;
+}
+
+.crysborg .window-content {
+  font-size: 13px;
+  color: #191813;
+}
+.crysborg ::-webkit-scrollbar-thumb {
+  background: darkgray;
+  border: 1px solid lightgray;
+}
+.crysborg ::selection {
+  background: var(--highlight-background-color);
+  color: var(--background-color);
+}
+.crysborg select {
+  height: 27px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #7a7971;
+  border-radius: 0px;
+  padding: 0 3px;
+  text-overflow: ellipsis;
+  color: var(--foreground-color);
+}
+.crysborg select:focus {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+  outline: none;
+}
+.crysborg select[multiple] {
+  height: auto;
+  padding: 3px;
+}
+.crysborg select > option {
+  background-color: var(--background-color) !important;
+  color: var(--foreground-color) !important;
+}
+.crysborg .editor,
+.crysborg .editor-content {
+  height: 100%;
+  padding-top: 10px;
+}
+.crysborg .button {
+  background: var(--foreground-color);
+  color: var(--background-color);
+  font-family: var(--button-font);
+}
+
+.mce-content-body {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  color: var(--foreground-color);
+}
+
+.crysborg.sheet.actor,
+.crysborg.sheet.item {
+  margin-top: 0;
+}
+.crysborg.sheet.actor .window-content,
+.crysborg.sheet.item .window-content {
+  overflow-y: hidden;
+  padding: 5px;
+  /* inherited background is parchment img bg */
+  background: var(--window-background);
+  font-size: 13px;
+  color: var(--foreground-color);
+  border-bottom: 1px solid var(--window-border-color);
+  border-left: 1px solid var(--window-border-color);
+  border-right: 1px solid var(--window-border-color);
+}
+.crysborg.sheet.actor .window-content form,
+.crysborg.sheet.item .window-content form {
+  height: 100%;
+  overflow: hidden;
+}
+.crysborg.sheet.actor .editable .rollable:hover,
+.crysborg.sheet.item .editable .rollable:hover {
+  color: var(--highlight-foreground-color);
+  text-shadow: 0 0 10px var(--highlight-background-color);
+  cursor: pointer;
+}
+.crysborg.sheet.actor input[type=text], .crysborg.sheet.actor input[type=number], .crysborg.sheet.actor input[type=password], .crysborg.sheet.actor input[type=date],
+.crysborg.sheet.item input[type=text],
+.crysborg.sheet.item input[type=number],
+.crysborg.sheet.item input[type=password],
+.crysborg.sheet.item input[type=date] {
+  color: var(--foreground-color);
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid var(--highlight-background-color);
+}
+.crysborg.sheet.actor input[type=text]:focus, .crysborg.sheet.actor input[type=number]:focus, .crysborg.sheet.actor input[type=password]:focus, .crysborg.sheet.actor input[type=date]:focus, .crysborg.sheet.actor input[type=time]:focus, .crysborg.sheet.actor input[type=text]:hover, .crysborg.sheet.actor input[type=number]:hover, .crysborg.sheet.actor input[type=password]:hover, .crysborg.sheet.actor input[type=date]:hover, .crysborg.sheet.actor input[type=time]:hover,
+.crysborg.sheet.item input[type=text]:focus,
+.crysborg.sheet.item input[type=number]:focus,
+.crysborg.sheet.item input[type=password]:focus,
+.crysborg.sheet.item input[type=date]:focus,
+.crysborg.sheet.item input[type=time]:focus,
+.crysborg.sheet.item input[type=text]:hover,
+.crysborg.sheet.item input[type=number]:hover,
+.crysborg.sheet.item input[type=password]:hover,
+.crysborg.sheet.item input[type=date]:hover,
+.crysborg.sheet.item input[type=time]:hover {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+}
+.crysborg.sheet.actor select:focus,
+.crysborg.sheet.item select:focus {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+}
+.crysborg.sheet.actor button:hover, .crysborg.sheet.actor button:focus,
+.crysborg.sheet.item button:hover,
+.crysborg.sheet.item button:focus {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+}
+.crysborg.sheet.actor a:hover,
+.crysborg.sheet.item a:hover {
+  text-shadow: 0 0 8px var(--highlight-background-color);
+}
+.crysborg.sheet.actor textarea,
+.crysborg.sheet.item textarea {
+  border: 1px solid #7a7971;
+  border-radius: 0;
+  color: var(--foreground-color);
+  font-family: var(--item-font);
+  font-size: 14px;
+  resize: none;
+}
+.crysborg.sheet.actor textarea:hover,
+.crysborg.sheet.item textarea:hover {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+}
+.crysborg.sheet.actor textarea:focus,
+.crysborg.sheet.item textarea:focus {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+  outline: none;
+}
+.crysborg.sheet.actor .profile-img,
+.crysborg.sheet.item .profile-img {
+  border: none;
+}
+.crysborg.sheet.actor .editor,
+.crysborg.sheet.item .editor {
+  color: var(--foreground-color);
+  font-family: var(--journal-font);
+  font-size: var(--journal-font-size);
+  padding: 0 8px;
+}
+.crysborg.sheet.actor .tox.tox-tinymce .tox-edit-area__iframe,
+.crysborg.sheet.item .tox.tox-tinymce .tox-edit-area__iframe {
+  background: var(--background-color);
+}
+.crysborg.sheet.actor .sheet-tabs,
+.crysborg.sheet.item .sheet-tabs {
+  flex: 0 0 30px;
+  margin-bottom: 0px;
+  font-size: 20px;
+  font-weight: 700;
+  /* TODO: track down the border-top and border-bottom getting inherited on these */
+  border-top: none;
+  border-bottom: none;
+}
+.crysborg.sheet.actor .sheet-tabs .item,
+.crysborg.sheet.item .sheet-tabs .item {
+  font-family: var(--h2-font);
+  font-size: 22px;
+  height: 32px;
+  padding: 0;
+  padding-bottom: 4px;
+  flex: 1;
+  border-radius: 2px 2px 0px 0px;
+  border-bottom: 1px solid var(--foreground-color);
+}
+.crysborg.sheet.actor .sheet-tabs .item:not(.active):hover,
+.crysborg.sheet.item .sheet-tabs .item:not(.active):hover {
+  color: var(--highlight-foreground-color);
+  text-shadow: 0 0 10px var(--highlight-background-color);
+}
+.crysborg.sheet.actor .sheet-tabs .item.active,
+.crysborg.sheet.item .sheet-tabs .item.active {
+  border-left: 1px solid var(--foreground-color);
+  border-right: 1px solid var(--foreground-color);
+  border-top: 1px solid var(--foreground-color);
+  border-bottom: none;
+  text-shadow: none;
+}
+.crysborg.sheet.actor .sheet-body,
+.crysborg.sheet.item .sheet-body {
+  overflow: hidden;
+}
+.crysborg.sheet.actor .sheet-body .tab,
+.crysborg.sheet.item .sheet-body .tab {
+  height: 100%;
+  overflow-y: auto;
+  border-left: 1px solid var(--foreground-color);
+  border-right: 1px solid var(--foreground-color);
+  border-bottom: 1px solid var(--foreground-color);
+  padding: 10px;
+}
+.crysborg.sheet.actor .sheet-body .form-group,
+.crysborg.sheet.item .sheet-body .form-group {
+  margin-bottom: 8px;
+}
+.crysborg.sheet.actor .sheet-body .form-group label,
+.crysborg.sheet.item .sheet-body .form-group label {
+  font-family: var(--h2-font);
+  font-size: 20px;
+  text-align: right;
+  margin-right: 10px;
+}
+.crysborg.sheet.actor .sheet-body .form-group input,
+.crysborg.sheet.actor .sheet-body .form-group select,
+.crysborg.sheet.item .sheet-body .form-group input,
+.crysborg.sheet.item .sheet-body .form-group select {
+  font-family: var(--item-font);
+  font-size: 14px;
+  text-align: center;
+}
+.crysborg.sheet.actor .sheet-body .form-group.special,
+.crysborg.sheet.item .sheet-body .form-group.special {
+  flex: 1;
+}
+
+.crysborg.sheet.actor .sheet-button {
+  background-color: var(--foreground-color);
+  border: none;
+  border-radius: 0;
+  color: var(--background-color);
+  font-family: var(--button-font);
+  font-size: 12px;
+  height: 28px;
+  width: 90px;
+  text-transform: uppercase;
+}
+.crysborg.sheet.actor .item-button {
+  background-color: var(--foreground-color);
+  border: none;
+  border-radius: 0;
+  color: var(--background-color);
+  flex: none;
+  font-family: var(--button-font);
+  font-size: 12px;
+  height: 28px;
+  min-width: 70px;
+  width: auto;
+  text-transform: uppercase;
+}
+.crysborg.sheet.actor .rule-text {
+  font-family: var(--item-font);
+  font-size: 10pt;
+}
+.crysborg.sheet.actor .stat-label {
+  font-family: var(--h2-font);
+  font-size: 22px;
+  margin-right: 10px;
+}
+.crysborg.sheet.actor .stat-input {
+  border: 1px solid #7a7971;
+  font-family: var(--item-font);
+  font-size: 14pt;
+  text-align: center;
+  width: 50px;
+  color: var(--foreground-color);
+}
+.crysborg.sheet.actor .stat-value {
+  font-family: var(--item-font);
+  font-size: 14pt;
+  text-align: center;
+  width: 50px;
+  color: var(--foreground-color);
+}
+.crysborg.sheet.actor .sheet-header {
+  margin-top: 0;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+}
+.crysborg.sheet.actor .sheet-header .header-gutter-col {
+  flex: 0 0 10px;
+}
+.crysborg.sheet.actor .sheet-header .profile-img {
+  height: 200px;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+}
+.crysborg.sheet.actor .sheet-header .actor-subtitle {
+  font-family: var(--h3-font);
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-left: 13px;
+}
+.crysborg.sheet.actor .sheet-body .item-controls .item-toggle {
+  color: darkgray;
+}
+.crysborg.sheet.actor .sheet-body .item-controls .item-toggle.carried, .crysborg.sheet.actor .sheet-body .item-controls .item-toggle.equipped {
+  color: var(--highlight-background-color);
+}
+.crysborg.sheet.actor .sheet-body .violence-tab div.initiative {
+  margin-top: 10px;
+  text-align: center;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .roll-initiative {
+  font-family: var(--item-font);
+  font-size: 16px;
+  margin-right: 10px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .items-list {
+  margin-top: 0px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .items-list .item {
+  align-items: center;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col {
+  display: flex;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col .ammo-select-col {
+  flex: 0 0 100px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col .ammo-select-col select.ammo-select {
+  font-family: var(--item-font);
+  font-size: 10pt;
+  margin-top: 5px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .item-buttons {
+  flex: 0.5;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list .item-name {
+  flex: 1;
+  font-size: 16px;
+  margin-top: 5px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list .item-fields {
+  flex: 0.5;
+  font-size: 16px;
+  margin-top: 6px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .weapon-list .item-field.damage-die {
+  text-align: right;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .weapon-list .item-field.weapon-type {
+  text-align: right;
+  width: 60px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .attack-rule {
+  text-align: center;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .violence-gutter {
+  height: 10px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .tier-label {
+  float: left;
+  font-size: 20;
+  margin-right: 10px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers {
+  list-style-type: none;
+  margin: 0;
+  margin-top: 3px;
+  padding: 0;
+  float: left;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers li {
+  float: left;
+  height: 45px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers label {
+  display: block;
+  padding: 4px;
+  position: relative;
+  padding-left: 32px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio] {
+  display: none;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:checked + span.tier-num {
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+  border: none;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:disabled + span.tier-num {
+  color: #444444;
+  border: 1px solid #444444;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:disabled ~ span.tier-dmg {
+  color: #444444;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers span.tier-num {
+  border: 1px solid #7a7971;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  overflow: hidden;
+  line-height: 1.5;
+  text-align: center;
+  border-radius: 100%;
+  font-size: 14pt;
+  font-family: var(--item-font);
+  left: 0;
+  /*top: 50%; */
+  top: 0%;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers span.tier-dmg {
+  width: 30px;
+  height: 15px;
+  position: absolute;
+  overflow: hidden;
+  line-height: 1;
+  text-align: center;
+  font-family: var(--item-font);
+  font-size: 10pt;
+  left: -5px;
+  top: 30px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .underarmor-row {
+  margin-top: 0px;
+  text-align: center;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .shield-rule {
+  margin-top: 5px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .defend-rule {
+  margin-top: 5px;
+  text-align: center;
+}
+.crysborg.sheet.actor .roll-button {
+  margin-left: 10px;
+  width: 120px;
+  margin-bottom: 10px;
+  font-family: var(--h2-font);
+  font-size: 20px;
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+  border: none;
+  border-bottom: 2px solid #777;
+  border-radius: 0;
+}
+.crysborg.sheet.actor input[type=text].actor-name {
+  font-family: var(--h1-font);
+  font-size: 38px;
+  text-align: center;
+}
+.crysborg.sheet.actor .sheet-body .equipment-top-row {
+  align-items: center;
+  display: flex;
+  margin-left: 20px;
+}
+
+.crysborg.sheet.actor.character {
+  min-width: 742px;
+  min-height: 650px;
+}
+.crysborg.sheet.actor.character .sheet-header {
+  flex: 0 0 200px;
+}
+.crysborg.sheet.actor.character .sheet-header .header-col1 {
+  flex: 0 0 200px;
+  margin: 5px;
+  padding: 0;
+}
+.crysborg.sheet.actor.character .sheet-header .header-col2 {
+  flex: 1 0 350px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.crysborg.sheet.actor.character .sheet-header .header-col2 .hitpoints-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.crysborg.sheet.actor.character .sheet-header .header-col2 .classname-row {
+  display: flex;
+  align-items: center;
+}
+.crysborg.sheet.actor.character .sheet-header .header-col2 .classname-row .classname {
+  letter-spacing: 2px;
+}
+.crysborg.sheet.actor.character .sheet-header .header-col2 .buttons-row {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+.crysborg.sheet.actor.character .sheet-header .header-col2 .buttons-row button {
+  flex: 1;
+}
+.crysborg.sheet.actor.character .sheet-header .header-col3 {
+  flex: 0 0 120px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.crysborg.sheet.actor.character .sheet-header .profile-img {
+  height: 200px;
+  width: 200px;
+}
+.crysborg.sheet.actor.character .sheet-header .name-row {
+  flex: 0 0 50px;
+  margin-bottom: 7px;
+}
+.crysborg.sheet.actor.character .sheet-header .name-row input[type=text] {
+  height: 45px;
+  width: 100%;
+}
+.crysborg.sheet.actor.character .sheet-header .classname-row {
+  display: flex;
+  flex: 0 0 30px;
+  flex-direction: row;
+  margin-bottom: 7px;
+  width: 100%;
+}
+.crysborg.sheet.actor.character .sheet-header .classname-row img.classimg {
+  height: 24px;
+  width: 24px;
+  flex: 0 0 24px;
+  margin-right: 5px;
+}
+.crysborg.sheet.actor.character .sheet-header .classname-row label.classname {
+  font-family: var(--h3-font);
+  font-size: 28px;
+  width: 100%;
+}
+.crysborg.sheet.actor.character .sheet-header .classname-row .item-controls {
+  flex: 0 0 35px;
+  text-align: right;
+  margin-right: 0;
+  /* TODO: fix vertical alignment in a better way */
+  padding-top: 6px;
+}
+.crysborg.sheet.actor.character .sheet-header .hitpoints-row {
+  display: flex;
+  flex: 0 0 30px;
+  margin-bottom: 7px;
+}
+.crysborg.sheet.actor.character .sheet-header .omens-row {
+  display: flex;
+  flex: 0 0 30px;
+  margin-bottom: 7px;
+  width: 100%;
+}
+.crysborg.sheet.actor.character .sheet-header .omens-row .omens-label:hover {
+  color: var(--highlight-foreground-color);
+  text-shadow: 0 0 10px var(--highlight-background-color);
+  cursor: pointer;
+}
+.crysborg.sheet.actor.character .sheet-header .omen-rule {
+  flex: 0 0 90px;
+  margin-left: 10px;
+  margin-right: 11px;
+  margin-top: 10px;
+  text-transform: lowercase;
+}
+.crysborg.sheet.actor.character .sheet-header .miseries-row {
+  flex: 0 0 30px;
+}
+.crysborg.sheet.actor.character .sheet-header .stat-label,
+.crysborg.sheet.actor.character .sheet-header .miseries-label {
+  float: left;
+}
+.crysborg.sheet.actor.character .sheet-header ul.miseries {
+  list-style-type: none;
+  margin: 0;
+  margin-top: 3px;
+  padding: 0;
+  float: left;
+}
+.crysborg.sheet.actor.character .sheet-header ul.miseries li {
+  float: left;
+}
+.crysborg.sheet.actor.character .sheet-header ul.miseries label {
+  display: block;
+  padding: 4px;
+  position: relative;
+  padding-left: 20px;
+}
+.crysborg.sheet.actor.character .sheet-header ul.miseries label input[type=radio] {
+  display: none;
+}
+.crysborg.sheet.actor.character .sheet-header ul.miseries input[type=radio]:checked + span {
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+  border: none;
+}
+.crysborg.sheet.actor.character .sheet-header ul.miseries label span {
+  border: 1px solid #7a7971;
+  width: 17px;
+  height: 17px;
+  position: absolute;
+  overflow: hidden;
+  line-height: 1.5;
+  text-align: center;
+  border-radius: 100%;
+  font-size: 10pt;
+  font-family: var(--item-font);
+  left: 0;
+  top: 50%;
+}
+.crysborg.sheet.actor.character .sheet-header ul.miseries li:last-child label span {
+  background: var(--foreground-color);
+  color: var(--background-color);
+}
+.crysborg.sheet.actor.character .sheet-header .ability-row {
+  margin-bottom: 10px;
+}
+.crysborg.sheet.actor.character .sheet-header .ability-row:last-child {
+  margin-bottom: 0;
+}
+.crysborg.sheet.actor.character .sheet-header .ability-label {
+  font-family: var(--h2-font);
+  font-size: 24px;
+  margin-left: 5px;
+  margin-top: 5px;
+  float: left;
+}
+.crysborg.sheet.actor.character .sheet-header .ability-input {
+  font-family: var(--item-font);
+  font-size: 14pt;
+  text-align: center;
+  padding: 5px;
+  padding-top: 10px;
+  line-height: 1.5;
+  width: 42px;
+  height: 42px;
+  float: left;
+  border-radius: 0;
+  color: var(--foreground-color);
+}
+.crysborg.sheet.actor.character .sheet-body .feat-button {
+  min-width: 120px;
+}
+.crysborg.sheet.actor.character .sheet-body .wield-rule {
+  text-align: center;
+}
+.crysborg.sheet.actor.character .sheet-body .uses-remaining {
+  align-items: center;
+  display: flex;
+  flex: 0 0 320px;
+  flex-direction: column;
+}
+.crysborg.sheet.actor.character .sheet-body .uses-remaining div {
+  margin-bottom: 14px;
+}
+.crysborg.sheet.actor.character .sheet-body .carry-block {
+  flex: 1;
+}
+.crysborg.sheet.actor.character .sheet-body .container-label {
+  margin-left: 40px;
+}
+.crysborg.sheet.actor.character .sheet-body .encumbered {
+  color: var(--highlight-background-color);
+}
+
+.journal-sheet .rollable {
+  text-decoration: underline;
+}
+.journal-sheet .rollable:hover {
+  cursor: pointer;
+  text-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+.crysborg.sheet.actor .sheet-header.npc {
+  margin-top: 0;
+  flex: 0 0 90px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+.crysborg.sheet.actor .sheet-header.npc .header-col1 {
+  flex: 0 0 200px;
+}
+.crysborg.sheet.actor .sheet-header.npc .header-col2 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  margin: 5px;
+}
+.crysborg.sheet.actor .sheet-header.npc .profile-img {
+  height: 200px;
+  width: 200px;
+}
+.crysborg.sheet.actor .sheet-header.npc .name-row {
+  flex: 0 0 45px;
+  margin-bottom: 10px;
+  padding-left: 12px;
+  width: 100%;
+}
+.crysborg.sheet.actor .sheet-header.npc .name-row input[type=text].actor-name {
+  height: 45px;
+}
+.crysborg.sheet.actor .sheet-header.npc .hitpoints-row {
+  flex: 0 0 35px;
+  margin-bottom: 10px;
+  margin-left: 14px;
+}
+.crysborg.sheet.actor .sheet-header.npc .buttons-row {
+  margin-left: 14px;
+}
+
+.crysborg .items-list .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+}
+.crysborg .items-list .items-header > * {
+  font-size: 16px;
+  text-align: right;
+  padding-right: 6px;
+}
+.crysborg .items-list .items-header .item-name {
+  /*padding-left: 5px;*/
+  font-family: var(--h2-font);
+  font-size: 24px;
+}
+.crysborg .item-list {
+  list-style: none;
+  margin: 7px 0;
+  padding: 0;
+  overflow-y: auto;
+}
+.crysborg .item-list .item {
+  display: flex;
+  min-height: 30px;
+  /* line-height: 24px; */
+  padding: 3px 3px 3px 0;
+  border-bottom: 1px solid #7a7971;
+  align-items: center;
+}
+.crysborg .item-list .item img {
+  flex: 0 0 30px;
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+.crysborg .item-list .item.item-container-item {
+  padding-left: 29px;
+}
+.crysborg .item-list .item-name {
+  margin: 0;
+  font-family: var(--item-font);
+  font-size: 12pt;
+}
+.crysborg .item-list .item-fields {
+  font-family: var(--item-font);
+  font-size: 12pt;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 10px;
+  flex: 2;
+}
+.crysborg .item-list .item-field {
+  margin-right: 20px;
+}
+.crysborg .item-list .item-buttons {
+  align-items: right;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.crysborg .item-list .item-controls {
+  flex: 0 0 70px;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+.crysborg .item-list .item-controls .item-control {
+  width: 17px;
+  margin-left: 3px;
+  text-align: center;
+}
+.crysborg .item-list .empty-container {
+  text-align: center;
+}
+
+.crysborg.sheet.item .sheet-header {
+  margin-top: 0;
+  flex: 0 0 90px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+.crysborg.sheet.item .sheet-header .profile-img {
+  height: 150px;
+  width: 150px;
+}
+.crysborg.sheet.item .sheet-header .item-name input[type=text] {
+  font-family: var(--h1-font);
+  font-size: 38px;
+  flex: 1;
+  height: 45px;
+  margin-bottom: 10px;
+}
+.crysborg.sheet.item .sheet-header .item-subtitle {
+  font-family: var(--h3-font);
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-left: 13px;
+}
+.crysborg.sheet.actor.container .sheet-header {
+  margin-top: 0;
+  flex: 0 0 90px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+.crysborg.sheet.actor.container .sheet-header .header-col1 {
+  flex: 0 0 200px;
+}
+.crysborg.sheet.actor.container .sheet-header .header-col2 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  margin: 5px;
+}
+.crysborg.sheet.actor.container .sheet-header .profile-img {
+  height: 200px;
+  width: 200px;
+}
+.crysborg.sheet.actor.container .sheet-header .name-row {
+  flex: 0 0 45px;
+  margin-bottom: 10px;
+  padding-left: 12px;
+  width: 100%;
+}
+.crysborg.sheet.actor.container .sheet-header input[type=text].container-name {
+  height: 45px;
+}
+.crysborg.sheet.actor.container .sheet-header .holding-row {
+  flex: 0 0 35px;
+  margin-bottom: 10px;
+  margin-left: 14px;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10em) scale(0);
+  }
+}
+.crysborg.sheet.actor.misery-tracker .window-content form {
+  align-items: center;
+  border: 1px solid var(--foreground-color);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-family: "Calling Code", sans-serif;
+  font-size: 16px;
+  justify-content: flex-start;
+  padding: 20px;
+  width: 100%;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle {
+  animation: rise 1s ease-in infinite;
+  background-image: radial-gradient(#ff5000 20%, rgba(255, 80, 0, 0) 70%);
+  border-radius: 50%;
+  bottom: 0;
+  height: 5em;
+  mix-blend-mode: screen;
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  width: 5em;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(1) {
+  animation-delay: 0.0380788712s;
+  left: calc((100% - 5em) * 0);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(2) {
+  animation-delay: 0.9847874614s;
+  left: calc((100% - 5em) * 0.02);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(3) {
+  animation-delay: 0.6490878916s;
+  left: calc((100% - 5em) * 0.04);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(4) {
+  animation-delay: 0.8297584989s;
+  left: calc((100% - 5em) * 0.06);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(5) {
+  animation-delay: 0.3092213675s;
+  left: calc((100% - 5em) * 0.08);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(6) {
+  animation-delay: 0.0084231808s;
+  left: calc((100% - 5em) * 0.1);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(7) {
+  animation-delay: 0.974643696s;
+  left: calc((100% - 5em) * 0.12);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(8) {
+  animation-delay: 0.546693233s;
+  left: calc((100% - 5em) * 0.14);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(9) {
+  animation-delay: 0.8866329003s;
+  left: calc((100% - 5em) * 0.16);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(10) {
+  animation-delay: 0.9241049473s;
+  left: calc((100% - 5em) * 0.18);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(11) {
+  animation-delay: 0.8779583416s;
+  left: calc((100% - 5em) * 0.2);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(12) {
+  animation-delay: 0.2390961309s;
+  left: calc((100% - 5em) * 0.22);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(13) {
+  animation-delay: 0.2025721889s;
+  left: calc((100% - 5em) * 0.24);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(14) {
+  animation-delay: 0.7246033453s;
+  left: calc((100% - 5em) * 0.26);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(15) {
+  animation-delay: 0.7279156491s;
+  left: calc((100% - 5em) * 0.28);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(16) {
+  animation-delay: 0.0480012372s;
+  left: calc((100% - 5em) * 0.3);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(17) {
+  animation-delay: 0.5725786813s;
+  left: calc((100% - 5em) * 0.32);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(18) {
+  animation-delay: 0.8763681399s;
+  left: calc((100% - 5em) * 0.34);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(19) {
+  animation-delay: 0.8825125074s;
+  left: calc((100% - 5em) * 0.36);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(20) {
+  animation-delay: 0.6866982174s;
+  left: calc((100% - 5em) * 0.38);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(21) {
+  animation-delay: 0.4819327771s;
+  left: calc((100% - 5em) * 0.4);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(22) {
+  animation-delay: 0.6931061332s;
+  left: calc((100% - 5em) * 0.42);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(23) {
+  animation-delay: 0.6910307327s;
+  left: calc((100% - 5em) * 0.44);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(24) {
+  animation-delay: 0.6054935033s;
+  left: calc((100% - 5em) * 0.46);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(25) {
+  animation-delay: 0.4954411033s;
+  left: calc((100% - 5em) * 0.48);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(26) {
+  animation-delay: 0.5091594547s;
+  left: calc((100% - 5em) * 0.5);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(27) {
+  animation-delay: 0.8005531959s;
+  left: calc((100% - 5em) * 0.52);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(28) {
+  animation-delay: 0.537057147s;
+  left: calc((100% - 5em) * 0.54);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(29) {
+  animation-delay: 0.6831672969s;
+  left: calc((100% - 5em) * 0.56);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(30) {
+  animation-delay: 0.1566744904s;
+  left: calc((100% - 5em) * 0.58);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(31) {
+  animation-delay: 0.6335433349s;
+  left: calc((100% - 5em) * 0.6);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(32) {
+  animation-delay: 0.3589026161s;
+  left: calc((100% - 5em) * 0.62);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(33) {
+  animation-delay: 0.0977097657s;
+  left: calc((100% - 5em) * 0.64);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(34) {
+  animation-delay: 0.3524946502s;
+  left: calc((100% - 5em) * 0.66);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(35) {
+  animation-delay: 0.3088870379s;
+  left: calc((100% - 5em) * 0.68);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(36) {
+  animation-delay: 0.7397923608s;
+  left: calc((100% - 5em) * 0.7);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(37) {
+  animation-delay: 0.7006186834s;
+  left: calc((100% - 5em) * 0.72);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(38) {
+  animation-delay: 0.8140872971s;
+  left: calc((100% - 5em) * 0.74);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(39) {
+  animation-delay: 0.0933762348s;
+  left: calc((100% - 5em) * 0.76);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(40) {
+  animation-delay: 0.954171067s;
+  left: calc((100% - 5em) * 0.78);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(41) {
+  animation-delay: 0.3996268445s;
+  left: calc((100% - 5em) * 0.8);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(42) {
+  animation-delay: 0.3115704542s;
+  left: calc((100% - 5em) * 0.82);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(43) {
+  animation-delay: 0.3075956198s;
+  left: calc((100% - 5em) * 0.84);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(44) {
+  animation-delay: 0.27334493s;
+  left: calc((100% - 5em) * 0.86);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(45) {
+  animation-delay: 0.2830868199s;
+  left: calc((100% - 5em) * 0.88);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(46) {
+  animation-delay: 0.1079774041s;
+  left: calc((100% - 5em) * 0.9);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(47) {
+  animation-delay: 0.0259257859s;
+  left: calc((100% - 5em) * 0.92);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(48) {
+  animation-delay: 0.8296118973s;
+  left: calc((100% - 5em) * 0.94);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(49) {
+  animation-delay: 0.9622569393s;
+  left: calc((100% - 5em) * 0.96);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(50) {
+  animation-delay: 0.5025115421s;
+  left: calc((100% - 5em) * 0.98);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .seven-seven {
+  animation: heartbeat 0.75s infinite alternate;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle {
+  animation: rise 1s ease-in infinite;
+  background-image: radial-gradient(#ff5000 20%, rgba(255, 80, 0, 0) 70%);
+  border-radius: 50%;
+  bottom: 0;
+  height: 5em;
+  mix-blend-mode: screen;
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  width: 5em;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(1) {
+  animation-delay: 0.2899947833s;
+  left: calc((100% - 5em) * 0);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(2) {
+  animation-delay: 0.9783585064s;
+  left: calc((100% - 5em) * 0.02);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(3) {
+  animation-delay: 0.7345252089s;
+  left: calc((100% - 5em) * 0.04);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(4) {
+  animation-delay: 0.5034217286s;
+  left: calc((100% - 5em) * 0.06);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(5) {
+  animation-delay: 0.7131752382s;
+  left: calc((100% - 5em) * 0.08);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(6) {
+  animation-delay: 0.1666267688s;
+  left: calc((100% - 5em) * 0.1);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(7) {
+  animation-delay: 0.8305245002s;
+  left: calc((100% - 5em) * 0.12);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(8) {
+  animation-delay: 0.9527983194s;
+  left: calc((100% - 5em) * 0.14);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(9) {
+  animation-delay: 0.2036933866s;
+  left: calc((100% - 5em) * 0.16);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(10) {
+  animation-delay: 0.4363603351s;
+  left: calc((100% - 5em) * 0.18);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(11) {
+  animation-delay: 0.0028912652s;
+  left: calc((100% - 5em) * 0.2);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(12) {
+  animation-delay: 0.6214451897s;
+  left: calc((100% - 5em) * 0.22);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(13) {
+  animation-delay: 0.3394166378s;
+  left: calc((100% - 5em) * 0.24);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(14) {
+  animation-delay: 0.927107368s;
+  left: calc((100% - 5em) * 0.26);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(15) {
+  animation-delay: 0.2717528516s;
+  left: calc((100% - 5em) * 0.28);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(16) {
+  animation-delay: 0.4442951414s;
+  left: calc((100% - 5em) * 0.3);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(17) {
+  animation-delay: 0.7403259306s;
+  left: calc((100% - 5em) * 0.32);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(18) {
+  animation-delay: 0.8803832318s;
+  left: calc((100% - 5em) * 0.34);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(19) {
+  animation-delay: 0.8969217068s;
+  left: calc((100% - 5em) * 0.36);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(20) {
+  animation-delay: 0.3999621007s;
+  left: calc((100% - 5em) * 0.38);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(21) {
+  animation-delay: 0.3731477764s;
+  left: calc((100% - 5em) * 0.4);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(22) {
+  animation-delay: 0.8407576942s;
+  left: calc((100% - 5em) * 0.42);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(23) {
+  animation-delay: 0.9580790905s;
+  left: calc((100% - 5em) * 0.44);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(24) {
+  animation-delay: 0.1078433501s;
+  left: calc((100% - 5em) * 0.46);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(25) {
+  animation-delay: 0.0668286377s;
+  left: calc((100% - 5em) * 0.48);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(26) {
+  animation-delay: 0.2297673798s;
+  left: calc((100% - 5em) * 0.5);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(27) {
+  animation-delay: 0.4471205027s;
+  left: calc((100% - 5em) * 0.52);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(28) {
+  animation-delay: 0.1164936356s;
+  left: calc((100% - 5em) * 0.54);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(29) {
+  animation-delay: 0.7101989171s;
+  left: calc((100% - 5em) * 0.56);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(30) {
+  animation-delay: 0.227298967s;
+  left: calc((100% - 5em) * 0.58);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(31) {
+  animation-delay: 0.0169510361s;
+  left: calc((100% - 5em) * 0.6);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(32) {
+  animation-delay: 0.5310337018s;
+  left: calc((100% - 5em) * 0.62);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(33) {
+  animation-delay: 0.3261255898s;
+  left: calc((100% - 5em) * 0.64);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(34) {
+  animation-delay: 0.8111987317s;
+  left: calc((100% - 5em) * 0.66);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(35) {
+  animation-delay: 0.8063310727s;
+  left: calc((100% - 5em) * 0.68);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(36) {
+  animation-delay: 0.3750866005s;
+  left: calc((100% - 5em) * 0.7);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(37) {
+  animation-delay: 0.7769508464s;
+  left: calc((100% - 5em) * 0.72);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(38) {
+  animation-delay: 0.8578458337s;
+  left: calc((100% - 5em) * 0.74);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(39) {
+  animation-delay: 0.6142838558s;
+  left: calc((100% - 5em) * 0.76);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(40) {
+  animation-delay: 0.6648954679s;
+  left: calc((100% - 5em) * 0.78);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(41) {
+  animation-delay: 0.5676131547s;
+  left: calc((100% - 5em) * 0.8);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(42) {
+  animation-delay: 0.5038178722s;
+  left: calc((100% - 5em) * 0.82);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(43) {
+  animation-delay: 0.905655278s;
+  left: calc((100% - 5em) * 0.84);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(44) {
+  animation-delay: 0.4167533927s;
+  left: calc((100% - 5em) * 0.86);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(45) {
+  animation-delay: 0.9134565932s;
+  left: calc((100% - 5em) * 0.88);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(46) {
+  animation-delay: 0.9208014415s;
+  left: calc((100% - 5em) * 0.9);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(47) {
+  animation-delay: 0.2174104807s;
+  left: calc((100% - 5em) * 0.92);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(48) {
+  animation-delay: 0.6796835955s;
+  left: calc((100% - 5em) * 0.94);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(49) {
+  animation-delay: 0.2466416139s;
+  left: calc((100% - 5em) * 0.96);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations.seventh-misery .miseries .seven-seven .particle:nth-of-type(50) {
+  animation-delay: 0.177244706s;
+  left: calc((100% - 5em) * 0.98);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .title {
+  margin-bottom: 90px;
+  width: 100%;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .title input {
+  height: 50px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .agony-block {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .agony-block .agony-title {
+  font-family: "FetteTrumpDeutsch", cursive;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .button-block {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .button-block .misery-button {
+  font-size: 16px;
+  width: 200px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .misery-title {
+  font-family: "FetteTrumpDeutsch", cursive;
+  font-size: 20px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries {
+  background-image: url("/systems/crysborg/assets/ui/unicursal-hexagram.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  flex: 0 0 300px;
+  margin-bottom: 90px;
+  width: 300px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block {
+  align-items: center;
+  background-color: var(--background-color);
+  border: 13px solid var(--foreground-color);
+  border-radius: 45px;
+  display: flex;
+  height: 90px;
+  float: left;
+  justify-content: center;
+  position: absolute;
+  width: 90px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block.activated {
+  border: 13px solid var(--foreground-color);
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block.activated input {
+  color: var(--background-color);
+  border-bottom: none;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block input {
+  flex: 0 0 20px;
+  font-family: "Cantebriggia", cursive;
+  font-size: 24px;
+  text-align: center;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block .colon {
+  font-size: 20px;
+  text-align: center;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block:nth-child(1) {
+  top: 130px;
+  left: 205px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block:nth-child(2) {
+  top: 370px;
+  left: 340px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block:nth-child(3) {
+  top: 225px;
+  left: 75px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block:nth-child(4) {
+  top: 472px;
+  left: 205px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block:nth-child(5) {
+  top: 225px;
+  left: 335px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .misery-block:nth-child(6) {
+  top: 373px;
+  left: 73px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .seven-seven {
+  align-items: center;
+  transform-origin: center;
+  background-color: var(--foreground-color);
+  border-radius: 45px;
+  display: flex;
+  flex-direction: column;
+  height: 90px;
+  justify-content: center;
+  left: 205px;
+  position: absolute;
+  text-align: center;
+  top: 300px;
+  width: 90px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form .miseries .seven-seven .numbers {
+  color: var(--background-color);
+  font-family: "Cantebriggia", cursive;
+  font-size: 40px;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.seventh-misery .endtimes {
+  font-family: "FetteTrumpDeutsch", cursive;
+  font-size: 20px;
+  margin-top: 15px;
+  padding-left: 29px;
+  padding-right: 29px;
+  text-align: center;
+}
+.crysborg.sheet.actor.misery-tracker .window-content form.seventh-misery .endtimes .burn-the-book {
+  font-style: italic;
+}
+
+@keyframes heartbeat {
+  to {
+    transform: scale(1.08);
+  }
+}
+/* https://stackoverflow.com/questions/73537320/how-do-i-make-the-html-window-appear-to-shake */
+@keyframes shake {
+  0% {
+    transform: translate(0.25px, 0.25px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-0.25px, -0.5px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-0.75px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(0.75px, 0.5px) rotate(0deg);
+  }
+  40% {
+    transform: translate(0.25px, -0.25px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-0.25px, 0.5px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-0.75px, 0.25px) rotate(0deg);
+  }
+  70% {
+    transform: translate(0.75px, 0.25px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-0.25px, -0.25px) rotate(1deg);
+  }
+  90% {
+    transform: translate(0.25px, 0.5px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0.25px, -0.5px) rotate(-1deg);
+  }
+}
+.form-group input[type=text] {
+  color: var(--foreground-color);
+}
+.form-group input[type=text]:hover, .form-group input[type=text]:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+.form-group textarea {
+  color: var(--foreground-color);
+}
+.form-group textarea:hover {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+.form-group textarea:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+  outline: none;
+}
+
+form button {
+  color: var(--foreground-color);
+}
+form button:hover {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+a:hover {
+  text-shadow: 0 0 8px var(--highlight-background-color);
+}
+
+a.content-link {
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+}
+
+input[type=text] {
+  color: var(--foreground-color);
+}
+input[type=text]:hover, input[type=text]:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+form.editable .results .result-image img {
+  background-color: var(--foreground-color);
+}
+form.editable .results .result-type select {
+  color: var(--foreground-color);
+}
+form.editable .results .result-type select:hover, form.editable .results .result-type select:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+form.editable .results .result-details select {
+  color: var(--foreground-color);
+}
+form.editable .results .result-details select:hover, form.editable .results .result-details select:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+form.editable .results .result-details input[type=text] {
+  color: var(--foreground-color);
+}
+form.editable .results .result-details input[type=text]:hover, form.editable .results .result-details input[type=text]:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+.table-results .table-result .result-text .entity-link {
+  background-color: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+}
+
+/* Fixes Module Management dialog */
+#module-management .package-list .package-title,
+#module-management .package-list .package-metadata,
+#module-management .package-list .package-description {
+  color: var(--foreground-color);
+}
+
+/* Fixes hard-to-read dark text on various system Dialogs */
+.window-app .window-content .notes {
+  background-color: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+}
+.window-app .window-content form .form-header {
+  color: var(--foreground-color);
+}
+.window-app .window-content form .notes {
+  background-color: var(--background-color);
+  color: var(--foreground-alt-color);
+}
+.window-app .window-content .form-group span.units {
+  background-color: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+}
+.window-app .window-content .form-group input {
+  color: var(--foreground-color);
+}
+.window-app .window-content .form-group input:hover, .window-app .window-content .form-group input:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+.window-app .window-content .form-group input.readonly {
+  color: gray;
+}
+.window-app .window-content .form-group input:hover.readonly, .window-app .window-content .form-group input:focus.readonly {
+  box-shadow: none;
+  cursor: default;
+}
+
+/* TODO: determine if we need both .notes and form .notes styles specified */
+/* Fix readonly input on defend dialog */
+/* Fixes Journal image select dialog */
+.journal-sheet.image-popout .window-content .form-group input {
+  color: var(--background-color);
+}
+.journal-sheet.image-popout .window-content .form-group.picker button.file-picker {
+  background-color: var(--background-color);
+}
+.journal-sheet form select:hover, .journal-sheet form select:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+.journal-sheet form .form-group.title input[type=text], .journal-sheet form .form-group.picker input[type=text].image {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Fix Player Configuration dialog */
+#player-config form .form-group label {
+  color: var(--foreground-color);
+}
+#player-config form .form-group .directory-list .actor.directory-item {
+  border-bottom-color: none;
+  border-top-color: none;
+}
+#player-config form .form-group .directory-list .actor.directory-item.context {
+  border-bottom-color: var(--highlight-background-color);
+  border-top-color: var(--highlight-background-color);
+  box-shadow: 0 0 5px var(--highlight-background-color);
+}
+
+/* ====================== */
+/* UI / Chat */
+/* ====================== */
+#chat-controls {
+  color: var(--foreground-color);
+}
+#chat-controls i.fas:hover {
+  color: var(--highlight-background-color);
+  text-shadow: 0 0 5px var(--highlight-background-color);
+}
+#chat-controls .roll-type-select {
+  color: var(--foreground-color);
+  background: var(--background-color);
+}
+#chat-controls select:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+#chat-log {
+  background: var(--sidebar-background);
+}
+#chat-log .chat-message {
+  background: var(--window-background);
+  border: 3px solid #252525;
+  border-radius: 0;
+  color: var(--foreground-color);
+  margin-top: 6px;
+  font-family: var(--chat-font);
+  font-size: 16px;
+}
+#chat-log .message h4,
+#chat-log .message h3,
+#chat-log .message h2 {
+  color: var(--foreground-color);
+}
+#chat-log .message-metadata {
+  color: var(--foreground-color);
+}
+#chat-log .message h2 {
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+}
+#chat-log .chat-message .message-header .message-sender {
+  font-family: var(--h1-font);
+  font-size: 20px;
+}
+#chat-log .chat-message .message-header .message-metadata {
+  font-family: var(--chat-info-font);
+  font-size: 12px;
+}
+#chat-log .chat-message .message-header span.flavor-text {
+  font-family: var(--chat-info-font);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--foreground-color);
+}
+#chat-log .message .dice-formula,
+#chat-log .message .dice-total {
+  font-size: 16px;
+  border: 1px solid #252525;
+  border-radius: 0;
+}
+
+#chat-form textarea {
+  color: var(--foreground-color);
+  background: var(--background-color);
+  border: 2px solid #252525;
+  font-family: var(--chat-font);
+  font-size: 16px;
+}
+#chat-form textarea:focus {
+  outline: 2px solid var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+#client-settings button {
+  color: var(--background-color);
+  background: var(--foreground-color);
+}
+#client-settings h2 {
+  border-bottom: none;
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+  font-family: var(--h2-font);
+}
+#client-settings select {
+  color: var(--foreground-color);
+  background: var(--background-color);
+}
+#client-settings select:focus {
+  outline: none;
+  box-shadow: 0 0 5px var(--highlight-background-color);
+}
+
+#controls {
+  color: var(--foreground-color);
+}
+#controls .control-tool.toggle {
+  background: unset;
+  border: 1px solid #252525;
+}
+#controls .control-tool.toggle.active {
+  background: var(--background-color);
+  text-shadow: 0 0 10px var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+#controls .control-tool.toggle:hover {
+  background: unset;
+  text-shadow: 0 0 10px var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+#controls .control-tools {
+  color: var(--foreground-color);
+}
+#controls li {
+  background: var(--background-color);
+  background-color: var(--background-color);
+}
+#controls .control-tool.active, #controls .control-tool:hover {
+  background: var(--background-color);
+  color: var(--foreground-color);
+  border: 1px solid var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+#controls .scene-control.active, #controls .scene-control:hover {
+  background: var(--background-color);
+  color: var(--foreground-color);
+  border: 1px solid var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+#controls .scene-control.active {
+  color: var(--foreground-color);
+  border: 1px solid var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+.dialog .dialog-buttons button {
+  background: var(--foreground-color);
+  color: var(--background-color);
+  font-family: var(--button-font);
+  text-transform: uppercase;
+}
+.dialog .dialog-buttons button.default {
+  background: var(--foreground-color);
+  color: var(--background-color);
+  font-family: var(--button-font);
+  text-transform: uppercase;
+}
+
+form .form-group select {
+  color: var(--foreground-color);
+  background: var(--background-color);
+}
+form .form-group select:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+#hotbar #hotbar-directory-controls,
+#hotbar #hotbar-page-controls {
+  background: var(--background-color);
+  color: var(--foreground-color);
+}
+#hotbar #action-bar li.macro:hover {
+  background: var(--background-color);
+  color: var(--foreground-color);
+  border: 1px solid var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+#navigation #nav-toggle {
+  background: var(--background-color);
+  color: var(--foreground-color);
+}
+#navigation #scene-list li.scene.nav-item {
+  border: 1px solid #252525;
+}
+#navigation #scene-list li.scene.nav-item.active, #navigation #scene-list li.scene.nav-item:hover {
+  background: var(--background-color);
+  color: var(--foreground-color);
+  border: 1px solid var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+select:focus {
+  color: var(--foreground-color);
+  background: var(--background-color);
+}
+
+#settings button {
+  color: var(--background-color);
+  background: var(--foreground-color);
+  font-family: var(--button-font);
+}
+
+#sidebar {
+  background: var(--sidebar-background);
+  color: var(--sidebar-foreground-color);
+}
+#sidebar.collapsed #sidebar-tabs > .item.active {
+  border-bottom: 1px solid var(--highlight-background-color);
+  border-radius: 5px;
+}
+
+#sidebar-tabs {
+  background: var(--sidebar-background);
+  color: var(--sidebar-foreground-color);
+  border-bottom: 1px solid var(--highlight-background-color);
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+#sidebar-tabs > .item.active {
+  color: var(--highlight-foreground-color);
+  background: var(--highlight-background-color);
+  border: 1px solid var(--highlight-background-color);
+  border-bottom: none;
+  box-shadow: 0 0 6px inset var(--highlight-background-color);
+  text-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+.sidebar-tab .action-buttons button {
+  background: var(--sidebar-button-background-color);
+  border-radius: 0;
+  color: var(--sidebar-button-foreground-color);
+  font-family: var(--button-font);
+}
+.sidebar-tab .directory-header .header-search input {
+  background: var(--sidebar-button-background-color);
+  border: 1px solid #252525;
+  border-radius: 0;
+  font-family: var(--h2-font);
+  color: var(--sidebar-button-foreground-color);
+}
+.sidebar-tab .directory-header .header-search input[type=text]:focus {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+}
+.sidebar-tab .directory-list .directory-item h4 {
+  font-family: var(--item-font);
+}
+
+.tabs .item.active, .tabs .item:hover {
+  text-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  outline: none;
+  border-radius: 3px;
+  background: var(--highlight-background-color) !important;
+  border: 1px solid var(--background-color) !important;
+  color: var(--highlight-foreground-color) !important;
+}
+
+.window-app .window-content {
+  background: var(--background-color);
+  color: var(--foreground-color);
+}
+.window-app.app.journal-sheet .window-content {
+  background: var(--background-color);
+  color: var(--foreground-color);
+  background-position: -43px -120px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-y: hidden;
+  padding: 0px;
+  margin: 0px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.window-app.app.journal-sheet .window-content h1 {
+  border-bottom: none;
+  background: var(--highlight-background-color) !important;
+  color: var(--highlight-foreground-color) !important;
+  font-family: var(--h2-font);
+  font-size: 28px;
+  text-align: center;
+}
+.window-app.app.journal-sheet .window-content h2 {
+  border-bottom: none;
+  font-family: "Benjamin Franklin";
+  font-size: 20px;
+}
+.window-app.app.journal-sheet .window-content h3 {
+  font-family: "Inconsolata";
+  font-weight: bold;
+  font-size: 20px;
+}
+.window-app.app.journal-sheet .window-content .journal-sidebar {
+  font-family: var(--item-font);
+  font-size: var(--journal-font-size);
+}
+.window-app.app.journal-sheet .window-content .journal-page-content {
+  font-family: var(--journal-font);
+  font-size: var(--journal-font-size);
+  font-size: 18px;
+}
+
+/* ================== 11. JOURNAL ENTRIES =================== */
+.journal-sheet.journal-entry .window-content {
+  border-bottom: 1px solid var(--window-border-color);
+  border-left: 1px solid var(--window-border-color);
+  border-right: 1px solid var(--window-border-color);
+}
+.journal-sheet.journal-entry .window-content .journal-sheet-container .journal-sidebar {
+  background: var(--sidebar-background);
+  color: var(--sidebar-foreground-color);
+}
+.journal-sheet.journal-entry .window-content .journal-sheet-container .journal-entry-content {
+  background: var(--window-background);
+  border-radius: 0;
+  color: var(--foreground-color);
+}
+
+.editor .editor-menu {
+  border-bottom: 1px solid var(--foreground-color);
+  border-top: 1px solid var(--foreground-color);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+}
+.editor .editor-menu button {
+  background-color: var(--background-color);
+  border: 1px solid var(--foreground-color);
+  color: var(--foreground-color);
+}
+.editor .editor-menu button ul {
+  background-color: var(--background-color);
+  border: 1px solid var(--foreground-color);
+  color: var(--foreground-color);
+}
+.editor .editor-menu button ul li:hover {
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+}
+.editor .editor-menu button:hover {
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+}
+.editor h1 {
+  border-bottom: none;
+  background: var(--highlight-background-color) !important;
+  color: var(--highlight-foreground-color) !important;
+  font-family: var(--h2-font);
+  font-size: 28px;
+  text-align: center;
+}
+.editor h2 {
+  border-bottom: none;
+  font-family: "Benjamin Franklin";
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.editor h3 {
+  font-family: "Inconsolata";
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.journal-sheet.journal-entry-page .window-content {
+  border-bottom: 1px solid var(--window-border-color);
+  border-left: 1px solid var(--window-border-color);
+  border-right: 1px solid var(--window-border-color);
+}
+
+.journal-sheet form button[type=submit] {
+  background: var(--background-color);
+}
+.journal-sheet form input[name=name] {
+  color: var(--foreground-color);
+  font-family: var(--h2-font);
+  font-size: 32px;
+}
+.journal-sheet form select {
+  font-family: var(--journal-font);
+}
+
+a.entity-link, a.inline-roll {
+  background: var(--background-color);
+  color: var(--foreground-color);
+  padding: 1px 4px;
+  border: 1px solid var(--background-color);
+  border-radius: 2px;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+#world-config .window-content .editor {
+  background: #d8d8cc;
+}
+
+h3 {
+  border-bottom: none;
+}
+
+/* ====================== */
+/* Roll Cards */
+/* ====================== */
+.roll-card {
+  border: 1px solid var(--highlight-background-color);
+}
+.roll-card .card-title {
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+  font-family: var(--h2-font);
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  text-transform: capitalize;
+}
+.roll-card .dr-modifier {
+  margin-bottom: 5px;
+  text-align: center;
+}
+.roll-card .item-row {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.roll-card .item-row span.item-name {
+  color: var(--foreground-color);
+  font-family: var(--item-font);
+  font-size: 14px;
+}
+.roll-card .roll-title {
+  font-family: var(--chat-font);
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+}
+.roll-card .roll-row {
+  border: 1px solid gray;
+  font-family: var(--chat-font);
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+}
+.roll-card .roll-row span {
+  color: var(--foreground-color);
+  font-size: 20px;
+}
+.roll-card .outcome-row {
+  font-family: var(--h3-font);
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.roll-card .outcome-row span {
+  background-color: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.roll-card .roll-button-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+.roll-card .roll-button-row .roll-card-button {
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+  border: none;
+  border-bottom: 2px solid #777;
+  border-radius: 0;
+  font-size: 20px;
+  font-family: var(--h2-font);
+  text-transform: capitalize;
+}
+
+/* ====================== */
+/* Attack/Defend Custom Dialogs */
+/* ====================== */
+.custom-dialog .form-group {
+  margin-bottom: 10px;
+}
+.custom-dialog .form-group label {
+  font-family: var(--h2-font);
+  font-size: 20px;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.dialog-button.attack, .dialog-button.create {
+  font-family: var(--button-font);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.dialog-buttons button.dialog-button:active, .dialog-buttons button.dialog-button:focus, .dialog-buttons button.dialog-button:hover {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+  text-shadow: 0 0 10px var(--highlight-background-color);
+}
+
+/* ====================== */
+/* Rest and Scvm Dialogs */
+/* ====================== */
+.custom-dialog {
+  border: 1px solid #7a7971;
+  font-size: 14px;
+  margin: 0;
+}
+.custom-dialog .section {
+  margin: 10px 10px 20px 10px;
+}
+.custom-dialog .subtitle {
+  font-family: var(--h2-font);
+  font-size: 22px;
+}
+.custom-dialog ul {
+  list-style-type: none;
+}
+.custom-dialog li {
+  margin: 0 0 10px 0;
+}
+.custom-dialog li input[type=checkbox], .custom-dialog li input[type=radio] {
+  float: left;
+}
+.custom-dialog li input[type=checkbox] {
+  height: 14px;
+  width: 14px;
+}
+.custom-dialog li label div {
+  display: block;
+  margin-left: 30px;
+}
+.custom-dialog .button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.custom-dialog .button-row button {
+  border: none;
+  border-bottom: 2px solid #777;
+  border-radius: 0;
+  font-family: var(--button-font);
+  font-size: 14px;
+  text-transform: uppercase;
+  width: 150px;
+}
+.custom-dialog .button-row button:active, .custom-dialog .button-row button:focus, .custom-dialog .button-row button:hover {
+  box-shadow: 0 0 5px var(--highlight-background-color);
+  text-shadow: 0 0 10px var(--highlight-background-color);
+}
+.custom-dialog.scvm-dialog .subtitle {
+  text-align: center;
+}
+.custom-dialog.scvm-dialog .class-list {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+.custom-dialog.scvm-dialog .new-class-list {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+.custom-dialog.scvm-dialog .toggle-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.custom-dialog.scvm-dialog .warning {
+  text-align: center;
+}
+
+.allowed-scvm-classes-dialog .class-name,
+.scvm-dialog .class-name {
+  text-transform: capitalize;
+}
+
+.window-app .window-content textarea {
+  color: var(--foreground-color);
+  background: var(--background-color);
+  border: 2px solid #252525;
+}
+.window-app .window-content textarea:hover {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+}
+.window-app .window-content textarea:focus {
+  box-shadow: 0 0 10px var(--highlight-background-color);
+  outline: none;
+}
+
+button.dice-calculator--button {
+  color: var(--foreground-color);
+}
+
+/*# sourceMappingURL=crysborg.css.map */
