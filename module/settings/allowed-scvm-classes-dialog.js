@@ -94,9 +94,20 @@ export class AllowedScvmClassesDialog extends FormApplication {
   }
 
   _onOk(event) {
-    event.preventDefault();
-    // Handle form submission logic here
-    this.close();
+    const form = $(event.currentTarget).parents(
+      ".allowed-scvm-classes-dialog"
+    )[0];
+    const selected = [];
+    $(form)
+      .find("input:checked")
+      .each(function () {
+        selected.push($(this).attr("name"));
+      });
+
+    if (selected.length === 0) {
+      event.preventDefault();
+      return;
+    }
   }
 
   /** @override */

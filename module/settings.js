@@ -59,12 +59,12 @@ export function registerSystemSettings() {
     hint: "MB.SettingsColorSchemeHint",
     scope: "client",
     config: true,
-    default: "whiteOnBlackYellow",
+    default: "CrysBorgSignature",
     type: String,
     choices: {
       CrysBorgSignature: "MB.SettingsCrysBorgSignature",
-	  CrysBorgSignatureAlt: "MB.SettingsCrysBorgSignatureAlt",
-	  blackOnYellowWhite: "MB.SettingsBlackOnYellowWhite",
+	    CrysBorgSignatureAlt: "MB.SettingsCrysBorgSignatureAlt",
+	    blackOnYellowWhite: "MB.SettingsBlackOnYellowWhite",
       blackOnWhiteBlack: "MB.SettingsBlackOnWhiteBlack",
       foundryDefault: "MB.SettingsFoundryDefault",
       whiteOnBlackYellow: "MB.SettingsWhiteOnBlackYellow",
@@ -97,7 +97,7 @@ export function registerSystemSettings() {
     type: String,
     choices: {
       crysborg: "MB.SettingsCBFont",
-	  blackletter: "MB.SettingsBlackletter",
+	    blackletter: "MB.SettingsBlackletter",
       legible: "MB.SettingsLegible"
     },
     onChange: () => {
@@ -233,16 +233,3 @@ export function deleteZeroQuantity() {
 export function miseryTrackerAnimations() {
   return getSetting(Settings.miseryTrackerAnimations);
 };
-
-Hooks.once('init', () => {
-  game.settings.register('myModule', 'chat', {
-    name: 'Chat Settings',
-    hint: 'Settings for chat appearance.',
-    scope: 'client',
-    config: true,
-    type: Object,
-    default: {},
-  });
-
-  // Register other settings as needed
-});
