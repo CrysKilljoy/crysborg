@@ -47,6 +47,20 @@ export class MBItemSheet extends ItemSheet {
     return superData;
   }
 
+  async getData(options) {
+    const superData = await super.getData(options);
+    superData.config = CONFIG.MB;
+    superData.data.system.description = await TextEditor.enrichHTML(
+      superData.data.system.description
+    );
+    if (superData.data.WeaponTable) {
+      superData.data.localizedWeaponTable = game.i18n.localize(
+        MB.weaponTable[superData.data.weaponTable]
+      );
+    }
+    return superData;
+  }
+
   /**
    *  This is a small override to handle remembering the sheet's position.
    *  @override

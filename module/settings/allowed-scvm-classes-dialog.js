@@ -44,7 +44,20 @@ export class AllowedScvmClassesDialog extends FormApplication {
     }, {});
 
     // Convert groupedClasses to an array of [source, classes] pairs
-    const sortedSources = Object.entries(groupedClasses).sort((a, b) => b[1].length - a[1].length);
+    let sortedSources = Object.entries(groupedClasses);
+
+    // Custom sort order
+    const customOrder = ["Mörk Borg", "Mörk Borg: Cult", "Mörk Borg: Addon"];
+    sortedSources = sortedSources.sort((a, b) => {
+      const aIndex = customOrder.indexOf(a[0]);
+      const bIndex = customOrder.indexOf(b[0]);
+      if (aIndex === -1 && bIndex === -1) {
+        return a[0].localeCompare(b[0]);
+      }
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
 
     return foundry.utils.mergeObject(super.getData(options), {
       sortedSources,

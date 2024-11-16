@@ -256,11 +256,21 @@ MB.scrollTypes = {
   sacred: "MB.ScrollTypeSacred",
   tablet: "MB.ScrollTypeTablet",
   unclean: "MB.ScrollTypeUnclean",
+  chaotic: "MB.ScrollTypeChaotic",
+  GoblinSong: "MB.ScrollTypeGoblinSong",
 };
 
 MB.weaponTypes = {
   melee: "MB.WeaponTypeMelee",
   ranged: "MB.WeaponTypeRanged",
+};
+
+MB.weaponTable = {
+  standard: "MB.WeaponTableStandard",
+  ggtribal: "MB.WeaponTableGGTribal",
+  ggfancy: "MB.WeaponTableGGFancy",
+  ggbrutal: "MB.WeaponTableGGBrutal",
+  ggimprovised: "MB.WeaponTableGGImprovised"
 };
 
 // Config variables for the Scvmfactory character generator
@@ -301,11 +311,18 @@ MB.scvmFactory = {
   personalityQuirksTable:
     "Compendium.crysborg.crys-borg-tables.RollTable.ISl0rKeu2m90swtr",
   // Weapon Tables
-  weaponTables: [
-    "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
-    "Compendium.crysborg.crys-borg-tables.RollTable.o6wjXShp2CLQEr7X",
-    "Compendium.crysborg.crys-borg-tables.RollTable.rq8zq4VHY3px5hpF",
-  ],
+//  weaponTable: [
+    //Standard Weapons MB
+//    "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
+    //GG Tribal Weapons
+//    "Compendium.crysborg.crys-borg-tables.RollTable.xENPiMlkLkz6Au5q",
+    //GG Fancy Weapons
+//    "Compendium.crysborg.crys-borg-tables.RollTable.B5jFEpqp8xW13ooj",
+    //GG Brutal Weapons
+//    "Compendium.crysborg.crys-borg-tables.RollTable.FTNU1dnaczi0grsZ",
+    //GG Improvised Weapons
+//    "Compendium.crysborg.crys-borg-tables.RollTable.jqS87vdL1uUXXgY2"
+//  ],
   // modules wanting to add more character classes to the generator should append uuids to this list
   standardclassUuids: [
     // classless adventurer
@@ -375,7 +392,27 @@ MB.scvmFactory = {
     // "The" Bellfounder
     "Compendium.crysborg.crys-borg-items.Item.JNvP1NLKQ577RBQw",
     // Nachtreuter
-    "Compendium.crysborg.crys-borg-items.Item.HfOQu1caHVJWptf5"
+    "Compendium.crysborg.crys-borg-items.Item.HfOQu1caHVJWptf5",
+    // Red Cap
+    "Compendium.crysborg.crys-borg-items.Item.mqKoeRYUe6PK85ZV",
+    // Shedding Vicar
+    "Compendium.crysborg.crys-borg-items.Item.jWYKvk5nC0pgwCWN",
+    // Cavernous Dweller
+    "Compendium.crysborg.crys-borg-items.Item.vfvhCaRvosnfml3p",
+    // Goblin Grifter
+    "Compendium.crysborg.crys-borg-items.Item.V7TpzPFv9vZf1glJ",
+    // Mutant Runagate
+    "Compendium.crysborg.crys-borg-items.Item.wTMFFBIFSOntJLF3",
+    // Ogre Humongobb
+    "Compendium.crysborg.crys-borg-items.Item.QAj1XGMRlH9IuHhB",
+    // Sump Goblin
+    "Compendium.crysborg.crys-borg-items.Item.V6ZsGYO64KeCVaff",
+    // The Kwark
+    "Compendium.crysborg.crys-borg-items.Item.3QqFyaBU9KAfR4kt",
+    // Tribal Goblin
+    "Compendium.crysborg.crys-borg-items.Item.ctjIl8jgM3TkzTP7",
+    // Bone Slave
+    "Compendium.crysborg.crys-borg-items.Item.j1Fe9LK0GZNRTFmw"
   ],
 };
 

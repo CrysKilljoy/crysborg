@@ -17,10 +17,10 @@ export async function createScvm(clazz) {
     const scvm = await rollScvmForClass(clazz);
     await createActorWithScvm(scvm);
   } catch (error) {
-    console.error("Error creating SCVM:", error);
-    ui.notifications.error("Failed to create SCVM. Check the console for details.");
+    console.error(`Error creating scvm: ${error}`);
+    ui.notifications.error(`Error creating scvm: ${error.message}`);
   }
-};
+}
 
 export async function createScvmFromClassUuid(classUuid) {
   const clazz = await fromUuid(classUuid);
@@ -49,12 +49,14 @@ export async function findClasses() {
   for (const uuid of MB.scvmFactory.standardclassUuids) {
     const clazz = await fromUuid(uuid);
     if (clazz && clazz.type == MB.itemTypes.class) {
-      const systemSource = clazz.system.systemSource || "Unknown"; // Access systemSource through clazz.system and provide a default value
-      console.log(`Class found: ${clazz.name}, UUID: ${clazz.uuid}, System Source: ${systemSource}`); // Debug statement
+      const systemSource = clazz.system.systemSource || "Unknown";
+      const weaponTable = MB.weaponTable[clazz.system.weaponTable] || { name: "Unknown" }; // Access weapon table name
+      console.log(`Class found: ${clazz.name}, UUID: ${clazz.uuid}, System Source: ${systemSource}, Weapon Table: ${weaponTable.name}`); // Debug statement
       classes.push({
         name: clazz.name,
         uuid: clazz.uuid,
-        systemSource: systemSource, // Ensure systemSource is set
+        systemSource: systemSource,
+        weaponTable: weaponTable.name, // Ensure weapon table name is set
         checked: isScvmClassAllowed(clazz.uuid),
       });
     } else {
@@ -130,7 +132,7 @@ async function startingWeapons(clazz, rolledScroll) {
       }
     }
     const draw = await drawFromTableUuid(
-      MB.scvmFactory.weaponTables[clazz.system.weaponTable],
+      MB.scvmFactory.startingWeaponTable,
       weaponDie
     );
     const weapons = await documentsFromDraw(draw);

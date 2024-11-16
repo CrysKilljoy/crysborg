@@ -119,11 +119,13 @@
         />
       </div>
       <div class="form-group">
-        <label for="weaponTable">Weapon Table</label>
-        <select name="system.weaponTable" id="weaponTable">
-            {{#each config.weaponTables as |table|}}
-            <option value="{{table.uuid}}" {{#ifEquals table.uuid ../data.system.weaponTable}}selected{{/ifEquals}}>{{table.name}}</option>
+        <label>{{ localize "MB.WeaponTable" }}:</label>
+        <select name="system.weaponTable">
+          {{#select data.system.weaponTable}} 
+            {{#each config.weaponTable as |name type|}}
+            <option value="{{type}}">{{localize name}}</option>
             {{/each}}
+          {{/select}}
         </select>
       </div>
       <div class="form-group">
@@ -150,7 +152,7 @@
               type="text" 
               name="system.systemSource" 
               value="{{data.system.systemSource}}" 
-              placeholder="Gib die Quelle ein" 
+              placeholder="Add System Source" 
               data-dtype="String"
             />
       </div>
