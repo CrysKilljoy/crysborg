@@ -265,14 +265,6 @@ MB.weaponTypes = {
   ranged: "MB.WeaponTypeRanged",
 };
 
-MB.weaponTable = {
-  standard: "MB.WeaponTableStandard",
-  ggtribal: "MB.WeaponTableGGTribal",
-  ggfancy: "MB.WeaponTableGGFancy",
-  ggbrutal: "MB.WeaponTableGGBrutal",
-  ggimprovised: "MB.WeaponTableGGImprovised"
-};
-
 // Config variables for the Scvmfactory character generator
 MB.scvmFactory = {
   // Character Names
@@ -311,18 +303,18 @@ MB.scvmFactory = {
   personalityQuirksTable:
     "Compendium.crysborg.crys-borg-tables.RollTable.ISl0rKeu2m90swtr",
   // Weapon Tables
-//  weaponTable: [
-    //Standard Weapons MB
-//    "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
-    //GG Tribal Weapons
-//    "Compendium.crysborg.crys-borg-tables.RollTable.xENPiMlkLkz6Au5q",
-    //GG Fancy Weapons
-//    "Compendium.crysborg.crys-borg-tables.RollTable.B5jFEpqp8xW13ooj",
-    //GG Brutal Weapons
-//    "Compendium.crysborg.crys-borg-tables.RollTable.FTNU1dnaczi0grsZ",
-    //GG Improvised Weapons
-//    "Compendium.crysborg.crys-borg-tables.RollTable.jqS87vdL1uUXXgY2"
-//  ],
+  weaponTableUuids: [
+    //standard
+    "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
+    //ggtribal
+    "Compendium.crysborg.crys-borg-tables.RollTable.xENPiMlkLkz6Au5q",
+    //ggfancy
+    "Compendium.crysborg.crys-borg-tables.RollTable.B5jFEpqp8xW13ooj",
+    //ggbrutal
+    "Compendium.crysborg.crys-borg-tables.RollTable.FTNU1dnaczi0grsZ",
+    //ggimprovised
+    "Compendium.crysborg.crys-borg-tables.RollTable.jqS87vdL1uUXXgY2"
+  ],
   // modules wanting to add more character classes to the generator should append uuids to this list
   standardclassUuids: [
     // classless adventurer

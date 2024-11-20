@@ -122,9 +122,13 @@
         <label>{{ localize "MB.WeaponTable" }}:</label>
         <select name="system.weaponTable">
           {{#select data.system.weaponTable}} 
-            {{#each config.weaponTable as |name type|}}
-            <option value="{{type}}">{{localize name}}</option>
+          {{#if weaponTables}}
+            {{#each weaponTables as |table|}}
+              <option value="{{table.uuid}}">{{table.name}}</option>
             {{/each}}
+          {{else}}
+            <option value="">No weapon tables found</option>
+          {{/if}}
           {{/select}}
         </select>
       </div>

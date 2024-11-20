@@ -154,6 +154,7 @@
       "startingStrength": "3d6",
       "startingToughness": "3d6",
       "weaponTableDie": "1d10",
+      "weaponTable": "Standard",
 	    "systemSource": ""
     },
     "container": {

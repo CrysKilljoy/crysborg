@@ -10,7 +10,7 @@ export async function showScvmDialog(actor) {
   const allowedClasses = await findAllowedClasses();
   const classData = allowedClasses
     .map((c) => {
-      console.log(`Class Data: ${c.name}, UUID: ${c.uuid}, System Source: ${c.systemSource}`); // Debug statement
+      console.log(`Class Data: ${c.name}, UUID: ${c.uuid}, System Source: ${c.systemSource}, Weapon Table: ${c.weaponTable}`); // Debug statement
       return {
         name: c.name,
         uuid: c.uuid,

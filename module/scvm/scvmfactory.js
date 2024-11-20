@@ -15,6 +15,34 @@ import { getAllowedScvmClasses } from "../settings.js";
 export async function createScvm(clazz) {
   try {
     const scvm = await rollScvmForClass(clazz);
+    
+    // Get weapon table UUID from class
+    const weaponTableUuid = clazz.system.weaponTable;
+    if (weaponTableUuid) {
+      try {
+        // Get the weapon table
+        const weaponTable = await fromUuid(weaponTableUuid);
+        
+        if (weaponTable && weaponTable.name === "Standard Weapons") {
+          // Use weaponTableDie for standard weapons
+          const weaponDie = clazz.system.weaponTableDie || "1d10";
+          const draw = await drawFromTableUuid(weaponTableUuid, weaponDie);
+          scvm.startingWeapons = await documentsFromDraw(draw) || [];
+        } else {
+          // Direct draw for other weapon tables
+          const weaponResults = await drawDocumentsFromTableUuid(weaponTableUuid);
+          scvm.startingWeapons = weaponResults || [];
+        }
+        console.log("Rolled starting weapons:", scvm.startingWeapons);
+      } catch (error) {
+        console.error(`Error rolling on weapon table: ${error}`);
+        scvm.startingWeapons = [];
+      }
+    } else {
+      console.warn("No weapon table UUID found for class");
+      scvm.startingWeapons = [];
+    }
+
     await createActorWithScvm(scvm);
   } catch (error) {
     console.error(`Error creating scvm: ${error}`);
@@ -44,26 +72,56 @@ function isScvmClassAllowed(uuid) {
   return allowedScvmClasses[uuid] !== false;
 }
 
+export async function findWeaponTables() {
+  const weaponTables = [];
+  
+  if (!MB || !MB.scvmFactory || !MB.scvmFactory.weaponTableUuids) {
+    throw new TypeError("Cannot read properties of undefined (reading 'weaponTableUuids')");
+  }
+
+  for (const uuid of MB.scvmFactory.weaponTableUuids) {
+    const table = await fromUuid(uuid);
+    if (table) {
+      weaponTables.push({
+        uuid: uuid,
+        name: table.name || "Unknown"
+      });
+    } else {
+      console.log(`Weapon table not found for UUID: ${uuid}`);
+    }
+  }
+
+  return weaponTables;
+}
+
 export async function findClasses() {
   const classes = [];
+  const weaponTables = await findWeaponTables();
+  
+  if (!MB || !MB.scvmFactory || !MB.scvmFactory.standardclassUuids) {
+    throw new TypeError("Cannot read properties of undefined (reading 'standardclassUuids')");
+  }
+
   for (const uuid of MB.scvmFactory.standardclassUuids) {
     const clazz = await fromUuid(uuid);
     if (clazz && clazz.type == MB.itemTypes.class) {
       const systemSource = clazz.system.systemSource || "Unknown";
-      const weaponTable = MB.weaponTable[clazz.system.weaponTable] || { name: "Unknown" }; // Access weapon table name
-      console.log(`Class found: ${clazz.name}, UUID: ${clazz.uuid}, System Source: ${systemSource}, Weapon Table: ${weaponTable.name}`); // Debug statement
+      const weaponTable = weaponTables.find(t => t.uuid === clazz.system.weaponTable) || { name: "Unknown" };
+      
+      console.log(`Class found: ${clazz.name}, UUID: ${clazz.uuid}, System Source: ${systemSource}, Weapon Table: ${weaponTable.name}`);
+      
       classes.push({
         name: clazz.name,
         uuid: clazz.uuid,
         systemSource: systemSource,
-        weaponTable: weaponTable.name, // Ensure weapon table name is set
+        weaponTable: weaponTable.name,
         checked: isScvmClassAllowed(clazz.uuid),
       });
     } else {
       console.log(`Class not found or incorrect type for UUID: ${uuid}`);
     }
   }
-  console.log(classes); // Log the entire classes array to verify the structure
+
   return classes;
 };
 
@@ -120,24 +178,41 @@ async function startingEquipment() {
   return docs;
 };
 
-async function startingWeapons(clazz, rolledScroll) {
+async function startingWeapons(clazz) {
   const docs = [];
-  if (MB.scvmFactory.startingWeaponTable && clazz.system.weaponTableDie) {
-    let weaponDie = clazz.system.weaponTableDie;
-    if (rolledScroll) {
-      // TODO: this check for "is it a higher die roll" assumes a d10 weapon table,
-      // and doesn't handle not having a leading 1 in the string
-      if (weaponDie === "1d8" || weaponDie === "2d4" || weaponDie === "1d10") {
-        weaponDie = MB.scvmFactory.weaponDieIfRolledScroll;
+  const weaponTableUuid = clazz.system.weaponTable;
+  
+  if (weaponTableUuid) {
+    try {
+      // Get the weapon table
+      const weaponTable = await fromUuid(weaponTableUuid);
+      console.log("Weapon table found:", weaponTable.name);
+      console.log("WeaponTableDie setting:", clazz.system.weaponTableDie);
+      
+      if (weaponTable.name === "Standard Weapons") {
+        // Stricter check for weaponTableDie
+        if (clazz.system.weaponTableDie && clazz.system.weaponTableDie.trim() !== '') {
+          console.log("Rolling with die:", clazz.system.weaponTableDie);
+          const draw = await drawFromTableUuid(weaponTableUuid, clazz.system.weaponTableDie);
+          const weapons = await documentsFromDraw(draw);
+          docs.push(...weapons);
+        } else {
+          console.warn("Skipping roll - No weaponTableDie set for Standard Weapons table");
+        }
+      } else {
+        // Direct draw for other weapon tables
+        const weaponResults = await drawDocumentsFromTableUuid(weaponTableUuid);
+        docs.push(...weaponResults);
       }
+      
+      console.log("Added starting weapons:", docs);
+    } catch (error) {
+      console.error(`Error rolling on weapon table: ${error}`);
     }
-    const draw = await drawFromTableUuid(
-      MB.scvmFactory.startingWeaponTable,
-      weaponDie
-    );
-    const weapons = await documentsFromDraw(draw);
-    docs.push(...weapons);
+  } else {
+    console.warn("No weapon table UUID found for class");
   }
+  
   return docs;
 };
 

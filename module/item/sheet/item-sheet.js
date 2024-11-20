@@ -1,4 +1,5 @@
 import { MB } from "../../config.js";
+import { findWeaponTables } from "../../scvm/scvmfactory.js"; // Add this line
 
 /*
  * @extends {ItemSheet}
@@ -36,28 +37,34 @@ export class MBItemSheet extends ItemSheet {
   async getData(options) {
     const superData = await super.getData(options);
     superData.config = CONFIG.MB;
+    
+    // Enrich HTML description
     superData.data.system.description = await TextEditor.enrichHTML(
       superData.data.system.description
     );
+    
+    // Handle scroll types
     if (superData.data.scrollType) {
       superData.data.localizedScrollType = game.i18n.localize(
         MB.scrollTypes[superData.data.scrollType]
       );
     }
-    return superData;
-  }
-
-  async getData(options) {
-    const superData = await super.getData(options);
-    superData.config = CONFIG.MB;
-    superData.data.system.description = await TextEditor.enrichHTML(
-      superData.data.system.description
-    );
-    if (superData.data.WeaponTable) {
-      superData.data.localizedWeaponTable = game.i18n.localize(
-        MB.weaponTable[superData.data.weaponTable]
-      );
+    
+    // Debug log to check data structure
+    console.log("Super Data:", superData);
+    console.log("Config:", CONFIG.MB);
+    console.log("Weapon Tables:", CONFIG.MB.scvmFactory?.weaponTableUuids);
+    
+    try {
+      // Load weapon tables and wait for them
+      const weaponTables = await findWeaponTables();
+      superData.weaponTables = weaponTables;
+      console.log("Loaded weapon tables:", weaponTables); // Debug log
+    } catch (error) {
+      console.error("Error loading weapon tables:", error);
+      superData.weaponTables = [];
     }
+    
     return superData;
   }
 
