@@ -2391,7 +2391,7 @@ button.dice-calculator--button {
 :root[data-scheme="blackOnWhiteBlack"] #logo,
 :root[data-scheme="whiteOnBlackPink"] #logo,
 :root[data-scheme="whiteOnPinkWhite"] #logo,
-:root[data-scheme="foundryDefault"],
+:root[data-scheme="foundryDefault"] #logo,
 :root[data-scheme="GoblinGonzo"] #logo {
   transform: none;
 }

@@ -29,6 +29,9 @@ function applyFontsAndColors() {
     const fontSchemeSetting = game.settings.get("crysborg", "fontScheme") || "default";
     const colorSchemeSetting = game.settings.get("crysborg", "colorScheme") || "default";
     
+    // Add this line to set the data-scheme attribute
+    document.documentElement.setAttribute('data-scheme', colorSchemeSetting);
+    
     // Get schemes with fallbacks
     const fontScheme = CONFIG.MB.fontSchemes?.[fontSchemeSetting] || {
       chat: "Arial",
