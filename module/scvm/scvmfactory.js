@@ -154,27 +154,47 @@ async function startingFoodAndWater() {
   return docs;
 };
 
-async function startingEquipment() {
+async function startingEquipment(clazz) {
   const docs = [];
-  // 3 starting equipment tables
-  if (MB.scvmFactory.startingEquipmentTable1) {
-    const eq1 = await drawDocumentsFromTableUuid(
-      MB.scvmFactory.startingEquipmentTable1
-    );
+  const isGoblinGonzo = clazz.system.systemSource === "Goblin Gonzo";
+  
+  // Equipment Table 1
+  if (MB.scvmFactory.startingEquipmentTable1Uuids) {
+    const tableUuid = isGoblinGonzo 
+      ? MB.scvmFactory.startingEquipmentTable1Uuids[1]
+      : MB.scvmFactory.startingEquipmentTable1Uuids[0];
+    
+    console.log(`Equipment Table 1 UUID: ${tableUuid}`);
+    const eq1 = await drawDocumentsFromTableUuid(tableUuid);
+    console.log("Equipment Table 1 Results:", eq1);
     docs.push(...eq1);
   }
-  if (MB.scvmFactory.startingEquipmentTable2) {
-    const eq2 = await drawDocumentsFromTableUuid(
-      MB.scvmFactory.startingEquipmentTable2
-    );
+
+  // Equipment Table 2
+  if (MB.scvmFactory.startingEquipmentTable2Uuids) {
+    const tableUuid = isGoblinGonzo
+      ? MB.scvmFactory.startingEquipmentTable2Uuids[1]
+      : MB.scvmFactory.startingEquipmentTable2Uuids[0];
+    
+    console.log(`Equipment Table 2 UUID: ${tableUuid}`);
+    const eq2 = await drawDocumentsFromTableUuid(tableUuid);
+    console.log("Equipment Table 2 Results:", eq2);
     docs.push(...eq2);
   }
-  if (MB.scvmFactory.startingEquipmentTable3) {
-    const eq3 = await drawDocumentsFromTableUuid(
-      MB.scvmFactory.startingEquipmentTable3
-    );
+
+  // Equipment Table 3
+  if (MB.scvmFactory.startingEquipmentTable3Uuids) {
+    const tableUuid = isGoblinGonzo
+      ? MB.scvmFactory.startingEquipmentTable3Uuids[1]
+      : MB.scvmFactory.startingEquipmentTable3Uuids[0];
+    
+    console.log(`Equipment Table 3 UUID: ${tableUuid}`);
+    const eq3 = await drawDocumentsFromTableUuid(tableUuid);
+    console.log("Equipment Table 3 Results:", eq3);
     docs.push(...eq3);
   }
+
+  console.log("Total Equipment Results:", docs);
   return docs;
 };
 
@@ -364,7 +384,7 @@ async function rollScvmForClass(clazz) {
   const foodAndWater = await startingFoodAndWater();
   allDocs.push(...foodAndWater);
 
-  const equipment = await startingEquipment();
+  const equipment = await startingEquipment(clazz);
   allDocs.push(...equipment);
   const rolledScroll = allDocs.filter((i) => i?.type === "scroll").length > 0;
 

@@ -274,17 +274,29 @@ MB.scvmFactory = {
   // Waterskin
   waterItem: "Compendium.crysborg.crys-borg-items.Item.Zrs4ubq4fDBNPmnN",
   // Starting Equipment (1)
-  startingEquipmentTable1:
+  startingEquipmentTable1Uuids: [
+    //standard 1
     "Compendium.crysborg.crys-borg-tables.RollTable.ByN7RI3Vc88ScBCj",
+    //Goblin Gonzo 1
+    "Compendium.crysborg.crys-borg-tables.RollTable.o1vuH9VzxynC8tkt"
+  ],
   // Starting Equipment (2)
-  startingEquipmentTable2:
+  startingEquipmentTable2Uuids: [
+    //standard 2
     "Compendium.crysborg.crys-borg-tables.RollTable.o6wjXShp2CLQEr7X",
+    //Goblin Gonzo 2
+    "Compendium.crysborg.crys-borg-tables.RollTable.AG2h21KhlvQE24vc"
+  ],
   // Starting Equipment (3)
-  startingEquipmentTable3:
+  startingEquipmentTable3Uuids: [
+    //standard 3
     "Compendium.crysborg.crys-borg-tables.RollTable.rq8zq4VHY3px5hpF",
+    //Goblin Gonzo 3
+    "Compendium.crysborg.crys-borg-tables.RollTable.2xMFKDNCuYC74IcV"
+  ],
   // Starting Weapon
-  startingWeaponTable:
-    "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
+  //startingWeaponTable:
+  ///  "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
   weaponDieIfRolledScroll: "1d6",
   // Starting Armor
   startingArmorTable:
@@ -404,7 +416,13 @@ MB.scvmFactory = {
     // Tribal Goblin
     "Compendium.crysborg.crys-borg-items.Item.ctjIl8jgM3TkzTP7",
     // Bone Slave
-    "Compendium.crysborg.crys-borg-items.Item.j1Fe9LK0GZNRTFmw"
+    "Compendium.crysborg.crys-borg-items.Item.j1Fe9LK0GZNRTFmw",
+    // Godless Souldoctor
+    "Compendium.crysborg.crys-borg-items.Item.T7Q57Fy28BDNw857",
+    // The Sharp Card
+    "Compendium.crysborg.crys-borg-items.Item.ac1czxIr7jiLmK4s",
+    // Tormented Toymaker
+    "Compendium.crysborg.crys-borg-items.Item.IO8MTmjYrlboDsSY"
   ],
 };
 
