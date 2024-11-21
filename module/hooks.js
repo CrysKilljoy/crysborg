@@ -24,49 +24,62 @@ export function registerHooks() {
 };
 
 function applyFontsAndColors() {
-  const fontSchemeSetting = game.settings.get("crysborg", "fontScheme");
-  const fontScheme = CONFIG.MB.fontSchemes[fontSchemeSetting];
-  const colorSchemeSetting = game.settings.get("crysborg", "colorScheme");
-  const colorScheme = CONFIG.MB.colorSchemes[colorSchemeSetting];
-  const r = document.querySelector(":root");
-  r.style.setProperty("--window-background", colorScheme.windowBackground);
-  r.style.setProperty("--background-color", colorScheme.background);
-  r.style.setProperty("--foreground-color", colorScheme.foreground);
-  r.style.setProperty("--foreground-alt-color", colorScheme.foregroundAlt);
-  r.style.setProperty(
-    "--highlight-background-color",
-    colorScheme.highlightBackground
-  );
-  r.style.setProperty(
-    "--highlight-foreground-color",
-    colorScheme.highlightForeground
-  );
-  r.style.setProperty("--sidebar-background", colorScheme.sidebarBackground);
-  r.style.setProperty(
-    "--sidebar-foreground-color",
-    colorScheme.sidebarForeground
-  );
-  r.style.setProperty(
-    "--sidebar-button-background-color",
-    colorScheme.sidebarButtonBackground
-  );
-  r.style.setProperty(
-    "--sidebar-button-foreground-color",
-    colorScheme.sidebarButtonForeground
-  );
-  r.style.setProperty("--chat-font", fontScheme.chat);
-  r.style.setProperty("--chat-info-font", fontScheme.chatInfo);
-  r.style.setProperty("--h1-font", fontScheme.h1);
-  r.style.setProperty("--h2-font", fontScheme.h2);
-  r.style.setProperty("--h3-font", fontScheme.h3);
-  r.style.setProperty("--item-font", fontScheme.item);
+  try {
+    // Get settings with defaults
+    const fontSchemeSetting = game.settings.get("crysborg", "fontScheme") || "default";
+    const colorSchemeSetting = game.settings.get("crysborg", "colorScheme") || "default";
+    
+    // Get schemes with fallbacks
+    const fontScheme = CONFIG.MB.fontSchemes?.[fontSchemeSetting] || {
+      chat: "Arial",
+      chatInfo: "Arial",
+      h1: "Arial",
+      h2: "Arial", 
+      h3: "Arial",
+      item: "Arial"
+    };
+    
+    const colorScheme = CONFIG.MB.colorSchemes?.[colorSchemeSetting] || {
+      windowBackground: "#000000",
+      background: "#ffffff",
+      foreground: "#000000",
+      foregroundAlt: "#666666",
+      highlightBackground: "#000000",
+      highlightForeground: "#ffffff",
+      sidebarBackground: "#000000",
+      sidebarForeground: "#ffffff",
+      sidebarButtonBackground: "#333333",
+      sidebarButtonForeground: "#ffffff"
+    };
 
-  // Foundry vars
-  r.style.setProperty(
-    "--color-border-highlight",
-    colorScheme.highlightBackground
-  );
-};
+    const r = document.querySelector(":root");
+
+    // Apply color properties
+    r.style.setProperty("--window-background", colorScheme.windowBackground);
+    r.style.setProperty("--background-color", colorScheme.background);
+    r.style.setProperty("--foreground-color", colorScheme.foreground);
+    r.style.setProperty("--foreground-alt-color", colorScheme.foregroundAlt);
+    r.style.setProperty("--highlight-background-color", colorScheme.highlightBackground);
+    r.style.setProperty("--highlight-foreground-color", colorScheme.highlightForeground);
+    r.style.setProperty("--sidebar-background", colorScheme.sidebarBackground);
+    r.style.setProperty("--sidebar-foreground-color", colorScheme.sidebarForeground);
+    r.style.setProperty("--sidebar-button-background-color", colorScheme.sidebarButtonBackground);
+    r.style.setProperty("--sidebar-button-foreground-color", colorScheme.sidebarButtonForeground);
+    r.style.setProperty("--color-border-highlight", colorScheme.highlightBackground);
+
+    // Apply font properties
+    r.style.setProperty("--chat-font", fontScheme.chat);
+    r.style.setProperty("--chat-info-font", fontScheme.chatInfo);
+    r.style.setProperty("--h1-font", fontScheme.h1);
+    r.style.setProperty("--h2-font", fontScheme.h2);
+    r.style.setProperty("--h3-font", fontScheme.h3);
+    r.style.setProperty("--item-font", fontScheme.item);
+
+  } catch (error) {
+    console.warn("Failed to apply fonts and colors:", error);
+    // Set fallback styles if needed
+  }
+}
 
 function addCreateScvmButton(app, html) {
   if (game.user.can("ACTOR_CREATE")) {

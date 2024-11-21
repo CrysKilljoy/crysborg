@@ -62,29 +62,9 @@
     ],
     "languages": [
         {
-            "lang": "de",
-            "name": "Deutsch",
-            "path": "lang/de.json"
-        },
-        {
             "lang": "en",
             "name": "English",
             "path": "lang/en.json"
-        },
-        {
-            "lang": "es",
-            "name": "Spanish",
-            "path": "lang/es.json"
-        },
-        {
-            "lang": "fr",
-            "name": "Français",
-            "path": "lang/fr.json"
-        },
-        {
-            "lang": "sv",
-            "name": "Svenska",
-            "path": "lang/sv.json"
         }
     ],
     "socket": true,

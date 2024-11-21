@@ -64,13 +64,13 @@ export function registerSystemSettings() {
     choices: {
       CrysBorgSignature: "MB.SettingsCrysBorgSignature",
 	    CrysBorgSignatureAlt: "MB.SettingsCrysBorgSignatureAlt",
+      whiteOnBlackYellow: "MB.SettingsWhiteOnBlackYellow",
+      GoblinGonzo: "MB.SettingsGoblinGonzo",
 	    blackOnYellowWhite: "MB.SettingsBlackOnYellowWhite",
       blackOnWhiteBlack: "MB.SettingsBlackOnWhiteBlack",
-      foundryDefault: "MB.SettingsFoundryDefault",
-      whiteOnBlackYellow: "MB.SettingsWhiteOnBlackYellow",
       whiteOnBlackPink: "MB.SettingsWhiteOnBlackPink",
       whiteOnPinkWhite: "MB.SettingsWhiteOnPinkWhite",
-	  GoblinGonzo: "MB.SettingsGoblinGonzo"
+      foundryDefault: "MB.SettingsFoundryDefault"
     },
     onChange: () => {
       location.reload();
@@ -96,7 +96,7 @@ export function registerSystemSettings() {
     default: "crysborg",
     type: String,
     choices: {
-      crysborg: "MB.SettingsCBFont",
+      CrysBorgSignatureFont: "MB.SettingsCBFont",
 	    blackletter: "MB.SettingsBlackletter",
       legible: "MB.SettingsLegible"
     },

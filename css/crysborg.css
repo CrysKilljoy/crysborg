@@ -20,6 +20,32 @@
   --journal-font: "Alegreya";
   --journal-font-size: 18px;
   --window-border-color: #222222;
+  --logo-image: url('/systems/crysborg/icons/logos/ewn4oc2.png');
+  --pause-image: url('/systems/crysborg/icons/logos/blue.png');
+}
+:root[data-scheme="CrysBorgSignature"] {
+  --logo-image: url('/systems/crysborg/icons/logos/ewn4oc2.png');
+  --pause-image: url('/systems/crysborg/icons/logos/blue.png');
+}
+:root[data-scheme="CrysBorgSignatureAlt"] {
+  --logo-image: url('/systems/crysborg/icons/logos/blue.png');
+  --pause-image: url('/systems/crysborg/icons/logos/ewn4oc2.png');
+}
+:root[data-scheme="whiteOnBlackYellow"],
+:root[data-scheme="blackOnYellowWhite"],
+:root[data-scheme="blackOnWhiteBlack"],
+:root[data-scheme="whiteOnBlackPink"],
+:root[data-scheme="whiteOnPinkWhite"] {
+  --logo-image: url('/systems/crysborg/icons/logos/mb-content.png');
+  --pause-image: url('/systems/crysborg/icons/logos/mb-pause.webp');
+}
+:root[data-scheme="foundryDefault"] {
+  --logo-image: url('/icons/fvtt.png');
+  --pause-image: url('/icons/svg/clockwork.svg');
+}
+:root[data-scheme="GoblinGonzo"] {
+  --logo-image: url('/systems/crysborg/icons/logos/Goblin_Gonzo.png');
+  --pause-image: url('/systems/crysborg/icons/logos/ggpause.png');
 }
 
 .draw-from-table {
@@ -104,6 +130,20 @@
 @font-face {
   font-family: "Old Cupboard";
   src: url("../assets/fonts/OldCupboard.otf") format("opentype");
+}
+@font-face {
+  font-family: "Black Range";
+  src: url("../assets/fonts/Black Range.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Blank River";
+  src: url("../assets/fonts/Blank River.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Covered by your grace";
+  src: url("../assets/fonts/CoveredByYourGrace.ttf") format("truetype");
 }
 /* ====================== */
 /* Flex */
@@ -1918,7 +1958,7 @@ form .form-group select:focus {
 }
 #navigation #scene-list li.scene.nav-item.active, #navigation #scene-list li.scene.nav-item:hover {
   background: var(--background-color);
-  color: var(--foreground-color);
+  color: var (--foreground-color);
   border: 1px solid var(--highlight-background-color);
   box-shadow: 0 0 10px var(--highlight-background-color);
 }
@@ -2330,6 +2370,67 @@ h3 {
 
 button.dice-calculator--button {
   color: var(--foreground-color);
+}
+
+/* Override Foundry's default logo */
+#logo {
+  padding: 50px 100px 0px 0px;
+  background: var(--logo-image) center/contain no-repeat !important;
+  width: 100px;
+  height: 50px;
+  border: none;
+  flex: 0 0 100px;
+  margin: 5px;
+  object-fit: contain;
+  transform: rotate(-7deg);
+}
+
+/* Remove rotation for non-CrysBorg schemes */
+:root[data-scheme="whiteOnBlackYellow"] #logo,
+:root[data-scheme="blackOnYellowWhite"] #logo,
+:root[data-scheme="blackOnWhiteBlack"] #logo,
+:root[data-scheme="whiteOnBlackPink"] #logo,
+:root[data-scheme="whiteOnPinkWhite"] #logo,
+:root[data-scheme="foundryDefault"],
+:root[data-scheme="GoblinGonzo"] #logo {
+  transform: none;
+}
+:root[data-scheme="GoblinGonzo"] #logo {
+  margin-left: 17px; 
+}
+
+/* Override Foundry's default pause icon */
+#pause {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 100vw;
+  width: 100vw;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  font-family: "Black Range" !important;
+  font-size: 48px !important;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#pause.paused {
+  display: flex !important; /* Show when paused */
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3.8px);
+  border-radius: 5px;  /* Optional: rounded corners */
+}
+#pause img {
+  content: var(--pause-image) !important;
+  width: 256px !important;
+  height: 256px !important;
+  opacity: 1;
+  filter: drop-shadow(0 0 8px #000);
+  position: absolute !important;
+  top: calc(50% - 128px) !important;
+  left: calc(50% - 128px) !important;
 }
 
 /*# sourceMappingURL=crysborg.css.map */

@@ -169,7 +169,7 @@ MB.fontSchemes = {
     //h3: "Old Cupboard",
     item: "Lato",
   },
-  legible: {
+  CrysBorgSignatureFont: {
     chat: "Alegreya",
     chatInfo: "Oswald",
     h1: "Black Range",
