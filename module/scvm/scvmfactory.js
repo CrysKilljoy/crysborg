@@ -355,8 +355,13 @@ async function startingRollItemsAndDescriptionLines(clazz) {
 };
 
 async function rollScvmForClass(clazz) {
+  // Choose name table based on class
+  const nameTableUuid = clazz.uuid === "Compendium.crysborg.crys-borg-items.Item.wLJV0VJT5I234obT"
+    ? "Compendium.crysborg.crys-borg-tables.RollTable.FHTj5AnGdOoqD1fZ"  // Pale One names
+    : MB.scvmFactory.namesTable;  // Standard names
+    
   // Get all name results from a single draw
-  const draw = await drawFromTableUuid(MB.scvmFactory.namesTable);
+  const draw = await drawFromTableUuid(nameTableUuid);
   const nameResults = await Promise.all(
     draw.results.map(async (r) => r.text)
   );
