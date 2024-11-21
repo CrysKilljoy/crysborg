@@ -27,11 +27,14 @@ export function configureHandlebars() {
     return cond ? v1 : v2;
   });
   Handlebars.registerHelper("abbreviate", function (string) {
+    // Special case for Kookie
+    if (string === "Kookie") return string;
+    
+    // Standard ability abbreviation logic
     const localString = "MB.Ability" + string + "Abbrev";
-    const result =
-      game.i18n.localize(localString) === localString
-        ? string.slice(0, 3).toUpperCase()
-        : game.i18n.localize(localString);
+    const result = game.i18n.localize(localString) === localString
+      ? string.slice(0, 3).toUpperCase()
+      : game.i18n.localize(localString);
     return result;
   });
   Handlebars.registerHelper("abilityLabelClass", function (string) {

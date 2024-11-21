@@ -46,6 +46,10 @@ export class MBCharacterSheet extends MBActorSheet {
     superData.config = CONFIG.MB;
     const data = superData.data;
 
+    // Debug logs
+    console.log("Character data:", data);
+    console.log("Class data:", data.system.class);
+
     // Ability Scores
     data.system.orderedAbilities = [];
     for (const abilityName of MB.abilitySheetOrder) {
@@ -54,27 +58,50 @@ export class MBCharacterSheet extends MBActorSheet {
       ability.label = game.i18n.localize(translationKey);
       data.system.orderedAbilities.push(ability);
     }
-    // custom abilities are in an ordered csv string
+
+    // Get additional abilities from settings
+    let additionalAbilities = [];
     const additionalAbilitiesCsv = game.settings.get(
       "crysborg",
       "additionalAbilities"
     );
     if (additionalAbilitiesCsv) {
-      const customAbilities = additionalAbilitiesCsv.split(",").map((key) => {
-        return {
-          value: data.system.abilities[key.toLowerCase()]?.value ?? 0,
-          label: key,
-        };
-      });
-      if (customAbilities.length) {
-        data.system.orderedAbilities =
-          data.system.orderedAbilities.concat(customAbilities);
+      additionalAbilities = additionalAbilitiesCsv.split(",").map((key) => ({
+        key: key.toLowerCase(),
+        value: 0,
+        label: key !== "Kookie" ? key.substring(0, 3) : key
+      }));
+    }
+
+    // Check for Goblin Gonzo class and add Kookie
+    const isGoblinGonzo = this.actor.items.find(
+      i => i.type === "class" && i.system.systemSource === "Goblin Gonzo"
+    );
+    
+    if (isGoblinGonzo) {
+      console.log("Found Goblin Gonzo class");
+      if (!additionalAbilities.some(a => a.key === "kookie")) {
+        additionalAbilities.push({
+          key: "kookie",
+          value: 0,
+          label: "Kookie"
+        });
       }
     }
 
+    // Add additional abilities to ordered list
+    data.system.orderedAbilities = [
+      ...data.system.orderedAbilities,
+      ...additionalAbilities
+    ];
+
+    console.log("Final abilities:", data.system.orderedAbilities);
+
+    // Prepare other data
     this._prepareCharacterItems(data);
     data.system.trackCarryingCapacity = trackCarryingCapacity();
     data.system.trackAmmo = trackAmmo();
+    
     return superData;
   }
 
