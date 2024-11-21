@@ -355,7 +355,13 @@ async function startingRollItemsAndDescriptionLines(clazz) {
 };
 
 async function rollScvmForClass(clazz) {
-  const name = await drawTextFromTableUuid(MB.scvmFactory.namesTable);
+  // Get all name results from a single draw
+  const draw = await drawFromTableUuid(MB.scvmFactory.namesTable);
+  const nameResults = await Promise.all(
+    draw.results.map(async (r) => r.text)
+  );
+  const name = nameResults.length > 0 ? nameResults.join(" ") : "Unnamed";
+  
   const silver = await rollTotal(clazz.system.startingSilver);
   const omens = await rollTotal(clazz.system.omenDie);
   const baseHp = await rollTotal(clazz.system.startingHitPoints);
