@@ -27,10 +27,10 @@ export function configureHandlebars() {
     return cond ? v1 : v2;
   });
   Handlebars.registerHelper("abbreviate", function (string) {
-    // Special case for Kookie
-    if (string === "Kookie") return string;
+    // Special case for Kookies
+    if (string.toLowerCase() === "kookies") return "Kookies";
     
-    // Standard ability abbreviation logic
+    // Standard ability abbreviation logic  
     const localString = "MB.Ability" + string + "Abbrev";
     const result = game.i18n.localize(localString) === localString
       ? string.slice(0, 3).toUpperCase()

@@ -69,7 +69,7 @@ export class MBCharacterSheet extends MBActorSheet {
       additionalAbilities = additionalAbilitiesCsv.split(",").map((key) => ({
         key: key.toLowerCase(),
         value: 0,
-        label: key !== "Kookie" ? key.substring(0, 3) : key
+        label: key.toLowerCase() === "kookies" ? "Kookies" : key.substring(0, 3)
       }));
     }
 
@@ -80,13 +80,13 @@ export class MBCharacterSheet extends MBActorSheet {
     
     if (isGoblinGonzo) {
       console.log("Found Goblin Gonzo class");
-      if (!additionalAbilities.some(a => a.key === "kookie")) {
-        additionalAbilities.push({
-          key: "kookie",
-          value: 0,
-          label: "Kookie"
-        });
-      }
+      // Match core ability pattern
+      const kookiesValue = data.system.abilities?.kookies?.value || 0;
+      data.system.orderedAbilities.push({
+        key: "kookies",
+        value: kookiesValue,
+        label: "Kookies"
+      });
     }
 
     // Add additional abilities to ordered list
