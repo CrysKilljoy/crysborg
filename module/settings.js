@@ -53,20 +53,20 @@ export function registerSystemSettings() {
     default: true,
   });
 
-  /** UI Color scheme */
+  /** UI Color scheme */  
   game.settings.register(CONFIG.MB.systemName, Settings.colorScheme, {
     name: "MB.SettingsColorScheme",
     hint: "MB.SettingsColorSchemeHint",
-    scope: "client",
+    scope: "world", // Change from "client" to "world"
     config: true,
     default: "CrysBorgSignature",
     type: String,
     choices: {
       CrysBorgSignature: "MB.SettingsCrysBorgSignature",
-	    CrysBorgSignatureAlt: "MB.SettingsCrysBorgSignatureAlt",
+      CrysBorgSignatureAlt: "MB.SettingsCrysBorgSignatureAlt",
       whiteOnBlackYellow: "MB.SettingsWhiteOnBlackYellow",
-      GoblinGonzo: "MB.SettingsGoblinGonzo",
-	    blackOnYellowWhite: "MB.SettingsBlackOnYellowWhite",
+      GoblinGonzo: "MB.SettingsGoblinGonzo", 
+      blackOnYellowWhite: "MB.SettingsBlackOnYellowWhite",
       blackOnWhiteBlack: "MB.SettingsBlackOnWhiteBlack",
       whiteOnBlackPink: "MB.SettingsWhiteOnBlackPink",
       whiteOnPinkWhite: "MB.SettingsWhiteOnPinkWhite",
@@ -75,6 +75,7 @@ export function registerSystemSettings() {
     onChange: () => {
       location.reload();
     },
+    restricted: true  // Add this to restrict to GM only
   });
 
   /** Whether to keep track of ranged weapon ammo */
