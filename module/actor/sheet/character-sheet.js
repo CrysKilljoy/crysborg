@@ -89,6 +89,12 @@ export class MBCharacterSheet extends MBActorSheet {
       });
     }
 
+    // Check for Goblin Gonzo class and add Kookie
+    const isKrampus = this.actor.items.find(
+      i => i.type === "class" && i.system.systemSource === "Gruss vom Krampus"
+    );
+    
+
     // Add additional abilities to ordered list
     data.system.orderedAbilities = [
       ...data.system.orderedAbilities,

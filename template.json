@@ -158,6 +158,7 @@
       "startingToughness": "3d6",
       "weaponTableDie": "1d10",
       "weaponTable": "Standard",
+      "HPstat": "Toughness",
 	    "systemSource": ""
     },
     "container": {

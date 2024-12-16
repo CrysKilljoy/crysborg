@@ -157,41 +157,48 @@ async function startingFoodAndWater() {
 async function startingEquipment(clazz) {
   const docs = [];
   const isGoblinGonzo = clazz.system.systemSource === "Goblin Gonzo";
+  const isKrampus = clazz.system.systemSource === "Gruss vom Krampus";
   
   // Equipment Table 1
   if (MB.scvmFactory.startingEquipmentTable1Uuids) {
-    const tableUuid = isGoblinGonzo 
+    const tableUuid = isKrampus
+      ? MB.scvmFactory.startingEquipmentTable1Uuids[2]
+      : isGoblinGonzo
       ? MB.scvmFactory.startingEquipmentTable1Uuids[1]
       : MB.scvmFactory.startingEquipmentTable1Uuids[0];
-    
-    console.log(`Equipment Table 1 UUID: ${tableUuid}`);
-    const eq1 = await drawDocumentsFromTableUuid(tableUuid);
-    console.log("Equipment Table 1 Results:", eq1);
-    docs.push(...eq1);
+
+  console.log(`Equipment Table 1 UUID: ${tableUuid}`);
+  const eq1 = await drawDocumentsFromTableUuid(tableUuid);
+  console.log("Equipment Table 1 Results:", eq1);
+  docs.push(...eq1);
   }
 
   // Equipment Table 2
   if (MB.scvmFactory.startingEquipmentTable2Uuids) {
-    const tableUuid = isGoblinGonzo
+    const tableUuid = isKrampus
+      ? MB.scvmFactory.startingEquipmentTable2Uuids[2]
+      : isGoblinGonzo
       ? MB.scvmFactory.startingEquipmentTable2Uuids[1]
       : MB.scvmFactory.startingEquipmentTable2Uuids[0];
-    
-    console.log(`Equipment Table 2 UUID: ${tableUuid}`);
-    const eq2 = await drawDocumentsFromTableUuid(tableUuid);
-    console.log("Equipment Table 2 Results:", eq2);
-    docs.push(...eq2);
+
+  console.log(`Equipment Table 2 UUID: ${tableUuid}`);
+  const eq1 = await drawDocumentsFromTableUuid(tableUuid);
+  console.log("Equipment Table 2 Results:", eq1);
+  docs.push(...eq1);
   }
 
   // Equipment Table 3
   if (MB.scvmFactory.startingEquipmentTable3Uuids) {
-    const tableUuid = isGoblinGonzo
+    const tableUuid = isKrampus
+      ? MB.scvmFactory.startingEquipmentTable3Uuids[2]
+      : isGoblinGonzo
       ? MB.scvmFactory.startingEquipmentTable3Uuids[1]
       : MB.scvmFactory.startingEquipmentTable3Uuids[0];
-    
-    console.log(`Equipment Table 3 UUID: ${tableUuid}`);
-    const eq3 = await drawDocumentsFromTableUuid(tableUuid);
-    console.log("Equipment Table 3 Results:", eq3);
-    docs.push(...eq3);
+
+  console.log(`Equipment Table 3 UUID: ${tableUuid}`);
+  const eq1 = await drawDocumentsFromTableUuid(tableUuid);
+  console.log("Equipment Table 3 Results:", eq1);
+  docs.push(...eq1);
   }
 
   console.log("Total Equipment Results:", docs);
