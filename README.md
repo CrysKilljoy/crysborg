@@ -1,5 +1,5 @@
 Best of Borg compilation for FoundryVTT 
-Based on the [FoundryVTT Mörk Borg system ](https://github.com/fvtt-fria-ligan/morkborg-foundry-vtt)
+Based on the [FoundryVTT Mörk Borg system ](https://github.com/fvtt-fria-ligan/morkborg-foundry-vtt),
 Fixed and enhanced by me
 
 Integrated Systems:
