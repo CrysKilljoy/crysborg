@@ -6,7 +6,7 @@ Integrated Systems:
 - [Mörk Borg](https://morkborg.com/)
 - [Mörk Borg Cult and Third Party Content](https://github.com/fvtt-fria-ligan/morkborg-foundry-3p)
 - [Goblin Gonzo](https://blaek.games/shop/)
-- [Gruss vom Krampus](https://www.drivethrurpg.com/de/product/498274/gruss-vom-krampus-a-holiday-horror-ttrpg))
+- [Gruss vom Krampus](https://www.drivethrurpg.com/de/product/498274/gruss-vom-krampus-a-holiday-horror-ttrpg)
 
 Planned systems and addons:
 - [Corp Borg](https://www.drivethrurpg.com/de/product/464620/corp-borg)
