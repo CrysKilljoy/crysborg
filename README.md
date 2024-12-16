@@ -19,3 +19,6 @@ I do not plan to update CrysBorg for any newer foundry versions.
 I do not plan on fixing bugs for specific or newly released versions.
 
 Created on and for FoundryVTT v11 Build 315
+
+CrysBorg is an independent production by CrysKilljoy and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
+MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell. 
