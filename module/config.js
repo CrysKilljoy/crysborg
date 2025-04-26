@@ -456,3 +456,11 @@ MB.wieldPowerFumbleTable = "Arcane Catastrophes";
 MB.wieldPowerCritOn = 20;
 MB.wieldPowerCritPack = null;
 MB.wieldPowerCritTable = null;
+
+// Death Check table configuration
+MB.deathCheckPack = "crysborg.crys-borg-tables";
+MB.deathCheckTable = "DeathCheck";
+
+// Drop Check table configuration
+MB.dropCheckPack = "crysborg.crys-borg-tables";
+MB.dropCheckTable = "DropCheck";

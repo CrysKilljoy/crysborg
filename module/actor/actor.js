@@ -1,9 +1,20 @@
 import { trackCarryingCapacity } from "../settings.js";
+import HPZeroDialog from "./sheet/hp-zero-dialog.js";
 
 /**
  * @extends {Actor}
  */
 export class MBActor extends Actor {
+  /** @override */
+  async _preUpdate(changed, options, user) {
+    await super._preUpdate(changed, options, user);
+    
+    // Check if HP is being set to 0
+    if (changed.system?.hp?.value === 0) {
+      await HPZeroDialog.create(this);
+    }
+  }
+
   /** @override */
   static async create(data, options = {}) {
     data.prototypeToken = data.prototypeToken || {};

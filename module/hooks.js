@@ -1,6 +1,7 @@
 import { showScvmDialog } from "./scvm/scvm-dialog.js";
 import { createScvmFromClassUuid } from "./scvm/scvmfactory.js";
 import { handleRollCardButton } from "./chat/roll-card.js";
+import { rollBroken, rollDeathCheck, rollDropCheck } from "./actor/broken.js";
 
 export function registerHooks() {
   Hooks.once("ready", () => {

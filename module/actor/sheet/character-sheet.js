@@ -1,10 +1,10 @@
 import MBActorSheet from "./actor-sheet.js";
 import { MB } from "../../config.js";
 import RestDialog from "./rest-dialog.js";
-import { trackAmmo, trackCarryingCapacity } from "../../settings.js";
+import { trackAmmo, trackCarryingCapacity, useBrokenButton } from "../../settings.js";
 import { showScvmDialog } from "../../scvm/scvm-dialog.js";
 import { byName } from "../../utils.js";
-import { rollBroken } from "../broken.js";
+import { rollBroken, rollDeathCheck, rollDropCheck } from "../broken.js";
 import { getBetter } from "../get-better.js";
 import { useFeat } from "../feats.js";
 import {
@@ -59,6 +59,11 @@ export class MBCharacterSheet extends MBActorSheet {
       data.system.orderedAbilities.push(ability);
     }
 
+    // Add settings to data
+    data.system.trackCarryingCapacity = trackCarryingCapacity();
+    data.system.trackAmmo = trackAmmo();
+    data.system.useBrokenButton = useBrokenButton();
+    
     // Get additional abilities from settings
     let additionalAbilities = [];
     const additionalAbilitiesCsv = game.settings.get(
@@ -105,8 +110,6 @@ export class MBCharacterSheet extends MBActorSheet {
 
     // Prepare other data
     this._prepareCharacterItems(data);
-    data.system.trackCarryingCapacity = trackCarryingCapacity();
-    data.system.trackAmmo = trackAmmo();
     
     return superData;
   }
@@ -160,6 +163,17 @@ export class MBCharacterSheet extends MBActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
+    // Add event listeners for death and drop check buttons
+    html
+      .find(".death-check-button")
+      .on("click", this._onDeathCheckRoll.bind(this));
+    html
+      .find(".drop-check-button")
+      .on("click", this._onDropCheckRoll.bind(this));
+    html
+      .find(".broken-button")
+      .on("click", this._onBroken.bind(this));
+
     // sheet header
     html
       .find(".ability-label.rollable.strength")
@@ -178,8 +192,6 @@ export class MBCharacterSheet extends MBActorSheet {
       .on("click", this._onCustomAbilityRoll.bind(this));
 
     html.find(".reroll-button").click(this._onReroll.bind(this));
-    html.find(".broken-button").on("click", this._onBroken.bind(this));
-    html.find(".rest-button").on("click", this._onRest.bind(this));
     html
       .find(".omens-row span.rollable")
       .on("click", this._onOmensRoll.bind(this));
@@ -189,6 +201,16 @@ export class MBCharacterSheet extends MBActorSheet {
     html
       .find(".wield-power-button")
       .on("click", this._onWieldPowerRoll.bind(this));
+  }
+
+  _onDeathCheckRoll(event) {
+    event.preventDefault();
+    rollDeathCheck(this.actor);
+  }
+
+  _onDropCheckRoll(event) {
+    event.preventDefault();
+    rollDropCheck(this.actor);
   }
 
   _onStrengthRoll(event) {

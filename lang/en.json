@@ -60,6 +60,8 @@
   "MB.Dice": "Dice",
   "MB.Dodge": "Dodge",
   "MB.DR": "DR",
+  "MB.DropCheck": "Drop Check",
+  "MB.DeathCheck": "Death Check",
   "MB.EditAllowedScvmClassesMenu": "Allowed classes",
   "MB.EditAllowedScvmClassesMenuHint": "Edit the allowed classes in the character generator.",
   "MB.EditAllowedScvmClassesMenuButtonLabel": "Edit",
@@ -275,5 +277,9 @@
   "MB.WieldAPowerText": "PRE+d4 times per day. PRE DR12 to wield or -d2 HP and no Powers for 1 hr.",
   "MB.YouAreHit": "You are Hit",
   "MB.YouHaveNoFeats": "You have no Feats",
-  "MB.YouHaveNoScrolls": "You have no Scrolls"
+  "MB.YouHaveNoScrolls": "You have no Scrolls",
+  "MB.SettingsBrokenButton": "Use Broken Button",
+  "MB.SettingsBrokenButtonHint": "If disabled, lets Players roll on Drop Check and Death Check (Frontier Scum) instead of the Broken Table.",
+  "MB.HPZeroTitle": "HP Reduced to Zero",
+  "MB.HPZeroMessage": "Your hit points have reached zero! Choose your fate:"
 }

@@ -12,6 +12,7 @@ const Settings = {
   systemMigrationVersion: "systemMigrationVersion",
   trackAmmo: "trackAmmo",
   trackCarryingCapacity: "trackCarryingCapacity",
+  brokenButton: "brokenButton",  // Add this line
 };
 
 export function registerSystemSettings() {
@@ -163,6 +164,16 @@ export function registerSystemSettings() {
     config: false,
   });
 
+  /** Whether to show the Broken button instead of Death/Drop Check buttons */
+  game.settings.register(CONFIG.MB.systemName, Settings.brokenButton, {
+    name: "MB.SettingsBrokenButton",
+    hint: "MB.SettingsBrokenButtonHint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
+
   /** The client scvmfactory selected classes  */
   game.settings.register(
     CONFIG.MB.systemName,
@@ -233,4 +244,8 @@ export function deleteZeroQuantity() {
 
 export function miseryTrackerAnimations() {
   return getSetting(Settings.miseryTrackerAnimations);
+};
+
+export function useBrokenButton() {
+  return getSetting(Settings.brokenButton);
 };
