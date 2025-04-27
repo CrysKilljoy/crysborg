@@ -1,15 +1,15 @@
 {
   "id": "crysborg",
   "title": "CrysBorg",
-  "description": "A compilation of Borg-related systems for Foundry VTT",
+  "description": "An unofficial compilation of Mörk Borg-related systems for Foundry VTT",
   "version": "1.0.0",
   "compatibility": {
     "minimum": "11",
-    "verified": "11"
+    "verified": "12"
   },
   "authors": [
     {
-      "name": "Crys Killjoy"
+      "name": "CrysKilljoy"
     }
   ],
   "styles": [
