@@ -1,10 +1,16 @@
 import { rollDeathCheck, rollDropCheck, rollBroken } from "../broken.js";
 import { useBrokenButton } from "../../settings.js";
 
+function getRandomHPZeroMessage() {
+  const totalMessages = 10;
+  const messageIndex = Math.floor(Math.random() * totalMessages) + 1;
+  return game.i18n.localize(`MB.HPZeroMessage${messageIndex}`);
+}
+
 export default class HPZeroDialog extends Dialog {
   static async create(actor) {
     const useBroken = useBrokenButton();
-    const content = `<p>${game.i18n.localize("MB.HPZeroMessage")}</p>`;
+    const content = `<p>${getRandomHPZeroMessage()}</p>`;
     
     const buttons = useBroken ? {
       broken: {

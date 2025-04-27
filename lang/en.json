@@ -285,5 +285,19 @@
   "MB.SettingsBrokenButton": "Use Broken Button",
   "MB.SettingsBrokenButtonHint": "If disabled, lets Players roll on Drop Check and Death Check (Frontier Scum) instead of the Broken Table.",
   "MB.HPZeroTitle": "HP Reduced to Zero",
-  "MB.HPZeroMessage": "Your hit points have reached zero! Choose your fate:"
+  "MB.HPZeroMessage1": "The blow has fallen and the marrow quakes; measure the ruin within your bones.",
+  "MB.HPZeroMessage2": "Struck low by fate’s rotting hand, you must now reckon: was the hurt enough to end you?",
+  "MB.HPZeroMessage3": "The dust of your body stirs in the black wind; do you crumble fully, or merely sag and suffer.",
+  "MB.HPZeroMessage4": "The weight of your sin pulls you down — but the earth has yet to claim you fully.",
+  "MB.HPZeroMessage5": "You stagger beneath the blow; whether you fall to dust or limp on as a husk, only the fates now know.",
+  "MB.HPZeroMessage6": "The breath rattles, the flesh splits; is this the hour of your breaking, or just another wound to carry?",
+  "MB.HPZeroMessage7": "The gods avert their eyes; in their silence, weigh your ruin.",
+  "MB.HPZeroMessage8": "Cracked ribs sing hymns to death, but the final verse may not yet be sung.",
+  "MB.HPZeroMessage9": "The end gnaws at your edges, but the heart may yet throb with miserable life.",
+  "MB.HPZeroMessage10": "The wound gapes like a second mouth, and it hungers: for breath, for death, for surrender.",
+  "MB.HPZeroMessage11": "The hourglass breaks; some grains fall swift, others cling stubborn to the dying light.",
+  "MB.HPZeroMessage12": "The last breath is a whisper, but the body may yet refuse to yield.",
+  "MB.HPZeroMessage13": "Your frame shudders on the brink; does the abyss devour you whole, or merely bite deep?",
+  "MB.HPZeroMessage14": "The hand of violence lays you low; the hand of chance will tell if you rise again, or rot where you fall.",
+  "MB.HPZeroMessage15": "Your life hangs like a torn banner in a graveyard gale; is this the fall, or only another tattering?"
 }

@@ -9,8 +9,8 @@ export class MBActor extends Actor {
   async _preUpdate(changed, options, user) {
     await super._preUpdate(changed, options, user);
     
-    // Check if HP is being set to 0
-    if (changed.system?.hp?.value === 0) {
+    // Check if HP is being set to 0 or below
+    if (changed.system?.hp?.value <= 0) {
       await HPZeroDialog.create(this);
     }
   }
