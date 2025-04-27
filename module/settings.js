@@ -12,7 +12,8 @@ const Settings = {
   systemMigrationVersion: "systemMigrationVersion",
   trackAmmo: "trackAmmo",
   trackCarryingCapacity: "trackCarryingCapacity",
-  brokenButton: "brokenButton",  // Add this line
+  brokenButton: "brokenButton",
+  hpCalculationMethod: "hpCalculationMethod"  // Add new setting
 };
 
 export function registerSystemSettings() {
@@ -186,6 +187,20 @@ export function registerSystemSettings() {
       config: false,
     }
   );
+
+  /** Whether to use raw toughness for HP calculation instead of toughness modifier */
+  game.settings.register(CONFIG.MB.systemName, Settings.hpCalculationMethod, {
+    name: "MB.SettingsHPCalculation",
+    hint: "MB.SettingsHPCalculationHint",
+    scope: "world",
+    config: true,
+    type: String,
+    choices: {
+      "modifier": "MB.HPCalcModifier",
+      "raw": "MB.HPCalcRaw"
+    },
+    default: "modifier"
+  });
 };
 
 function getSetting(setting) {
@@ -248,4 +263,8 @@ export function miseryTrackerAnimations() {
 
 export function useBrokenButton() {
   return getSetting(Settings.brokenButton);
-};
+}
+
+export function getHPCalculationMethod() {
+  return getSetting(Settings.hpCalculationMethod);
+}

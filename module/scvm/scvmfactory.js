@@ -10,7 +10,7 @@ import {
   drawFromTableUuid,
   drawTextFromTableUuid,
 } from "../packutils.js";
-import { getAllowedScvmClasses } from "../settings.js";
+import { getAllowedScvmClasses, getHPCalculationMethod } from "../settings.js";
 
 export async function createScvm(clazz) {
   try {
@@ -376,7 +376,6 @@ async function rollScvmForClass(clazz) {
   
   const silver = await rollTotal(clazz.system.startingSilver);
   const omens = await rollTotal(clazz.system.omenDie);
-  const baseHp = await rollTotal(clazz.system.startingHitPoints);
   const basePowerUses = await rollTotal("1d4");
 
   let abilityRollFormulas;
@@ -395,7 +394,13 @@ async function rollScvmForClass(clazz) {
   const agility = await abilityRoll(abilityRollFormulas[1]);
   const presence = await abilityRoll(abilityRollFormulas[2]);
   const toughness = await abilityRoll(abilityRollFormulas[3]);
-  const hitPoints = Math.max(1, baseHp + toughness);
+  const toughnessRaw = await rollTotal(abilityRollFormulas[3]); // Get raw toughness roll
+
+  // Calculate HP based on setting
+  const hpMethod = getHPCalculationMethod();
+  const baseHp = await rollTotal(clazz.system.startingHitPoints);
+  const hitPoints = Math.max(1, baseHp + (hpMethod === "raw" ? toughnessRaw : toughness));
+
   const powerUses = Math.max(0, basePowerUses + presence);
   const allDocs = [clazz];
 
