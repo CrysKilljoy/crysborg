@@ -23,8 +23,8 @@
       "path": "lang/en.json"
     }
   ],
-  "url": "",
-  "manifest": "",
+  "url": "https://github.com/CrysKilljoy/crysborg",
+  "manifest": "https://raw.githubusercontent.com/CrysKilljoy/crysborg/refs/heads/main/system.json",
   "download": "",
   "license": "LICENSE.txt",
   "icon": "icons/logo/ewn4oc2.png"
