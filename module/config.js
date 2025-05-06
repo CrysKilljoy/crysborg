@@ -401,7 +401,7 @@ MB.scvmFactory = {
     "Compendium.crysborg.crys-borg-items.Item.j4jZAUI4wbkitPDp", 
     // Svampätare
     "Compendium.crysborg.crys-borg-items.Item.g8JnRKWDxp92Bbs1", 
-    // "The" Bellfounder
+    // The Bellfounder
     "Compendium.crysborg.crys-borg-items.Item.JNvP1NLKQ577RBQw",
     // Nachtreuter
     "Compendium.crysborg.crys-borg-items.Item.HfOQu1caHVJWptf5",

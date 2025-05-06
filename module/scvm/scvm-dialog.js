@@ -8,24 +8,45 @@ import { sample } from "../utils.js";
 export async function showScvmDialog(actor) {
   const lastScvmfactorySelection = getLastScvmfactorySelection();
   const allowedClasses = await findAllowedClasses();
-  const classData = allowedClasses
-    .map((c) => {
-      console.log(`Class Data: ${c.name}, UUID: ${c.uuid}, System Source: ${c.systemSource}, Weapon Table: ${c.weaponTable}`); // Debug statement
-      return {
-        name: c.name,
-        uuid: c.uuid,
-        systemSource: c.systemSource, // Include systemSource
-        checked:
-          lastScvmfactorySelection.length > 0
-            ? lastScvmfactorySelection.includes(c.uuid)
-            : true,
-      };
-    })
-    .sort((a, b) => (a.name > b.name ? 1 : -1));
-  console.log(classData); // Log the classData array to verify the structure
+  
+  // Group classes by source and sort alphabetically within each group
+  const groupedClasses = allowedClasses.reduce((acc, c) => {
+    const source = c.systemSource || "Unknown";
+    if (!acc[source]) {
+      acc[source] = [];
+    }
+    acc[source].push({
+      name: c.name,
+      uuid: c.uuid,
+      title: game.i18n.localize(`MB.${c.name.replace(/\s+/g, '')}Descr`),
+      checked: lastScvmfactorySelection.length > 0
+        ? lastScvmfactorySelection.includes(c.uuid)
+        : true
+    });
+    return acc;
+  }, {});
+
+  // Sort classes alphabetically within each source
+  Object.values(groupedClasses).forEach(classes => {
+    classes.sort((a, b) => a.name.localeCompare(b.name));
+  });
+
+  // Custom sort order for sources
+  const customOrder = ["Mörk Borg", "Mörk Borg: Cult", "Mörk Borg: Addon"];
+  const sortedSources = Object.entries(groupedClasses).sort((a, b) => {
+    const aIndex = customOrder.indexOf(a[0]);
+    const bIndex = customOrder.indexOf(b[0]);
+    if (aIndex === -1 && bIndex === -1) {
+      return a[0].localeCompare(b[0]);
+    }
+    if (aIndex === -1) return 1;
+    if (bIndex === -1) return -1;
+    return aIndex - bIndex;
+  });
+
   const dialog = new ScvmDialog();
   dialog.actor = actor;
-  dialog.classes = classData;
+  dialog.sortedSources = sortedSources;
   dialog.render(true);
 }
 
@@ -37,15 +58,16 @@ export default class ScvmDialog extends Application {
     options.classes = ["crysborg"];
     options.title = game.i18n.localize("MB.TheScvmfactory");
     options.template = "systems/crysborg/templates/dialog/scvm-dialog.hbs";
-    options.width = 420;
-    options.height = "auto";
+    options.width = 800;
+    options.height = 600;
+    options.resizable = true;
     return options;
   }
 
   /** @override */
   getData(options = {}) {
     return foundry.utils.mergeObject(super.getData(options), {
-      classes: this.classes,
+      sortedSources: this.sortedSources,
       forActor: this.actor !== undefined && this.actor !== null,
     });
   }
@@ -57,6 +79,15 @@ export default class ScvmDialog extends Application {
     html.find(".toggle-none").click(this._onToggleNone.bind(this));
     html.find(".cancel-button").click(this._onCancel.bind(this));
     html.find(".scvm-button").click(this._onScvm.bind(this));
+
+    // Remove any data-tooltip attributes and ensure title attributes
+    html.find('.class-name').each((i, el) => {
+      const $el = $(el);
+      if ($el.data('tooltip')) {
+        $el.attr('title', $el.data('tooltip'));
+        $el.removeAttr('data-tooltip');
+      }
+    });
   }
 
   _onToggleAll(event) {

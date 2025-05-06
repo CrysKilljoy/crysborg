@@ -22,14 +22,20 @@
   --window-border-color: #222222;
   --logo-image: url('/systems/crysborg/icons/logos/ewn4oc2.png');
   --pause-image: url('/systems/crysborg/icons/logos/blue.png');
+  --highlight-background-color-rgb: 48, 88, 140;
+  --foreground-color-rgb: 255, 255, 255;
 }
 :root[data-scheme="CrysBorgSignature"] {
   --logo-image: url('/systems/crysborg/icons/logos/ewn4oc2.png');
   --pause-image: url('/systems/crysborg/icons/logos/blue.png');
+  --highlight-background-color-rgb: 48, 88, 140;
+  --foreground-color-rgb: 255, 255, 255;
 }
 :root[data-scheme="CrysBorgSignatureAlt"] {
   --logo-image: url('/systems/crysborg/icons/logos/blue.png');
   --pause-image: url('/systems/crysborg/icons/logos/ewn4oc2.png');
+  --highlight-background-color-rgb: 48, 88, 140;
+  --foreground-color-rgb: 255, 255, 255;
 }
 :root[data-scheme="whiteOnBlackYellow"],
 :root[data-scheme="blackOnYellowWhite"],
@@ -38,6 +44,8 @@
 :root[data-scheme="whiteOnPinkWhite"] {
   --logo-image: url('/systems/crysborg/icons/logos/mb-content.png');
   --pause-image: url('/systems/crysborg/icons/logos/mb-pause.webp');
+  --highlight-background-color-rgb: 255, 233, 0;
+  --foreground-color-rgb: 255, 255, 255;
 }
 :root[data-scheme="foundryDefault"] {
   --logo-image: url('/icons/fvtt.png');
@@ -298,7 +306,7 @@
 }
 .crysborg.sheet.actor a:hover,
 .crysborg.sheet.item a:hover {
-  text-shadow: 0 0 8px var(--highlight-background-color);
+  text-shadow: 0 0 8px var (--highlight-background-color);
 }
 .crysborg.sheet.actor textarea,
 .crysborg.sheet.item textarea {
@@ -926,7 +934,7 @@
   font-size: 12pt;
 }
 .crysborg .item-list .item-fields {
-  font-family: var(--item-font);
+  font-family: var (--item-font);
   font-size: 12pt;
   display: flex;
   flex-direction: row;
@@ -1012,7 +1020,7 @@
   padding-left: 12px;
   width: 100%;
 }
-.crysborg.sheet.actor.container .sheet-header input[type=text].container-name {
+.crysborg.sheet.actor.container input[type=text].container-name {
   height: 45px;
 }
 .crysborg.sheet.actor.container .sheet-header .holding-row {
@@ -1760,7 +1768,7 @@ form.editable .results .result-details input[type=text]:hover, form.editable .re
   background-color: var(--background-color);
 }
 .journal-sheet form select:hover, .journal-sheet form select:focus {
-  box-shadow: 0 0 10px var(--highlight-background-color);
+  box-shadow: 0 0 10px var (--highlight-background-color);
 }
 .journal-sheet form .form-group.title input[type=text], .journal-sheet form .form-group.picker input[type=text].image {
   background-color: rgba(0, 0, 0, 0.05);
@@ -1791,15 +1799,15 @@ form.editable .results .result-details input[type=text]:hover, form.editable .re
   text-shadow: 0 0 5px var(--highlight-background-color);
 }
 #chat-controls .roll-type-select {
-  color: var(--foreground-color);
+  color: var (--foreground-color);
   background: var(--background-color);
 }
 #chat-controls select:focus {
-  box-shadow: 0 0 10px var(--highlight-background-color);
+  box-shadow: 0 0 10px var (--highlight-background-color);
 }
 
 #chat-log {
-  background: var(--sidebar-background);
+  background: var (--sidebar-background);
 }
 #chat-log .chat-message {
   background: var(--window-background);
@@ -1813,10 +1821,10 @@ form.editable .results .result-details input[type=text]:hover, form.editable .re
 #chat-log .message h4,
 #chat-log .message h3,
 #chat-log .message h2 {
-  color: var(--foreground-color);
+  color: var (--foreground-color);
 }
 #chat-log .message-metadata {
-  color: var(--foreground-color);
+  color: var (--foreground-color);
 }
 #chat-log .message h2 {
   background: var(--highlight-background-color);
@@ -1911,9 +1919,9 @@ form.editable .results .result-details input[type=text]:hover, form.editable .re
   box-shadow: 0 0 10px var(--highlight-background-color);
 }
 #controls .scene-control.active {
-  color: var(--foreground-color);
-  border: 1px solid var(--highlight-background-color);
-  box-shadow: 0 0 10px var(--highlight-background-color);
+  color: var (--foreground-color);
+  border: 1px solid var (--highlight-background-color);
+  box-shadow: 0 0 10px var (--highlight-background-color);
 }
 
 .dialog .dialog-buttons button {
@@ -1985,7 +1993,7 @@ select:focus {
 
 #sidebar-tabs {
   background: var(--sidebar-background);
-  color: var(--sidebar-foreground-color);
+  color: var (--sidebar-foreground-color);
   border-bottom: 1px solid var(--highlight-background-color);
   box-shadow: 0 0 10px var(--highlight-background-color);
 }
@@ -2005,7 +2013,7 @@ select:focus {
   font-family: var(--button-font);
 }
 .sidebar-tab .directory-header .header-search input {
-  background: var(--sidebar-button-background-color);
+  background: var (--sidebar-button-background-color);
   border: 1px solid #252525;
   border-radius: 0;
   font-family: var(--h2-font);
@@ -2222,7 +2230,7 @@ h3 {
   font-size: 20px;
 }
 .roll-card .outcome-row {
-  font-family: var(--h3-font);
+  font-family: var (--h3-font);
   font-size: 28px;
   margin-bottom: 10px;
   text-align: center;
@@ -2332,9 +2340,10 @@ h3 {
   text-align: center;
 }
 .custom-dialog.scvm-dialog .class-list {
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+  column-gap: 2em;
 }
 .custom-dialog.scvm-dialog .new-class-list {
   columns: 2;
@@ -2431,6 +2440,138 @@ button.dice-calculator--button {
   position: absolute !important;
   top: calc(50% - 128px) !important;
   left: calc(50% - 128px) !important;
+}
+
+/* SCVM Dialog Styles */
+.scvm-dialog form {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.scvm-dialog .source-section {
+  margin-bottom: 1em;
+  padding: 0.75em;
+  border: 1px solid var(--foreground-color);
+  background: var(--background-color);
+}
+
+.scvm-dialog .source-header {
+  margin-bottom: 0.5em;
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid var(--highlight-background-color);
+}
+
+.scvm-dialog .source-header h3 {
+  margin: 0;
+  color: var(--foreground-color);
+  font-family: var(--h2-font);
+  font-size: 1.2em;
+}
+
+.scvm-dialog .class-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.3em;
+}
+
+.scvm-dialog .class-list li {
+  margin: 0;
+  padding: 0.2em 0.4em;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.scvm-dialog .class-list li:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--highlight-background-color);
+  border-radius: 3px;
+}
+
+.scvm-dialog .class-list label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.scvm-dialog .class-checkbox {
+  appearance: checkbox;
+  -webkit-appearance: checkbox;
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.scvm-dialog .class-name {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.scvm-dialog .toggle-row {
+  margin-top: 0.5em;
+  text-align: right;
+}
+
+.scvm-dialog .toggle-row a {
+  color: var(--foreground-color);
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.scvm-dialog .toggle-row a:hover {
+  color: var(--highlight-foreground-color);
+  text-shadow: 0 0 8px var(--highlight-background-color);
+  opacity: 1;
+}
+
+.scvm-dialog .button-row {
+  margin-top: 1em;
+  display: flex;
+  gap: 0.8em;
+  justify-content: center;
+  padding: 0.5em 0;
+}
+
+.scvm-dialog .button {
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+  border: none;
+  padding: 0.4em 1em;
+  min-width: 120px;
+  cursor: pointer;
+  font-family: var(--font-primary);
+}
+
+.scvm-dialog .button:hover {
+  background: var(--foreground-alt-color);
+}
+
+.scvm-dialog .warning {
+  margin-top: 0.75em;
+  padding: 0.4em;
+  color: var(--foreground-alt-color);
+  border: 1px dashed var(--foreground-alt-color);
+  font-size: 0.9em;
+}
+
+/* When using the dark color scheme */
+[data-scheme="CrysBorgSignature"] .scvm-dialog .source-section,
+[data-scheme="CrysBorgSignatureAlt"] .scvm-dialog .source-section {
+  border-color: var(--highlight-background-color);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 /*# sourceMappingURL=crysborg.css.map */
