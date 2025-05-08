@@ -196,6 +196,7 @@ export class MBCharacterSheet extends MBActorSheet {
       .find(".omens-row span.rollable")
       .on("click", this._onOmensRoll.bind(this));
     html.find(".get-better-button").on("click", this._onGetBetter.bind(this));
+    html.find(".rest-button").on("click", this._onRest.bind(this));
     // powers tab
     html.find(".feat-button").on("click", this._onFeatRoll.bind(this));
     html
@@ -251,10 +252,7 @@ export class MBCharacterSheet extends MBActorSheet {
 
   _onRest(event) {
     event.preventDefault();
-    const restDialog = new RestDialog();
-    // TODO: maybe move this into a constructor,
-    // if we can resolve the mergeObject() Maximum call stack size exceeded error
-    restDialog.actor = this.actor;
+    const restDialog = new RestDialog(this.actor);
     restDialog.render(true);
   }
 

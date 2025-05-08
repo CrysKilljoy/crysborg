@@ -1,6 +1,11 @@
 import { rest } from "../rest.js";
 
 export default class RestDialog extends Application {
+  constructor(actor, options = {}) {
+    super(options);
+    this.actor = actor;
+  }
+  
   /** @override */
   static get defaultOptions() {
     const options = super.defaultOptions;
@@ -28,7 +33,6 @@ export default class RestDialog extends Application {
       .val();
     const infected = $(form).find("input[name=infected]").is(":checked");
     this.close();
-    // TODO: await this?
     rest(this.actor, restLength, foodAndDrink, infected);
   }
 }

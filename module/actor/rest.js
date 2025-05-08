@@ -13,7 +13,7 @@ export async function rest(actor, restLength, foodAndDrink, infected) {
     if (foodAndDrink === "eat" && !infected) {
       await rollHealHitPoints(actor, "d4");
     } else {
-      await showRestNoEffect();
+      await showRestNoEffect(actor);
     }
   } else if (restLength === "long") {
     let canRestore = true;
