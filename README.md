@@ -3,12 +3,13 @@ Based on the [FoundryVTT Mörk Borg system ](https://github.com/fvtt-fria-ligan/
 Fixed and enhanced by me
 
 Integrated Systems:
-- [Mörk Borg](https://morkborg.com/)
-- [Mörk Borg Cult and Third Party Content](https://github.com/fvtt-fria-ligan/morkborg-foundry-3p)
-- [Goblin Gonzo](https://blaek.games/shop/)
-- [Gruss vom Krampus](https://www.drivethrurpg.com/de/product/498274/gruss-vom-krampus-a-holiday-horror-ttrpg)
+- [Mörk Borg](https://morkborg.com/) 100%
+- [Mörk Borg Cult and Third Party Content](https://github.com/fvtt-fria-ligan/morkborg-foundry-3p) 100%
+- [Goblin Gonzo](https://blaek.games/shop/) (missing adventure content)
+- [Gruss vom Krampus](https://www.drivethrurpg.com/de/product/498274/gruss-vom-krampus-a-holiday-horror-ttrpg) 
 
 Planned systems and addons:
+- [Troll Reapers](https://jdnator.itch.io/troll-reapers)
 - [Corp Borg](https://www.drivethrurpg.com/de/product/464620/corp-borg)
 - [Slav Borg](https://slavdom-studio.com/)
 - [Mörk Org](https://www.kickstarter.com/projects/beyondcataclysmgames/mork-org-wretched-office-space-in-a-hopeless-place)
