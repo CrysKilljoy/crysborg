@@ -2578,6 +2578,10 @@ option, optgroup {
   background: var(--background-color);
 }
 
+.tag-input-wrapper {
+  position: relative;
+}
+
 .tag-dropdown {
   display: none;
   position: absolute;
@@ -2608,7 +2612,4 @@ option, optgroup {
 .tag-dropdown .tag-option:hover {
   background: var(--highlight-background-color);
   color: var(--highlight-foreground-color);
-}
-.tag-input-wrapper {
-  position: relative;
 }
