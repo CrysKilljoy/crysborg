@@ -114,6 +114,8 @@
   "MB.ItemNotFound": "Item not found",
   "MB.ItemPrice": "Price",
   "MB.ItemScrollType": "Scroll Type",
+  "MB.Tags": "Tags",
+  "MB.TagsPlaceholder": "Enter comma-separated tags",
   "MB.ItemTypeAmmo": "Ammo",
   "MB.ItemTypeArmor": "Armor",
   "MB.ItemTypeArmorPlural": "Armor",

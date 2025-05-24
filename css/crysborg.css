@@ -2574,4 +2574,41 @@ button.dice-calculator--button {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-/*# sourceMappingURL=crysborg.css.map */
+option, optgroup {
+  background: var(--background-color);
+}
+
+.tag-dropdown {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  background: var(--background-color);
+  color: var(--foreground-color);
+  border: 1px solid var(--foreground-color);
+  border-radius: 0 0 4px 4px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-family: var(--item-font);
+  font-size: 14px;
+  margin-top: 2px;
+}
+.tag-dropdown .tag-option {
+  padding: 6px 12px;
+  cursor: pointer;
+  background: none;
+  color: inherit;
+  border-bottom: 1px solid var(--foreground-alt-color);
+  transition: background 0.15s, color 0.15s;
+}
+.tag-dropdown .tag-option:last-child {
+  border-bottom: none;
+}
+.tag-dropdown .tag-option:hover {
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+}
+.tag-input-wrapper {
+  position: relative;
+}

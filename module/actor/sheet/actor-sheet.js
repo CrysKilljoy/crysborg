@@ -60,9 +60,17 @@ export default class MBActorSheet extends ActorSheet {
   /** @override */
   async getData() {
     const superData = await super.getData();
+    
+    // Ensure flags data is available to the template
+    superData.flags = superData.data.flags || {};
+    superData.flags.crysborg = superData.flags.crysborg || {};
+    superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
+    
+    // Enrich HTML description
     superData.data.system.description = await TextEditor.enrichHTML(
       superData.data.system.description
     );
+    
     return superData;
   }
 

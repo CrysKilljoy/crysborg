@@ -66,6 +66,19 @@
           data-dtype="Number"
         />
       </div>
+
+      {{!-- Tags --}}
+      <div class="form-group">
+        <label>{{ localize "MB.Tags" }}:</label>
+        <div class="tag-input-wrapper">
+          <input
+            type="text"
+            name="flags.crysborg.tags"
+            value="{{flags.crysborg.tags}}"
+            placeholder="{{ localize 'MB.TagsPlaceholder' }}"
+          />
+        </div>
+      </div>
     </div>
 
     {{!-- Contents Tab --}}

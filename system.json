@@ -5,11 +5,11 @@
     "version": "1.0.0",
     "compatibility": {
         "minimum": "11.300",
-        "verified": "11.300"
+        "verified": "12.331"
     },
     "authors": [
         {
-            "name": "mcglintlock"
+            "name": "CrysKilljoy"
         }
     ],
     "esmodules": [
