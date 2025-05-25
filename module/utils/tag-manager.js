@@ -43,28 +43,40 @@ export class TagManager {
      */
     static initializeTagInput(html, inputSelector, availableTags) {
         const tagInput = html.find(inputSelector);
+        if (!tagInput.length) return;
+
         const tagWrapper = tagInput.parent();
         
-        if (!tagWrapper.find('.tag-dropdown').length) {
-            tagWrapper.append('<div class="tag-dropdown"></div>');
-        }
+        // Clean up any existing dropdown and event handlers
+        tagWrapper.find('.tag-dropdown').remove();
+        tagInput.off('.crysborgTags');
+        $(document).off('.crysborgTagDropdown');
+        
+        // Create new dropdown
+        tagWrapper.append('<div class="tag-dropdown"></div>');
         const tagDropdown = tagWrapper.find('.tag-dropdown');
 
+        // Track dropdown interaction state
+        let isInteractingWithDropdown = false;
+
         // Helper to update dropdown
-        const updateDropdown = (forceShowAll = false) => {
+        const updateDropdown = async (forceShowAll = false) => {
+            // Refresh available tags
+            const currentTags = await TagManager.getAllTags();
+            
             const value = tagInput.val();
             const tags = value.split(',').map(t => t.trim()).filter(Boolean);
             let filtered;
             if (forceShowAll) {
-                filtered = availableTags.filter(tag => !tags.includes(tag));
+                filtered = currentTags.filter(tag => !tags.includes(tag));
             } else {
                 const last = value.lastIndexOf(',');
                 const current = last >= 0 ? value.slice(last + 1).trim() : value.trim();
-                filtered = availableTags.filter(tag =>
+                filtered = currentTags.filter(tag =>
                     tag.toLowerCase().includes(current.toLowerCase()) && !tags.includes(tag)
                 );
             }
-            if (filtered.length > 0 && tagInput.is(':focus')) {
+            if (filtered.length > 0 && (tagInput.is(':focus') || isInteractingWithDropdown)) {
                 tagDropdown.html(filtered.map(tag => `<div class="tag-option" data-tag="${tag}">${tag}</div>`).join(''));
                 tagDropdown.show();
             } else {
@@ -72,18 +84,20 @@ export class TagManager {
             }
         };
 
-        // Always show all tags on focus
-        tagInput.on('focus', () => updateDropdown(true));
+        // Show all tags on focus
+        tagInput.on('focus.crysborgTags', () => updateDropdown(true));
+        
         // Filter tags on input
-        tagInput.on('input', () => updateDropdown(false));
+        tagInput.on('input.crysborgTags', () => updateDropdown(false));
 
-        // Add tag on click
+        // Handle dropdown option selection
         tagDropdown.on('mousedown', '.tag-option', function(e) {
             e.preventDefault();
             e.stopPropagation();
             const selected = $(this).data('tag');
             let value = tagInput.val();
             const last = value.lastIndexOf(',');
+            
             if (last >= 0) {
                 value = value.slice(0, last + 1) + ' ' + selected;
             } else {
@@ -96,11 +110,15 @@ export class TagManager {
             updateDropdown(true);
         });
 
-        // Hide dropdown only on blur and no dropdown interaction
-        tagInput.on('blur', () => {
-            // Give time for potential dropdown click to register
+        // Track dropdown interaction state
+        tagDropdown
+            .on('mouseenter', () => { isInteractingWithDropdown = true; })
+            .on('mouseleave', () => { isInteractingWithDropdown = false; });
+
+        // Handle input blur
+        tagInput.on('blur.crysborgTags', () => {
             setTimeout(() => {
-                if (!tagDropdown.is(':hover')) {
+                if (!isInteractingWithDropdown) {
                     tagDropdown.hide();
                 }
             }, 150);
