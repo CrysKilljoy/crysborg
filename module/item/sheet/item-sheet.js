@@ -48,6 +48,14 @@ export class MBItemSheet extends ItemSheet {
     // Get available tags
     this.availableTags = await TagManager.getAllTags();
 
+    // Enrich HTML description
+    if (itemData.system?.description) {
+      itemData.system.description = await TextEditor.enrichHTML(
+        itemData.system.description,
+        { async: true }
+      );
+    }
+
     return superData;
   }
 
