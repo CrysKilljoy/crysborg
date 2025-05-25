@@ -6,6 +6,8 @@ import {
 } from "../initiative.js";
 import { checkMorale } from "../morale.js";
 import { checkReaction } from "../reaction.js";
+import { trackAmmo, trackCarryingCapacity } from "../../settings.js";
+import { TagManager } from "../../utils/tag-manager.js";
 
 /**
  * @extends {ActorSheet}
@@ -22,77 +24,8 @@ export default class MBActorSheet extends ActorSheet {
     html.find(".item-create").click(this._onItemCreate.bind(this));
     html.find(".feat-create").on("click", this._onFeatCreate.bind(this));
 
-    // Add tags dropdown functionality
-    const tagInput = html.find('input[name="flags.crysborg.tags"]');
-    const tagWrapper = tagInput.parent();
-    if (!tagWrapper.find('.tag-dropdown').length) {
-      tagWrapper.append('<div class="tag-dropdown"></div>');
-    }
-    const tagDropdown = tagWrapper.find('.tag-dropdown');
-    const availableTags = this.availableTags || [];
-
-    // Helper to update dropdown
-    const updateDropdown = (forceShowAll = false) => {
-      const value = tagInput.val();
-      const tags = value.split(',').map(t => t.trim()).filter(Boolean);
-      let filtered;
-      if (forceShowAll) {
-        filtered = availableTags.filter(tag => !tags.includes(tag));
-      } else {
-        const last = value.lastIndexOf(',');
-        const current = last >= 0 ? value.slice(last + 1).trim() : value.trim();
-        filtered = availableTags.filter(tag =>
-          tag.toLowerCase().includes(current.toLowerCase()) && !tags.includes(tag)
-        );
-      }
-      if (filtered.length > 0 && tagInput.is(':focus')) {
-        tagDropdown.html(filtered.map(tag => `<div class="tag-option" data-tag="${tag}">${tag}</div>`).join(''));
-        tagDropdown.show();
-      } else {
-        tagDropdown.hide();
-      }
-    };
-
-    // Always show all tags on focus
-    tagInput.on('focus', () => updateDropdown(true));
-    // Filter tags on input
-    tagInput.on('input', () => updateDropdown(false));
-
-    // Add tag on click
-    tagDropdown.on('mousedown', '.tag-option', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const selected = $(this).data('tag');
-      let value = tagInput.val();
-      const last = value.lastIndexOf(',');
-      if (last >= 0) {
-        value = value.slice(0, last + 1) + ' ' + selected;
-      } else {
-        value = selected;
-      }
-      // Add trailing comma if not last
-      value = value.replace(/(,\s*)?$/, ', ');
-      tagInput.val(value);
-      tagInput.focus();
-      updateDropdown(true);
-    });
-
-    // Hide dropdown only on blur and no dropdown interaction
-    tagInput.on('blur', (e) => {
-      // Give time for potential dropdown click to register
-      setTimeout(() => {
-        if (!tagDropdown.is(':hover')) {
-          tagDropdown.hide();
-        }
-      }, 150);
-    });
-
-    // Hide dropdown on outside click
-    $(document).on('mousedown.crysborgTagDropdown', (e) => {
-      if (!$(e.target).closest('.tag-input-wrapper').length) {
-        tagDropdown.hide();
-      }
-    });
+    // Initialize tag input
+    TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
 
     // Update Inventory Item
     html.find(".item-edit").click((ev) => {
@@ -138,36 +71,8 @@ export default class MBActorSheet extends ActorSheet {
     superData.flags.crysborg = superData.flags.crysborg || {};
     superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
     
-    // Collect all unique tags from all actors and items
-    const allTags = new Set();
-    
-    // World items and actors
-    const allItems = game.items.contents;
-    const allActors = game.actors.contents;
-    [...allItems, ...allActors].forEach(doc => {
-      const docTags = doc.getFlag("crysborg", "tags");
-      if (docTags) {
-        docTags.split(",")
-          .map(tag => tag.trim())
-          .filter(tag => tag.length > 0)
-          .forEach(tag => allTags.add(tag));
-      }
-    });
-
-    // Compendium items and actors
-    for (const pack of game.packs.filter(p => p.documentName === "Item" || p.documentName === "Actor")) {
-      let index = await pack.getIndex({fields: ["flags.crysborg.tags"]});
-      for (const entry of index) {
-        const docTags = entry.flags?.crysborg?.tags;
-        if (docTags) {
-          docTags.split(",")
-            .map(tag => tag.trim())
-            .filter(tag => tag.length > 0)
-            .forEach(tag => allTags.add(tag));
-        }
-      }
-    }
-    this.availableTags = Array.from(allTags).sort();
+    // Get available tags
+    this.availableTags = await TagManager.getAllTags();
     
     // Enrich HTML description
     if (superData.data.system.description) {

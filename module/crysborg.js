@@ -20,10 +20,13 @@ import { registerMacros } from "./macros.js";
 import { registerSystemSettings } from "./settings.js";
 import { dumpUuids } from "./exporter.js";
 import { drawFromTable } from "./packutils.js";
+import { TagManager } from "./utils/tag-manager.js";
 
 Hooks.once("init", async function () {
   console.log("Initializing CRYS BORG system");
-  game.crysborg = {};
+  game.crysborg = {
+    TagManager, // Export TagManager for system-wide access
+  };
   CONFIG.MB = MB;
   registerSystemSettings();
   registerDocumentClasses();
@@ -36,52 +39,45 @@ Hooks.once("init", async function () {
   registerFonts();
 
   game.exporter = {
-    // exportSubfoldersToCompendium,
-    // locationPadRollTableIndexHtml
     dumpUuids,
     drawFromTable,
   };
 });
 
-
 function registerDocumentClasses() {
   CONFIG.Actor.documentClass = MBActor;
   CONFIG.Item.documentClass = MBItem;
-};
+}
 
 function registerSheets() {
+  // Register all actor sheets
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet(MB.systemName, MBCharacterSheet, {
-    types: [MB.actorTypes.character],
+  Actors.registerSheet("crysborg", MBCharacterSheet, {
+    types: ["character"],
     makeDefault: true,
-    label: "MB.SheetClassCharacter",
   });
-  Actors.registerSheet(MB.systemName, MBContainerSheet, {
-    types: [MB.actorTypes.container],
+  Actors.registerSheet("crysborg", MBContainerSheet, {
+    types: ["container"],
     makeDefault: true,
-    label: "MB.SheetClassContainer",
   });
-  Actors.registerSheet(MB.systemName, MBCreatureSheet, {
-    types: [MB.actorTypes.creature],
+  Actors.registerSheet("crysborg", MBCreatureSheet, {
+    types: ["creature"],
     makeDefault: true,
-    label: "MB.SheetClassCreature",
   });
-  Actors.registerSheet(MB.systemName, MBFollowerSheet, {
-    types: [MB.actorTypes.follower],
+  Actors.registerSheet("crysborg", MBFollowerSheet, {
+    types: ["follower"],
     makeDefault: true,
-    label: "MB.SheetClassFollower",
   });
-  Actors.registerSheet(MB.systemName, MBMiseryTrackerSheet, {
-    types: [MB.actorTypes.miseryTracker],
+  Actors.registerSheet("crysborg", MBMiseryTrackerSheet, {
+    types: ["misery-tracker"],
     makeDefault: true,
-    label: "MB.SheetClassMiseryTracker",
   });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet(MB.systemName, MBItemSheet, { makeDefault: true });
 
-  Journal.registerSheet?.(MB.systemName, MBJournalSheet, {
-    types: ["base"],
-    makeDefault: true,
-    label: "MB.JournalSheet",
-  });
-};
+  // Register all item sheets
+  Items.unregisterSheet("core", ItemSheet);
+  Items.registerSheet("crysborg", MBItemSheet, { makeDefault: true });
+
+  // Register journal sheet
+  Journal.unregisterSheet("core", JournalSheet);
+  Journal.registerSheet("crysborg", MBJournalSheet, { makeDefault: true });
+}
