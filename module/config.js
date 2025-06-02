@@ -324,19 +324,11 @@ MB.scvmFactory = {
   weaponTableUuids: [
     //standard
     "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
-    //ggtribal
-    "Compendium.crysborg.crys-borg-tables.RollTable.xENPiMlkLkz6Au5q",
-    //ggfancy
-    "Compendium.crysborg.crys-borg-tables.RollTable.B5jFEpqp8xW13ooj",
-    //ggbrutal
-    "Compendium.crysborg.crys-borg-tables.RollTable.FTNU1dnaczi0grsZ",
-    //ggimprovised
-    "Compendium.crysborg.crys-borg-tables.RollTable.jqS87vdL1uUXXgY2",
     //gvkrampus
     "Compendium.crysborg.crys-borg-tables.RollTable.Id7wRuR68nhmvFGw"
   ],
   // modules wanting to add more character classes to the generator should append uuids to this list
-  standardclassUuids: [
+  classUuids: [
     // classless adventurer
     "Compendium.crysborg.crys-borg-items.p693pMIVYXMSRl8S",
     // cursed skinwalker
@@ -363,10 +355,6 @@ MB.scvmFactory = {
     "Compendium.crysborg.crys-borg-items.0h5xOAtzV4mm7X7D",
 	  // hermetic cynanthrope
 	  "Compendium.crysborg.crys-borg-items.Item.V88NoV3knYyVTJXe",
-	  // shonky skulker
-	  "Compendium.crysborg.crys-borg-items.Item.pVCSePXpTtGIuZPV",
-	  // half breed
-	  "Compendium.crysborg.crys-borg-items.Item.JeOKJjdOdBAYfNiS",
     // betrayed phantom
     "Compendium.crysborg.crys-borg-items.Item.tZo8QZBZrH9fBeNI",
     // Blighted Merman
@@ -403,26 +391,8 @@ MB.scvmFactory = {
     "Compendium.crysborg.crys-borg-items.Item.g8JnRKWDxp92Bbs1", 
     // The Bellfounder
     "Compendium.crysborg.crys-borg-items.Item.JNvP1NLKQ577RBQw",
-    // Nachtreuter
-    "Compendium.crysborg.crys-borg-items.Item.HfOQu1caHVJWptf5",
-    // Red Cap
-    "Compendium.crysborg.crys-borg-items.Item.mqKoeRYUe6PK85ZV",
     // Shedding Vicar
     "Compendium.crysborg.crys-borg-items.Item.jWYKvk5nC0pgwCWN",
-    // Cavernous Dweller
-    "Compendium.crysborg.crys-borg-items.Item.vfvhCaRvosnfml3p",
-    // Goblin Grifter
-    "Compendium.crysborg.crys-borg-items.Item.V7TpzPFv9vZf1glJ",
-    // Mutant Runagate
-    "Compendium.crysborg.crys-borg-items.Item.wTMFFBIFSOntJLF3",
-    // Ogre Humongobb
-    "Compendium.crysborg.crys-borg-items.Item.QAj1XGMRlH9IuHhB",
-    // Sump Goblin
-    "Compendium.crysborg.crys-borg-items.Item.V6ZsGYO64KeCVaff",
-    // The Kwark
-    "Compendium.crysborg.crys-borg-items.Item.3QqFyaBU9KAfR4kt",
-    // Tribal Goblin
-    "Compendium.crysborg.crys-borg-items.Item.ctjIl8jgM3TkzTP7",
     // Bone Slave
     "Compendium.crysborg.crys-borg-items.Item.j1Fe9LK0GZNRTFmw",
     // Godless Souldoctor

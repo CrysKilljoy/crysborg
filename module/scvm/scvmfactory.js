@@ -54,7 +54,7 @@ export async function createScvmFromClassUuid(classUuid) {
   const clazz = await fromUuid(classUuid);
   if (!clazz) {
     // couldn't find class item, so bail
-    const err = `No class item found with UUID ${standardclassUuid}`;
+    const err = `No class item found with UUID ${classUuid}`;
     console.error(err);
     ui.notifications.error(err);
     return;
@@ -98,11 +98,11 @@ export async function findClasses() {
   const classes = [];
   const weaponTables = await findWeaponTables();
   
-  if (!MB || !MB.scvmFactory || !MB.scvmFactory.standardclassUuids) {
-    throw new TypeError("Cannot read properties of undefined (reading 'standardclassUuids')");
+  if (!MB || !MB.scvmFactory || !MB.scvmFactory.classUuids) {
+    throw new TypeError("Cannot read properties of undefined (reading 'classUuids')");
   }
 
-  for (const uuid of MB.scvmFactory.standardclassUuids) {
+  for (const uuid of MB.scvmFactory.classUuids) {
     const clazz = await fromUuid(uuid);
     if (clazz && clazz.type == MB.itemTypes.class) {
       const systemSource = clazz.system.systemSource || "Unknown";
@@ -121,7 +121,6 @@ export async function findClasses() {
       console.log(`Class not found or incorrect type for UUID: ${uuid}`);
     }
   }
-
   return classes;
 };
 
