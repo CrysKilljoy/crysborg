@@ -4,7 +4,13 @@
     {{#each sortedSources as |sourceData sourceIndex|}}
     <div class="source-section" id="source-section-{{sourceIndex}}">
       <div class="source-header">
-        <h3>{{sourceData.[0]}}</h3>
+        <div class="source-title-row">
+          <h3>{{sourceData.[0]}}</h3>
+          <div class="source-toggle-row">
+            <a class="source-toggle-none" data-source-index="{{sourceIndex}}">{{localize "MB.ScvmfactoryToggleNone"}}</a>&nbsp; /
+            &nbsp;<a class="source-toggle-all" data-source-index="{{sourceIndex}}">{{localize "MB.ScvmfactoryToggleAll"}}</a>
+          </div>
+        </div>
       </div>
       <ul class="class-list">
         {{#each sourceData.[1]}}

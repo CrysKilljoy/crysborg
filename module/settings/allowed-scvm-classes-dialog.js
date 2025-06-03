@@ -16,17 +16,19 @@ export class AllowedScvmClassesDialog extends FormApplication {
       title: game.i18n.localize("MB.AllowedScvmClassesEdit"),
       template:
         "systems/crysborg/templates/dialog/allowed-scvm-classes-dialog.hbs",
-      classes: ["form", "crysborg"],
+      classes: ["crysborg"],
       popOut: true,
-      width: 420,
+      width: 800,
+      height: 600,
+      resizable: true,
     });
   }
 
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    html.find(".toggle-source").click((event) => this._onToggleSource(event, true));
-    html.find(".toggle-none").click((event) => this._onToggleSource(event, false));
+    html.find(".source-toggle-all").click((event) => this._onToggleSource(event, true));
+    html.find(".source-toggle-none").click((event) => this._onToggleSource(event, false));
     html.find(".toggle-all-global").click((event) => this._onToggleAllGlobal(event, true));
     html.find(".toggle-none-global").click((event) => this._onToggleAllGlobal(event, false));
     html.find(".cancel-button").click((event) => this._onCancel(event));

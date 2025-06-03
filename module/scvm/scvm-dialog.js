@@ -77,6 +77,8 @@ export default class ScvmDialog extends Application {
     super.activateListeners(html);
     html.find(".toggle-all").click(this._onToggleAll.bind(this));
     html.find(".toggle-none").click(this._onToggleNone.bind(this));
+    html.find(".source-toggle-all").click(this._onSourceToggleAll.bind(this));
+    html.find(".source-toggle-none").click(this._onSourceToggleNone.bind(this));
     html.find(".cancel-button").click(this._onCancel.bind(this));
     html.find(".scvm-button").click(this._onScvm.bind(this));
 
@@ -100,6 +102,18 @@ export default class ScvmDialog extends Application {
     event.preventDefault();
     const form = $(event.currentTarget).parents(".scvm-dialog")[0];
     $(form).find(".class-checkbox").prop("checked", false);
+  }
+
+  _onSourceToggleAll(event) {
+    event.preventDefault();
+    const sourceIndex = $(event.currentTarget).data("source-index");
+    $(`#source-section-${sourceIndex} .class-checkbox`).prop("checked", true);
+  }
+
+  _onSourceToggleNone(event) {
+    event.preventDefault();
+    const sourceIndex = $(event.currentTarget).data("source-index");
+    $(`#source-section-${sourceIndex} .class-checkbox`).prop("checked", false);
   }
 
   _onCancel(event) {

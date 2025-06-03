@@ -3,34 +3,36 @@
   class="custom-dialog allowed-scvm-classes-dialog"
 >
   <div class="section">
-    <div class="subtitle" style="text-align: center; font-size: 2em;">{{localize "MB.AllowedScvmClassesSelect"}}</div>
-    <ul style="column-count:2">
-      {{#each sortedSources as |sourceClasses index|}}
-        <div id="source-section-{{index}}">
-          <label>
-            <h3>{{sourceClasses.[0]}}</h3> <!-- source name -->
-          </label>
-          {{#each sourceClasses.[1] as |class|}} <!-- classes array -->
-            <li>
-              <label>
-                <input name="{{class.uuid}}" type="checkbox" class="class-checkbox"
-                {{#if class.checked }}checked{{/if}} />
-                <div class="class-name">{{class.name}}</div>
-              </label>
-            </li>
-          {{/each}}
-          <div>
-            <a class="toggle-none" data-source-index="{{index}}">{{localize "MB.ScvmfactoryToggleNone"}}</a>&nbsp; /
-            &nbsp;<a class="toggle-source" data-source-index="{{index}}">{{localize "MB.ScvmfactoryToggleAll"}}</a>
+    <div class="subtitle">{{localize "MB.AllowedScvmClassesSelect"}}</div>
+    {{#each sortedSources as |sourceClasses index|}}
+    <div class="source-section" id="source-section-{{index}}">
+      <div class="source-header">
+        <div class="source-title-row">
+          <h3>{{sourceClasses.[0]}}</h3>
+          <div class="source-toggle-row">
+            <a class="source-toggle-none" data-source-index="{{index}}">{{localize "MB.ScvmfactoryToggleNone"}}</a>&nbsp; /
+            &nbsp;<a class="source-toggle-all" data-source-index="{{index}}">{{localize "MB.ScvmfactoryToggleAll"}}</a>
           </div>
-          <p></p> <!-- Add a paragraph after each toggle section -->
         </div>
-      {{/each}}
-    </ul>
-    <div style="text-align: center; column-span: all;">
+      </div>
+      <ul class="class-list">
+        {{#each sourceClasses.[1] as |class|}}
+        <li>
+          <label>
+            <input name="{{class.uuid}}" type="checkbox" class="class-checkbox"
+            {{#if class.checked }}checked{{/if}} />
+            <span class="class-name">{{class.name}}</span>
+          </label>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/each}}
+    <div class="toggle-row">
       <a class="toggle-none-global">{{localize "MB.ScvmfactoryToggleNone"}}</a>&nbsp; /
       &nbsp;<a class="toggle-all-global">{{localize "MB.ScvmfactoryToggleAll"}}</a>
     </div>
+  </div>
   <div class="button-row">
     <button type="submit" class="button cancel-button" name="cancel" value="1">
       {{localize "MB.Cancel"}}
