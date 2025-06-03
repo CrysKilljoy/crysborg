@@ -204,7 +204,7 @@ async function startingEquipment(clazz) {
   return docs;
 };
 
-async function startingWeapons(clazz) {
+async function startingWeapons(clazz, rolledScroll) {
   const docs = [];
   const weaponTableUuid = clazz.system.weaponTable;
   
@@ -237,6 +237,19 @@ async function startingWeapons(clazz) {
     }
   } else {
     console.warn("No weapon table UUID found for class");
+  }
+  
+  // Always add the unarmed weapon to every character
+  try {
+    const unarmedWeapon = await fromUuid("Compendium.crysborg.crys-borg-items.Item.uzPl4ex2RemvBp8y");
+    if (unarmedWeapon) {
+      docs.push(unarmedWeapon);
+      console.log("Added unarmed weapon to character");
+    } else {
+      console.warn("Could not find unarmed weapon");
+    }
+  } catch (error) {
+    console.error(`Error adding unarmed weapon: ${error}`);
   }
   
   return docs;
@@ -501,6 +514,14 @@ async function createActorWithScvm(s) {
   const data = scvmToActorData(s);
   // use MBActor.create() so we get default disposition, actor link, vision, etc
   const actor = await MBActor.create(data);
+  
+  // Auto-equip weapons and armor
+  for (const item of actor.items) {
+    if (item.type === "weapon" || item.type === "armor" || item.type === "shield") {
+      await actor.equipItem(item);
+    }
+  }
+  
   actor.sheet.render(true);
 
   // create any npcs (containers, followers, creatures, etc)
@@ -520,6 +541,14 @@ async function updateActorWithScvm(actor, s) {
   // Dunno.
   await actor.deleteEmbeddedDocuments("Item", [], { deleteAll: true });
   await actor.update(data);
+  
+  // Auto-equip weapons and armor
+  for (const item of actor.items) {
+    if (item.type === "weapon" || item.type === "armor" || item.type === "shield") {
+      await actor.equipItem(item);
+    }
+  }
+  
   // update any actor tokens in the scene, too
   for (const token of actor.getActiveTokens()) {
     await token.document.update({
