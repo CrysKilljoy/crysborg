@@ -36,6 +36,12 @@
           {{/select}}
         </select>
       </div>
+
+      {{!-- Tier Note --}}
+      <div class="form-group">
+        <label>{{ localize "MB.ArmorTierNote" }}:</label>
+        <input name="system.tierNote" type="text" value="{{data.system.tierNote}}" data-dtype="String"/>
+      </div>
     </div>
   </section>
 </form>

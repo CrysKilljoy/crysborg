@@ -570,11 +570,21 @@
   border: none;
 }
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:disabled + span.tier-num {
-  color: #444444;
-  border: 1px solid #444444;
+  /* Remove generic grey for all disabled radios, handled below for inactive only */
+  color: inherit;
+  border: 1px solid #7a7971;
+  background: none;
 }
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:disabled ~ span.tier-dmg {
-  color: #444444;
+  color: inherit;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor input[type=radio]:disabled + span.tier-num {
+  color: #666666;
+  border: 1px solid #666666;
+  background-color: #f5f5f5;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor input[type=radio]:disabled ~ span.tier-dmg {
+  color: #666666;
 }
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers span.tier-num {
   border: 1px solid #7a7971;
@@ -602,6 +612,33 @@
   font-size: 10pt;
   left: -5px;
   top: 30px;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor {
+  opacity: 0.5;
+  pointer-events: auto;
+  cursor: help;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor input[type=radio]:disabled + span.tier-num {
+  color: #666666;
+  border: 1px solid #666666;
+  background-color: #f5f5f5;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor input[type=radio]:disabled ~ span.tier-dmg {
+  color: #666666;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor label {
+  cursor: not-allowed;
+}
+.crysborg.sheet.actor .sheet-body .violence-tab .armor-tier-note {
+  margin-top: 5px;
+  font-style: italic;
+  color: #555;
+  font-size: 12px;
+  text-align: center;
+  clear: both;
+  padding: 2px 4px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
 }
 .crysborg.sheet.actor .sheet-body .violence-tab .underarmor-row {
   margin-top: 0px;
@@ -1506,7 +1543,7 @@
   margin-bottom: 5px;
 }
 .crysborg.sheet.actor.misery-tracker .window-content form .button-block {
-  margin-bottom: 20px;
+  margin-bottom:  20px;
   text-align: center;
 }
 .crysborg.sheet.actor.misery-tracker .window-content form .button-block .misery-button {
@@ -2588,154 +2625,6 @@ button.dice-calculator--button {
   color: var(--foreground-alt-color);
   border: 1px dashed var(--foreground-alt-color);
   font-size: 0.9em;
-}
-
-/* Allowed SCVM Classes Dialog Styles - matching scvm-dialog appearance */
-.allowed-scvm-classes-dialog form {
-  height: 100%;
-  overflow-y: auto;
-  padding-right: 5px;
-}
-
-.allowed-scvm-classes-dialog .source-section {
-  margin-bottom: 1em;
-  padding: 0.75em;
-  border: 1px solid var(--foreground-color);
-  background: var(--background-color);
-}
-
-.allowed-scvm-classes-dialog .source-header {
-  margin-bottom: 0.5em;
-  padding-bottom: 0.25em;
-  border-bottom: 2px solid var(--highlight-background-color);
-}
-
-.allowed-scvm-classes-dialog .source-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.allowed-scvm-classes-dialog .source-header h3 {
-  margin: 0;
-  color: var(--foreground-color);
-  font-family: var(--h2-font);
-  font-size: 1.2em;
-}
-
-.allowed-scvm-classes-dialog .source-toggle-row {
-  font-size: 0.9em;
-}
-
-.allowed-scvm-classes-dialog .source-toggle-row a {
-  color: var(--foreground-color);
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.allowed-scvm-classes-dialog .source-toggle-row a:hover {
-  color: var(--highlight-foreground-color);
-  text-shadow: 0 0 6px var(--highlight-background-color);
-  opacity: 1;
-}
-
-.allowed-scvm-classes-dialog .class-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 0.3em;
-}
-
-.allowed-scvm-classes-dialog .class-list li {
-  margin: 0;
-  padding: 0.2em 0.4em;
-  border: 1px solid transparent;
-  transition: all 0.2s ease;
-}
-
-.allowed-scvm-classes-dialog .class-list li:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--highlight-background-color);
-  border-radius: 3px;
-}
-
-.allowed-scvm-classes-dialog .class-list label {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-}
-
-.allowed-scvm-classes-dialog .class-checkbox {
-  appearance: checkbox;
-  -webkit-appearance: checkbox;
-  flex: 0 0 auto;
-  width: 12px;
-  height: 12px;
-  padding: 0;
-  margin: 0;
-  vertical-align: middle;
-}
-
-.allowed-scvm-classes-dialog .class-name {
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  vertical-align: middle;
-  display: inline-block;
-  text-transform: capitalize;
-}
-
-.allowed-scvm-classes-dialog .toggle-row {
-  margin-top: 0.5em;
-  text-align: right;
-}
-
-.allowed-scvm-classes-dialog .toggle-row a {
-  color: var(--foreground-color);
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.allowed-scvm-classes-dialog .toggle-row a:hover {
-  color: var(--highlight-foreground-color);
-  text-shadow: 0 0 8px var(--highlight-background-color);
-  opacity: 1;
-}
-
-.allowed-scvm-classes-dialog .button-row {
-  margin-top: 1em;
-  display: flex;
-  gap: 0.8em;
-  justify-content: center;
-  padding: 0.5em 0;
-}
-
-.allowed-scvm-classes-dialog .button {
-  background: var(--highlight-background-color);
-  color: var(--highlight-foreground-color);
-  border: none;
-  padding: 0.4em 1em;
-  min-width: 120px;
-  cursor: pointer;
-  font-family: var(--font-primary);
-}
-
-.allowed-scvm-classes-dialog .button:hover {
-  background: var(--foreground-alt-color);
-}
-
-/* When using the dark color scheme */
-[data-scheme="CrysBorgSignature"] .allowed-scvm-classes-dialog .source-section,
-[data-scheme="CrysBorgSignatureAlt"] .allowed-scvm-classes-dialog .source-section {
-  border-color: var(--highlight-background-color);
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 /* When using the dark color scheme */

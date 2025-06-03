@@ -138,9 +138,24 @@ export class MBCharacterSheet extends MBActorSheet {
       .filter((item) => !item.system.hasContainer)
       .sort(byName);
 
-    sheetData.system.equippedArmor = sheetData.items
+    sheetData.system.equippedArmors = sheetData.items
       .filter((item) => item.type === CONFIG.MB.itemTypes.armor)
-      .find((item) => item.system.equipped);
+      .filter((item) => item.system.equipped)
+      .sort((a, b) => {
+        // Sort by tier value (highest damage reduction first)
+        const tierA = a.system.tier?.value || 0;
+        const tierB = b.system.tier?.value || 0;
+        if (tierB !== tierA) {
+          return tierB - tierA; // Higher tier first
+        }
+        // If tiers are equal, sort by name
+        return a.name.localeCompare(b.name);
+      });
+
+    // Keep equippedArmor for backward compatibility (first equipped armor)
+    sheetData.system.equippedArmor = sheetData.system.equippedArmors.length > 0 
+      ? sheetData.system.equippedArmors[0] 
+      : null;
 
     sheetData.system.equippedShield = sheetData.items
       .filter((item) => item.type === CONFIG.MB.itemTypes.shield)

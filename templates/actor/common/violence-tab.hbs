@@ -95,44 +95,56 @@
       <div class="item-controls flexrow"></div>
     </li>
     <ol class="item-list armor-list">
-      {{#if data.system.equippedArmor}}
-      <li class="item flexrow" data-item-id="{{data.system.equippedArmor._id}}">
+      {{#each data.system.equippedArmors as |armor armorIndex|}}
+      <li class="item flexrow" data-item-id="{{armor._id}}">
         <img
-          src="{{data.system.equippedArmor.img}}"
-          title="{{data.system.equippedArmor.name}}"
+          src="{{armor.img}}"
+          title="{{armor.name}}"
           width="24"
           height="24"
         />
         <h4 class="item-name item-edit rollable">
-          {{data.system.equippedArmor.name}}
+          {{armor.name}}
+          {{#if @first}}
+            <span class="active-armor-indicator">(Active)</span>
+          {{/if}}
         </h4>
         <div class="item-buttons">
           <div class="armor-tiers">
-            <div class="tiers">
-              <label class="stat-label tier-label"
-                >{{ localize "MB.Tier" }}:</label
-              >
-              <ul class="tiers">
-                {{#each config.armorTiers as |tierObj tierNum|}}
-                  <li>
-                    <label>
-                      <input class="tier-radio" type="radio" name="tier.value" value="{{tierNum}}" 
-                        {{#ifEq ../data.system.equippedArmor.system.tier.value tierNum}}checked{{/ifEq}}
-                        {{#ifLt ../data.system.equippedArmor.system.tier.max tierNum}}disabled="true"{{/ifLt}}
-                      />
-                      <span class="tier-num">{{tierNum}}</span>
-                      <span class="tier-dmg">-{{tierObj.damageReductionDie}}</span>
-                    </label>
-                  </li>
-                {{/each}}
-              </ul>
-            </div>
+            {{#if (and (eq armor.system.tier.value 0) armor.system.tierNote)}}
+              {{!-- Show only tier note when tier is 0 and note exists --}}
+              <div class="armor-tier-note">{{armor.system.tierNote}}</div>
+            {{else}}
+              {{!-- Show tier radios normally --}}
+              <div class="tiers">
+                <label class="stat-label tier-label"
+                  >{{ localize "MB.Tier" }}:</label
+                >
+                <ul class="tiers {{#unless @first}}inactive-armor{{/unless}}"{{#unless @first}} title="{{localize 'MB.InactiveArmor'}}"{{/unless}}>
+                  {{#each ../config.armorTiers as |tierObj tierNum|}}
+                    <li>
+                      <label>
+                        <input class="tier-radio" type="radio" name="tier-{{../armor._id}}" value="{{tierNum}}" 
+                          {{#ifEq armor.system.tier.value tierNum}}checked{{/ifEq}}
+                          {{#ifLt armor.system.tier.max tierNum}}disabled="true"{{/ifLt}}
+                          {{#unless @../first}}disabled="true"{{/unless}}/>
+                        <span class="tier-num">{{tierNum}}</span>
+                        <span class="tier-dmg">-{{tierObj.damageReductionDie}}</span>
+                      </label>
+                    </li>
+                  {{/each}}
+                </ul>
+              </div>
+              {{#if armor.system.tierNote}}
+                <div class="armor-tier-note">{{armor.system.tierNote}}</div>
+              {{/if}}
+            {{/if}}
           </div>
         </div>
         <div class="item-controls">
           <a
-            class="item-control item-toggle item-toggle-equipped {{ifPrint data.system.equippedArmor.system.equipped 'equipped'}}"
-            title="{{ifPrintElse data.system.equippedArmor.system.equipped (localize 'MB.ItemEquipped') (localize 'MB.ItemUnequipped')}}"
+            class="item-control item-toggle item-toggle-equipped {{ifPrint armor.system.equipped 'equipped'}}"
+            title="{{ifPrintElse armor.system.equipped (localize 'MB.ItemEquipped') (localize 'MB.ItemUnequipped')}}"
             ><i class="fas fa-shield-alt"></i
           ></a>
           <a class="item-control item-edit" title="Edit Item"
@@ -143,7 +155,8 @@
           ></a>
         </div>
       </li>
-      {{/if}} {{#if data.system.equippedShield}}
+      {{/each}}
+      {{#if data.system.equippedShield}}
       <li
         class="item flexrow"
         data-item-id="{{data.system.equippedShield._id}}"
@@ -177,7 +190,7 @@
         </div>
       </li>
       {{/if}} 
-      {{#unless data.system.equippedArmor}} 
+      {{#unless data.system.equippedArmors.length}} 
         {{#unless data.system.equippedShield}}
           <div class="rule-text you-have-no">{{localize 'MB.EquipArmorToAbsorb'}}</div>
         {{/unless}} 

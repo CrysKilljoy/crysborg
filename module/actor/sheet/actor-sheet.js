@@ -253,15 +253,22 @@ export default class MBActorSheet extends ActorSheet {
     const itemId = li.data("itemId");
     attack(this.actor, itemId);
   }
-
   /**
    * Handle a click on the armor current tier radio buttons.
    */
   _onArmorTierRadio(event) {
     event.preventDefault();
     const input = $(event.currentTarget);
-    const newTier = parseInt(input[0].value);
     const li = input.parents(".item");
+    const armorList = li.parent();
+    const armorIndex = armorList.children().index(li);
+    
+    // Only allow tier changes for the first (active) armor
+    if (armorIndex > 0) {
+      return;
+    }
+    
+    const newTier = parseInt(input[0].value);
     const item = this.actor.items.get(li.data("itemId"));
     return item.update({ ["system.tier.value"]: newTier });
   }

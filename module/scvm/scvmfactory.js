@@ -244,13 +244,18 @@ async function startingWeapons(clazz, rolledScroll) {
     const unarmedWeapon = await fromUuid("Compendium.crysborg.crys-borg-items.Item.uzPl4ex2RemvBp8y");
     if (unarmedWeapon) {
       docs.push(unarmedWeapon);
-      console.log("Added unarmed weapon to character");
-    } else {
-      console.warn("Could not find unarmed weapon");
     }
   } catch (error) {
-    console.error(`Error adding unarmed weapon: ${error}`);
+    console.error("Error fetching unarmed weapon:", error);
   }
+  try {
+    const improvisedWeapon = await fromUuid("Compendium.crysborg.crys-borg-items.Item.7xM0JIXPLqOhGwko");
+    if (improvisedWeapon) {
+      docs.push(improvisedWeapon);
+    }
+  } catch (error) {
+    console.error("Error fetching improvised weapon:", error);
+  };
   
   return docs;
 };

@@ -257,7 +257,6 @@ MB.scrollTypes = {
   tablet: "MB.ScrollTypeTablet",
   unclean: "MB.ScrollTypeUnclean",
   chaotic: "MB.ScrollTypeChaotic",
-  GoblinSong: "MB.ScrollTypeGoblinSong",
   GreenWrap: "MB.ScrollTypeGreenWrap",
   RedWrap: "MB.ScrollTypeRedWrap"
 };
@@ -278,29 +277,17 @@ MB.scvmFactory = {
   // Starting Equipment (1)
   startingEquipmentTable1Uuids: [
     //standard 1
-    "Compendium.crysborg.crys-borg-tables.RollTable.ByN7RI3Vc88ScBCj",
-    //Goblin Gonzo 1
-    "Compendium.crysborg.crys-borg-tables.RollTable.o1vuH9VzxynC8tkt",
-    //Gruss vom Krampus 1
-    "Compendium.crysborg.crys-borg-tables.RollTable.QDO2WqwOhuxitZLW"
+    "Compendium.crysborg.crys-borg-tables.RollTable.ByN7RI3Vc88ScBCj"
   ],
   // Starting Equipment (2)
   startingEquipmentTable2Uuids: [
     //standard 2
-    "Compendium.crysborg.crys-borg-tables.RollTable.o6wjXShp2CLQEr7X",
-    //Goblin Gonzo 2
-    "Compendium.crysborg.crys-borg-tables.RollTable.AG2h21KhlvQE24vc",
-    //Gruss vom Krampus 2
-    "Compendium.crysborg.crys-borg-tables.RollTable.VzFoIIatXUmhhlaY"
+    "Compendium.crysborg.crys-borg-tables.RollTable.o6wjXShp2CLQEr7X"
   ],
   // Starting Equipment (3)
   startingEquipmentTable3Uuids: [
     //standard 3
-    "Compendium.crysborg.crys-borg-tables.RollTable.rq8zq4VHY3px5hpF",
-    //Goblin Gonzo 3
-    "Compendium.crysborg.crys-borg-tables.RollTable.2xMFKDNCuYC74IcV",
-    //Gruss vom Krampus 3
-    "Compendium.crysborg.crys-borg-tables.RollTable.XSWBIQaKrptzyfPM"
+    "Compendium.crysborg.crys-borg-tables.RollTable.rq8zq4VHY3px5hpF"
   ],
   // Starting Weapon
   weaponDieIfRolledScroll: "1d6",
@@ -323,9 +310,7 @@ MB.scvmFactory = {
   // Weapon Tables
   weaponTableUuids: [
     //standard
-    "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A",
-    //gvkrampus
-    "Compendium.crysborg.crys-borg-tables.RollTable.Id7wRuR68nhmvFGw"
+    "Compendium.crysborg.crys-borg-tables.RollTable.qYznag89iDMdPH6A"
   ],
   // modules wanting to add more character classes to the generator should append uuids to this list
   classUuids: [
@@ -401,18 +386,6 @@ MB.scvmFactory = {
     "Compendium.crysborg.crys-borg-items.Item.ac1czxIr7jiLmK4s",
     // Tormented Toymaker
     "Compendium.crysborg.crys-borg-items.Item.IO8MTmjYrlboDsSY",
-    // Glitterborn Scum
-    "Compendium.crysborg.crys-borg-items.Item.7eIr13HeUugCCVYf",
-    // Esoteric Toymaker
-    "Compendium.crysborg.crys-borg-items.Item.blY6toykh3lHzAAf",
-    // Heretical Gnome
-    "Compendium.crysborg.crys-borg-items.Item.0d53dUKVsxDVD1xi",
-    // Occult Giftwrapper
-    "Compendium.crysborg.crys-borg-items.Item.hOQyHUe6VqzggkMW",
-    // Toothy Desserter
-    "Compendium.crysborg.crys-borg-items.Item.vTJnWbryKOWAVkrC",
-    // Wretched Slayer
-    "Compendium.crysborg.crys-borg-items.Item.Y0Ny7favM98NHVb6"
   ],
 };
 

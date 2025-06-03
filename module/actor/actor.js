@@ -162,21 +162,36 @@ export class MBActor extends Actor {
     }
     return undefined;
   }
-
   equippedArmor() {
-    return this._firstEquipped("armor");
+    // Find all equipped armor pieces and return the one with highest tier value
+    const equippedArmors = this.items.filter(item => 
+      item.type === "armor" && item.system.equipped
+    );
+    
+    if (equippedArmors.length === 0) {
+      return undefined;
+    }
+    
+    // Sort by tier value (highest first), then by name
+    equippedArmors.sort((a, b) => {
+      const tierA = a.system.tier?.value || 0;
+      const tierB = b.system.tier?.value || 0;
+      if (tierB !== tierA) {
+        return tierB - tierA; // Higher tier first
+      }
+      // If tiers are equal, sort by name
+      return a.name.localeCompare(b.name);
+    });
+    
+    return equippedArmors[0];
   }
 
   equippedShield() {
     return this._firstEquipped("shield");
   }
-
   async equipItem(item) {
-    if (
-      [CONFIG.MB.itemTypes.armor, CONFIG.MB.itemTypes.shield].includes(
-        item.type
-      )
-    ) {
+    // Only unequip other shields when equipping a shield (allow multiple armor pieces)
+    if (item.type === CONFIG.MB.itemTypes.shield) {
       for (const otherItem of this.items) {
         if (otherItem.type === item.type) {
           await otherItem.unequip();
