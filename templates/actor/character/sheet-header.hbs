@@ -115,7 +115,7 @@
   <div class="header-gutter-col"></div>
   <div class="header-col3">
     {{#each data.system.orderedAbilities}}
-    <div class="ability-row">
+    <div class="ability-row" title="{{this.label}} - {{localize (concat 'MB.Ability' this.label 'Tooltip')}}">
       <input
         class="ability-input"
         type="text"
