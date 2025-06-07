@@ -564,11 +564,13 @@
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio] {
   display: none;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:checked + span.tier-num {
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:checked + span.tier-num,
+.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers span.tier-num.current-tier {
   background: var(--highlight-background-color);
   color: var(--highlight-foreground-color);
   border: none;
 }
+
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:disabled + span.tier-num {
   /* Remove generic grey for all disabled radios, handled below for inactive only */
   color: inherit;
@@ -578,11 +580,7 @@
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers input[type=radio]:disabled ~ span.tier-dmg {
   color: inherit;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor input[type=radio]:disabled + span.tier-num {
-  color: #666666;
-  border: 1px solid #666666;
-  background-color: #f5f5f5;
-}
+
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor input[type=radio]:disabled ~ span.tier-dmg {
   color: #666666;
 }
@@ -618,28 +616,14 @@
   pointer-events: auto;
   cursor: help;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor input[type=radio]:disabled + span.tier-num {
-  color: #666666;
-  border: 1px solid #666666;
-  background-color: #f5f5f5;
-}
+
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor input[type=radio]:disabled ~ span.tier-dmg {
   color: #666666;
 }
 .crysborg.sheet.actor .sheet-body .violence-tab ul.tiers.inactive-armor label {
   cursor: not-allowed;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .armor-tier-note {
-  margin-top: 5px;
-  font-style: italic;
-  color: #555;
-  font-size: 12px;
-  text-align: center;
-  clear: both;
-  padding: 2px 4px;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 3px;
-}
+
 .crysborg.sheet.actor .sheet-body .violence-tab .underarmor-row {
   margin-top: 0px;
   text-align: center;
@@ -1294,10 +1278,6 @@
 .crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(47) {
   animation-delay: 0.0259257859s;
   left: calc((100% - 5em) * 0.92);
-}
-.crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(48) {
-  animation-delay: 0.8296118973s;
-  left: calc((100% - 5em) * 0.94);
 }
 .crysborg.sheet.actor.misery-tracker .window-content form.misery-animations .miseries .misery-block.activated .particle:nth-of-type(49) {
   animation-delay: 0.9622569393s;

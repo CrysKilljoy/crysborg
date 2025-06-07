@@ -105,9 +105,6 @@
         />
         <h4 class="item-name item-edit rollable">
           {{armor.name}}
-          {{#if @first}}
-            <span class="active-armor-indicator">(Active)</span>
-          {{/if}}
         </h4>
         <div class="item-buttons">
           <div class="armor-tiers">
@@ -120,15 +117,25 @@
                 <label class="stat-label tier-label"
                   >{{ localize "MB.Tier" }}:</label
                 >
-                <ul class="tiers {{#unless @first}}inactive-armor{{/unless}}"{{#unless @first}} title="{{localize 'MB.InactiveArmor'}}"{{/unless}}>
+                <ul class="tiers {{#if (or 
+                  (lt armor.system.tier.value ../data.system.highestArmorTier)
+                  (and (not @first) (eq armor.system.tier.value ../data.system.highestArmorTier))
+                )}}inactive-armor{{/if}}"
+                  {{#if (or 
+                    (lt armor.system.tier.value ../data.system.highestArmorTier)
+                    (and (not @first) (eq armor.system.tier.value ../data.system.highestArmorTier))
+                  )}} title="{{localize 'MB.InactiveArmor'}}"{{/if}}>
                   {{#each ../config.armorTiers as |tierObj tierNum|}}
                     <li>
                       <label>
                         <input class="tier-radio" type="radio" name="tier-{{../armor._id}}" value="{{tierNum}}" 
                           {{#ifEq armor.system.tier.value tierNum}}checked{{/ifEq}}
                           {{#ifLt armor.system.tier.max tierNum}}disabled="true"{{/ifLt}}
-                          {{#unless @../first}}disabled="true"{{/unless}}/>
-                        <span class="tier-num">{{tierNum}}</span>
+                          {{#if (and 
+                            (lt ../armor.system.tier.value ../../data.system.highestArmorTier)
+                            (gt tierNum ../armor.system.tier.value)
+                          )}}disabled="true"{{/if}}/>
+                        <span class="tier-num {{#ifEq armor.system.tier.value tierNum}}current-tier{{/ifEq}}">{{tierNum}}</span>
                         <span class="tier-dmg">-{{tierObj.damageReductionDie}}</span>
                       </label>
                     </li>

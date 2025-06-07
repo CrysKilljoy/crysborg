@@ -67,7 +67,7 @@
   "MB.EditAllowedScvmClassesMenuButtonLabel": "Edit",  "MB.Encumbered": "Encumbered",
   "MB.EquipArmorToAbsorb": "Equip armor to absorb damage.",
   "MB.EquipAWeaponToAttack": "Equip a weapon to attack.",
-  "MB.InactiveArmor": "Equipped, but if your finest fails, this offers only false hope and a slower ruin.",
+  "MB.InactiveArmor": "Equipped, but if even your finest fails, this offers only false hope.",
   "MB.Equipment": "Equipment",
   "MB.Failure": "Failure",
   "MB.Feats": "Feats",

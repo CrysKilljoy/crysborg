@@ -152,6 +152,11 @@ export class MBCharacterSheet extends MBActorSheet {
         return a.name.localeCompare(b.name);
       });
 
+    // Set the highest armor tier for template logic
+    sheetData.system.highestArmorTier = sheetData.system.equippedArmors.length > 0
+      ? sheetData.system.equippedArmors[0].system.tier.value
+      : 0;
+
     // Keep equippedArmor for backward compatibility (first equipped armor)
     sheetData.system.equippedArmor = sheetData.system.equippedArmors.length > 0 
       ? sheetData.system.equippedArmors[0] 
