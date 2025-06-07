@@ -74,36 +74,25 @@ export class MBCharacterSheet extends MBActorSheet {
       additionalAbilities = additionalAbilitiesCsv.split(",").map((key) => ({
         key: key.toLowerCase(),
         value: 0,
-        label: key.toLowerCase() === "kookies" ? "Kookies" : key.substring(0, 3)
+        label: key.substring(0, 3)
       }));
     }
 
-    // Check for Goblin Gonzo class and add Kookie
-    const isGoblinGonzo = this.actor.items.find(
-      i => i.type === "class" && i.system.systemSource === "Goblin Gonzo"
-    );
-    
-    if (isGoblinGonzo) {
-      console.log("Found Goblin Gonzo class");
-      // Match core ability pattern
-      const kookiesValue = data.system.abilities?.kookies?.value || 0;
-      data.system.orderedAbilities.push({
-        key: "kookies",
-        value: kookiesValue,
-        label: "Kookies"
-      });
-    }
+    // Allow modules to add their own abilities
+    const moduleAbilities = [];
+    Hooks.callAll("crysborg.getModuleAbilities", this.actor, moduleAbilities);
 
-    // Check for Goblin Gonzo class and add Kookie
+
     const isKrampus = this.actor.items.find(
       i => i.type === "class" && i.system.systemSource === "Gruss vom Krampus"
     );
     
 
-    // Add additional abilities to ordered list
+    // Add all abilities to ordered list
     data.system.orderedAbilities = [
       ...data.system.orderedAbilities,
-      ...additionalAbilities
+      ...additionalAbilities,
+      ...moduleAbilities
     ];
 
     console.log("Final abilities:", data.system.orderedAbilities);
