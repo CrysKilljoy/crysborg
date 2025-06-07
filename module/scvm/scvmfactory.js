@@ -12,6 +12,32 @@ import {
 } from "../packutils.js";
 import { getAllowedScvmClasses, getHPCalculationMethod } from "../settings.js";
 
+// Initialize core structures
+Hooks.once('init', () => {
+  console.log('Initializing SCVM Factory structures');
+  
+  // Ensure base structures exist
+  CONFIG.MB = CONFIG.MB || {};
+  CONFIG.MB.scvmFactory = CONFIG.MB.scvmFactory || {};
+  
+  // Initialize equipment table mappings
+  CONFIG.MB.scvmFactory.sourceEquipmentTables = new Map();
+});
+
+export function registerSourceEquipmentTables(source, tables) {
+  if (!tables || !tables.table1 || !tables.table2 || !tables.table3) {
+    throw new Error(`Invalid equipment tables for source ${source}`);
+  }
+  
+  // Ensure the Map exists
+  CONFIG.MB = CONFIG.MB || {};
+  CONFIG.MB.scvmFactory = CONFIG.MB.scvmFactory || {};
+  CONFIG.MB.scvmFactory.sourceEquipmentTables = CONFIG.MB.scvmFactory.sourceEquipmentTables || new Map();
+  
+  CONFIG.MB.scvmFactory.sourceEquipmentTables.set(source, tables);
+  console.log(`Registered equipment tables for source: ${source}`, tables);
+}
+
 export async function createScvm(clazz) {
   try {
     const scvm = await rollScvmForClass(clazz);
@@ -154,52 +180,62 @@ async function startingFoodAndWater() {
 };
 
 async function startingEquipment(clazz) {
-  const docs = [];
-  const isGoblinGonzo = clazz.system.systemSource === "Goblin Gonzo";
-  const isKrampus = clazz.system.systemSource === "Gruss vom Krampus";
+  console.log(`Getting starting equipment for class: ${clazz.name} (${clazz.system.systemSource})`);
   
-  // Equipment Table 1
-  if (MB.scvmFactory.startingEquipmentTable1Uuids) {
-    const tableUuid = isKrampus
-      ? MB.scvmFactory.startingEquipmentTable1Uuids[2]
-      : isGoblinGonzo
-      ? MB.scvmFactory.startingEquipmentTable1Uuids[1]
-      : MB.scvmFactory.startingEquipmentTable1Uuids[0];
-
-  console.log(`Equipment Table 1 UUID: ${tableUuid}`);
-  const eq1 = await drawDocumentsFromTableUuid(tableUuid);
-  console.log("Equipment Table 1 Results:", eq1);
-  docs.push(...eq1);
+  const docs = [];
+  try {
+    // Check if we have source-specific tables registered
+    const sourceTables = CONFIG.MB.scvmFactory.sourceEquipmentTables.get(clazz.system.systemSource);
+    
+    if (sourceTables) {
+      console.log(`Using source-specific tables for ${clazz.system.systemSource}:`, sourceTables);
+      
+      // Validate tables exist before trying to draw from them
+      const tables = await Promise.all([
+        fromUuid(sourceTables.table1),
+        fromUuid(sourceTables.table2),
+        fromUuid(sourceTables.table3)
+      ]);
+      
+      if (tables.some(t => !t)) {
+        console.warn(`Some source-specific tables for ${clazz.system.systemSource} not found, falling back to default`);
+      } else {
+        const [eq1, eq2, eq3] = await Promise.all([
+          drawDocumentsFromTableUuid(sourceTables.table1),
+          drawDocumentsFromTableUuid(sourceTables.table2),
+          drawDocumentsFromTableUuid(sourceTables.table3)
+        ]);
+        
+        if (eq1) docs.push(...eq1);
+        if (eq2) docs.push(...eq2);
+        if (eq3) docs.push(...eq3);
+        
+        if (docs.length > 0) {
+          console.log(`Successfully drew equipment from ${clazz.system.systemSource} tables:`, docs);
+          return docs;
+        }
+      }
+    }
+    
+    // Use default (core) tables if no source tables or if source tables failed
+    console.log("Using default equipment tables");
+    if (MB.scvmFactory.startingEquipmentTable1Uuids?.[0]) {
+      const eq1 = await drawDocumentsFromTableUuid(MB.scvmFactory.startingEquipmentTable1Uuids[0]);
+      if (eq1) docs.push(...eq1);
+    }
+    if (MB.scvmFactory.startingEquipmentTable2Uuids?.[0]) {
+      const eq1 = await drawDocumentsFromTableUuid(MB.scvmFactory.startingEquipmentTable2Uuids[0]);
+      if (eq1) docs.push(...eq1);
+    }
+    if (MB.scvmFactory.startingEquipmentTable3Uuids?.[0]) {
+      const eq1 = await drawDocumentsFromTableUuid(MB.scvmFactory.startingEquipmentTable3Uuids[0]);
+      if (eq1) docs.push(...eq1);
+    }
+  } catch (error) {
+    console.error("Error in startingEquipment:", error);
+    // Fall through to return whatever we've collected
   }
-
-  // Equipment Table 2
-  if (MB.scvmFactory.startingEquipmentTable2Uuids) {
-    const tableUuid = isKrampus
-      ? MB.scvmFactory.startingEquipmentTable2Uuids[2]
-      : isGoblinGonzo
-      ? MB.scvmFactory.startingEquipmentTable2Uuids[1]
-      : MB.scvmFactory.startingEquipmentTable2Uuids[0];
-
-  console.log(`Equipment Table 2 UUID: ${tableUuid}`);
-  const eq1 = await drawDocumentsFromTableUuid(tableUuid);
-  console.log("Equipment Table 2 Results:", eq1);
-  docs.push(...eq1);
-  }
-
-  // Equipment Table 3
-  if (MB.scvmFactory.startingEquipmentTable3Uuids) {
-    const tableUuid = isKrampus
-      ? MB.scvmFactory.startingEquipmentTable3Uuids[2]
-      : isGoblinGonzo
-      ? MB.scvmFactory.startingEquipmentTable3Uuids[1]
-      : MB.scvmFactory.startingEquipmentTable3Uuids[0];
-
-  console.log(`Equipment Table 3 UUID: ${tableUuid}`);
-  const eq1 = await drawDocumentsFromTableUuid(tableUuid);
-  console.log("Equipment Table 3 Results:", eq1);
-  docs.push(...eq1);
-  }
-
+  
   console.log("Total Equipment Results:", docs);
   return docs;
 };
