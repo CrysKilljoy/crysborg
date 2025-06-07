@@ -82,12 +82,6 @@ export class MBCharacterSheet extends MBActorSheet {
     const moduleAbilities = [];
     Hooks.callAll("crysborg.getModuleAbilities", this.actor, moduleAbilities);
 
-
-    const isKrampus = this.actor.items.find(
-      i => i.type === "class" && i.system.systemSource === "Gruss vom Krampus"
-    );
-    
-
     // Add all abilities to ordered list
     data.system.orderedAbilities = [
       ...data.system.orderedAbilities,
