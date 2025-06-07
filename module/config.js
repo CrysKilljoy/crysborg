@@ -253,12 +253,12 @@ MB.droppableItemTypes = [MB.itemTypes.container];
 MB.plusMinusItemTypes = [MB.itemTypes.ammo, MB.itemTypes.misc];
 
 MB.scrollTypes = {
-  sacred: "MB.ScrollTypeSacred",
-  tablet: "MB.ScrollTypeTablet",
-  unclean: "MB.ScrollTypeUnclean",
-  chaotic: "MB.ScrollTypeChaotic",
-  GreenWrap: "MB.ScrollTypeGreenWrap",
-  RedWrap: "MB.ScrollTypeRedWrap"
+    sacred: "MB.ScrollTypeSacred",
+    tablet: "MB.ScrollTypeTablet",
+    unclean: "MB.ScrollTypeUnclean",
+    chaotic: "MB.ScrollTypeChaotic",
+    GreenWrap: "MB.ScrollTypeGreenWrap",
+    RedWrap: "MB.ScrollTypeRedWrap"
 };
 
 MB.weaponTypes = {

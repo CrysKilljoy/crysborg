@@ -194,9 +194,6 @@
   "MB.ScrollTypeTablet": "Tablet of Ochre Obscurity",
   "MB.ScrollTypeUnclean": "Unclean Scroll",
   "MB.ScrollTypeChaotic": "Chaotic Scroll",
-  "MB.ScrollTypeGoblinSong": "Goblin Song",
-  "MB.ScrollTypeGreenWrap": "Green Wrapping Paper Roll",
-  "MB.ScrollTypeRedWrap": "Red Wrapping Paper Roll",
   "MB.ScvmfactoryChooseFromClasses": "Choose your Class",
   "MB.ScvmfactoryMakeScvm": "Make Scvm",
   "MB.ScvmfactoryToggleAll": "Toggle All",
@@ -334,12 +331,5 @@
   "MB.SvampätareDescr": "Once noble, now nothing but a laughing ruin—you found the red mushrooms, and they found you, and now you wander, chewing visions and muttering truths no one asked for.",
   "MB.THEBellfounderDescr": "You forged bells in silence until one sang the world’s true ending—now you carry its echo, reshaping fate with each toll, even as it reshapes you.",
   "MB.TheSharpCardDescr": "You dodged death in the mud for debt in the shadows—trained by a guild of secrets, bound by contract and coin, every move now costs more than blood.",
-  "MB.TormentedToymakerDescr": "Grief splintered your mind and your craft—now your toys twitch with cursed life, spreading sorrow and slaughter with every wind-up and whir.",
-
-  "MB.GlitterbornScumDescr": "You are a glitterborn elf, ever-grinning and sugar-sweet, leaving trails of sparkle and song wherever you flit—because if you ever stopped smiling, the others might notice...",
-  "MB.EsotericToymakerDescr": "You are an elf of perfect purpose, joyfully turning gears and screwing bolts on your one sacred stool—smiling all the while, for questioning the order would be terribly inappropriate, wouldn’t it?",
-  "MB.HereticalGnomeDescr": "You’re a cheerful little gnome (not an elf, but close enough!), happily tending the merry woods—even as your cousins sprout leaves and gurgle sap, isn’t nature just full of surprises?",
-  "MB.OccultGiftwrapperDescr": "You are a Giftwrapper elf, trained in the sacred folds and festive chants, joyfully binding chaos in ribbons and tags—because if the corners aren’t perfect, who knows what might slip through?",
-  "MB.ToothyDesserterDescr": "A jolly little elf with a tray full of sweets and a smile just a bit too wide, you bake with love, laughter, and ingredients no one dares ask about.", 
-  "MB.WretchedSleigherDescr": "A squinty-eyed elf with hay in your boots and silence in your bones, you tend beasts with quiet love—because something has to keep the sleigh warm, even when the stars go out."
+  "MB.TormentedToymakerDescr": "Grief splintered your mind and your craft—now your toys twitch with cursed life, spreading sorrow and slaughter with every wind-up and whir."
 }
