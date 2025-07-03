@@ -5,6 +5,11 @@
     <span class="item-name">{{item.name}}</span>
   </div>
   <div class="attack-roll">
+    {{#if attackModifier}}
+    <div class="roll-info">
+      <span>{{localize 'MB.AttackModifier'}}: {{#if (gt attackModifier 0)}}+{{/if}}{{attackModifier}} {{localize 'MB.DR'}}</span>
+    </div>
+    {{/if}}
     <div class="roll-title">
       <span>{{attackFormula}}</span>      
     </div>

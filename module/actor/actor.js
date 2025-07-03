@@ -231,4 +231,22 @@ export class MBActor extends Actor {
       .filter((item) => item.isEquipment && !item.hasContainer)
       .reduce((containerSpace, item) => containerSpace + item.totalSpace, 0);
   }
+
+  /**
+   * Get total combat modifiers from all items
+   * @param {string} type - The type of modifier to get ('attack' or 'defense')
+   * @returns {number} The total modifier value
+   */
+  getCombatModifier(type) {
+    const items = this.items.filter(i => i.system.carried);
+    let modifier = 0;
+    
+    for (const item of items) {
+      if (item.system.combatModifiers && item.system.combatModifiers[type]) {
+        modifier += item.system.combatModifiers[type];
+      }
+    }
+    
+    return modifier;
+  }
 }

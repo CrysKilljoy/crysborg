@@ -8,10 +8,8 @@
   {{/each}}
   <div class="roll-result">
     <div class="roll-title">
-      <span
-        >{{localize 'MB.Defend'}}: {{defendFormula}} {{localize 'MB.Vs'}}
-        {{localize 'MB.DR'}} {{defendDR}}</span
-      >
+      <span>{{localize 'MB.Defend'}}: {{defendFormula}} {{localize 'MB.Vs'}}
+        <span data-tooltip="<div class='dr-sources-tooltip'>{{#each drSources}}{{name}}: {{#if (gt value 0)}}+{{/if}}{{value}}&#13;{{/each}}</div>">{{localize 'MB.DR'}} {{modifiedDR}}</span></span>
     </div>
     <div class="roll-row">
       <span>{{xtotal defendRoll}}</span>

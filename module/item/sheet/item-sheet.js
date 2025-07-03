@@ -65,6 +65,30 @@ export class MBItemSheet extends ItemSheet {
 
     if (!this.options.editable) return;
 
+    html.find('.collapsible-header').click(ev => {
+      const header = ev.currentTarget;
+      const content = header.nextElementSibling;
+      const icon = header.querySelector('i');
+    
+      const collapsed = content.classList.toggle('hidden');
+      header.dataset.collapsed = collapsed; // speichern im Dataset
+    
+      icon.classList.toggle('fa-chevron-down', !collapsed);
+      icon.classList.toggle('fa-chevron-right', collapsed);
+    });
+    
+    // Nach dem Rendern: vorherige Zustände wiederherstellen
+    html.find('.collapsible-header').each((_, header) => {
+      const content = header.nextElementSibling;
+      const icon = header.querySelector('i');
+      const collapsed = header.dataset.collapsed === "true";
+    
+      content.classList.toggle('hidden', collapsed);
+      icon.classList.toggle('fa-chevron-down', !collapsed);
+      icon.classList.toggle('fa-chevron-right', collapsed);
+    });
+    
+
     // Add weapon tables
     if (this.item.type === "class") {
       findWeaponTables().then((tables) => {

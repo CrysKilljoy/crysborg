@@ -47,3 +47,91 @@
     data-dtype="Number"
   />
 </div>
+
+{{!-- DR and Combat Modifiers --}}
+<div class="form-group-stacked">
+  <div class="collapsible-section">
+    <h3 class="collapsible-header crysborg">
+      <i class="fas fa-chevron-right"></i>
+      <span class="header-title" data-tooltip="{{ localize 'MB.DRModifiersDescription' }}">{{ localize "MB.DRModifiers" }}</span>
+      <i class="fas fa-info-circle" style="margin-left: 0.5em; cursor: help;" data-tooltip="{{ localize 'MB.ModifierPriorityInfo' }}"></i>
+    </h3>
+    <div class="collapsible-content hidden">
+      {{!-- Ability DR Modifiers --}}
+      <div class="form-group">
+        <label class="crysborg">{{ localize "MB.AbilityStrengthAbbrev" }}:</label>
+        <input
+          class="crysborg"
+          type="text"
+          name="system.drModifiers.strength"
+          value="{{data.system.drModifiers.strength}}"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="crysborg">{{ localize "MB.AbilityAgilityAbbrev" }}:</label>
+        <input
+          class="crysborg"
+          type="text"
+          name="system.drModifiers.agility"
+          value="{{data.system.drModifiers.agility}}"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="crysborg">{{ localize "MB.AbilityPresenceAbbrev" }}:</label>
+        <input
+          class="crysborg"
+          type="text"
+          name="system.drModifiers.presence"
+          value="{{data.system.drModifiers.presence}}"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="crysborg">{{ localize "MB.AbilityToughnessAbbrev" }}:</label>
+        <input
+          class="crysborg"
+          type="text"
+          name="system.drModifiers.toughness"
+          value="{{data.system.drModifiers.toughness}}"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+
+      <hr class="crysborg modifier-separator">
+
+      {{!-- Combat Modifiers --}}
+      <div class="form-group">
+        <label class="crysborg" data-tooltip="{{ localize 'MB.AttackModifierDescription' }}">{{ localize "MB.AttackModifier" }}:</label>
+        <input
+          class="crysborg"
+          type="text"
+          name="system.combatModifiers.attack"
+          value="{{data.system.combatModifiers.attack}}"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="crysborg" data-tooltip="{{ localize 'MB.DefenseModifierDescription' }}">{{ localize "MB.DefenseModifier" }}:</label>
+        <input
+          class="crysborg"
+          type="text"
+          name="system.combatModifiers.defense"
+          value="{{data.system.combatModifiers.defense}}"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+    </div>
+  </div>
+</div>

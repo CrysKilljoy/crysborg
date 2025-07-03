@@ -2228,8 +2228,8 @@ h3 {
 }
 .roll-card .roll-title {
   font-family: var(--chat-font);
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 19px;
+  font-weight: normal;
   text-align: center;
   text-transform: capitalize;
 }
@@ -2652,4 +2652,53 @@ option, optgroup {
 .tag-dropdown .tag-option:hover {
   background: var(--highlight-background-color);
   color: var(--highlight-foreground-color);
+}
+
+/* Collapsible Sections */
+.crysborg.sheet.item .sheet-body .form-group-stacked .collapsible-section {
+  margin-bottom: 10px;
+}
+
+.crysborg.sheet.item .sheet-body .form-group-stacked .collapsible-section .collapsible-header {
+  font-family: var(--h2-font);
+  font-size: 20px;
+  text-align: right;
+  margin-right: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.crysborg.sheet.item .sheet-body .form-group-stacked .collapsible-section .collapsible-header i {
+  margin-right: 8px;
+  transition: transform 0.2s ease;
+}
+
+.crysborg.sheet.item .sheet-body .form-group-stacked .collapsible-section .collapsible-header.expanded i {
+  transform: rotate(90deg);
+}
+
+.crysborg.sheet.item .sheet-body .form-group-stacked .collapsible-section .collapsible-content {
+  padding: 8px 0 0 20px;
+}
+
+.crysborg.sheet.item .sheet-body .form-group-stacked .collapsible-section .collapsible-content.hidden {
+  display: none;
+}
+
+.crysborg.modifier-separator {
+  opacity: 0.1;
+  width: 75%;
+  height: 1px;
+  margin: 0.5em 0 0.5em auto;
+}
+
+.dr-sources-tooltip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  white-space: pre;
+  line-height: 1.5em;
+  gap: 0.3em;
 }

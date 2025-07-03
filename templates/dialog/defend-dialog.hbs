@@ -1,4 +1,5 @@
 <form class="custom-dialog">
+  
   <div class="form-group">
     <label>{{localize 'MB.Defend'}} {{localize 'MB.DR'}}:</label>
     <input
@@ -15,16 +16,12 @@
       type="text"
       class="readonly"
       name="defensemodifieddr"
-      value=""
-      placeholder="12"
+      value="{{sum defendDR totalModifier}}"
+      placeholder=""
       readonly
+      data-tooltip="<div class='dr-sources-tooltip'>{{#each drSources}}{{name}}: {{#if (gt value 0)}}+{{/if}}{{value}}&#13;{{/each}}</div>"
     />
   </div>
-  {{# if drModifiers}}
-  <div class="dr-modifier">
-    ( {{#each drModifiers}} {{this}} {{#unless @last}},{{/unless}} {{/each}} )
-  </div>
-  {{/if}}
   <div class="form-group">
     <label>{{localize 'MB.IncomingAttack'}}:</label>
     <input

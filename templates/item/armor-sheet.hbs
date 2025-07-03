@@ -13,13 +13,7 @@
       <div class="form-group">
         <label>{{ localize "MB.ArmorCurrentTier" }}:</label>
         <select name="system.tier.value" data-dtype="Number">
-          {{#select data.system.tier.value}}
-            {{#each config.armorTiers as |tierObj tierNum|}}
-              <option value="{{tierNum}}">
-                {{tierNum}} ({{localize tierObj.key}})
-              </option>
-            {{/each}}
-          {{/select}}
+          {{selectOptions config.armorTiers selected=data.system.tier.value nameAttr="key" labelAttr="key" localize=true}}
         </select>
       </div>
 
@@ -27,20 +21,14 @@
       <div class="form-group">
         <label>{{ localize "MB.ArmorMaxTier" }}:</label>
         <select name="system.tier.max" data-dtype="Number">
-          {{#select data.system.tier.max}} 
-            {{#each config.armorTiers as |tierObj tierNum|}}
-              <option value="{{tierNum}}">
-                {{tierNum}} ({{localize tierObj.key}})
-              </option>
-            {{/each}}
-          {{/select}}
+          {{selectOptions config.armorTiers selected=data.system.tier.max nameAttr="key" labelAttr="key" localize=true}}
         </select>
       </div>
 
-      {{!-- Tier Note --}}
+      {{!-- Armor Effect --}}
       <div class="form-group">
         <label>{{ localize "MB.ArmorTierNote" }}:</label>
-        <input name="system.tierNote" type="text" value="{{data.system.tierNote}}" data-dtype="String"/>
+        <input name="system.tierNote" type="text" value="{{data.system.tierNote}}" placeholder="{{ localize 'MB.ArmorEffectPlaceholder' }}" data-dtype="String"/>
       </div>
     </div>
   </section>

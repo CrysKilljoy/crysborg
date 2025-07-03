@@ -1,6 +1,19 @@
 import { showDice } from "../dice.js";
 import { showRollResultCard } from "../utils.js";
 
+function getItemDRModifiers(actor, ability) {
+  return actor.items
+    .filter(item => 
+      item.system.drModifiers && 
+      item.system.drModifiers[ability] && 
+      item.system.drModifiers[ability] !== 0
+    )
+    .map(item => ({
+      source: item.name,
+      value: item.system.drModifiers[ability]
+    }));
+}
+
 async function testAbility(
   actor,
   ability,
@@ -8,6 +21,17 @@ async function testAbility(
   abilityAbbrevKey,
   drModifiers
 ) {
+  drModifiers = drModifiers || [];
+  
+  // Add DR modifiers from items
+  const itemModifiers = getItemDRModifiers(actor, ability);
+  for (const mod of itemModifiers) {
+    const sign = mod.value > 0 ? '+' : '';
+    drModifiers.push(
+      `${mod.source}: ${game.i18n.localize("MB.DR")} ${sign}${mod.value}`
+    );
+  }
+
   const abilityRoll = new Roll(
     `1d20+@abilities.${ability}.value`,
     actor.getRollData()

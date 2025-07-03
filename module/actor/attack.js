@@ -1,5 +1,6 @@
 import { addShowDicePromise, diceSound, showDice } from "../dice.js";
 import { hitAutomation, trackAmmo } from "../settings.js";
+import { calculateDRModifiers } from "../utils.js";
 
 /**
  * Attack!
@@ -23,11 +24,21 @@ async function automatedAttack(actor, itemId) {
     CONFIG.MB.systemName,
     CONFIG.MB.flags.TARGET_ARMOR
   );
+
+  const item = actor.items.get(itemId);
+  const itemRollData = item.getRollData();
+  const isRanged = itemRollData.weaponType === "ranged";
+  const ability = isRanged ? "presence" : "strength";
+
+  const { drSources, totalModifier } = calculateDRModifiers(actor, attackDR, 'attack', ability, item);
+
   const dialogData = {
     attackDR,
     config: CONFIG.crysborg,
     itemId,
     targetArmor,
+    drSources,
+    totalModifier
   };
   const html = await renderTemplate(
     "systems/crysborg/templates/dialog/attack-dialog.hbs",
@@ -41,15 +52,45 @@ async function automatedAttack(actor, itemId) {
         roll: {
           icon: '<i class="fas fa-dice-d20"></i>',
           label: game.i18n.localize("MB.Roll"),
-          // callback: html => resolve(_createItem(actor.actor, html[0].querySelector("form")))
           callback: (html) => attackDialogCallback(actor, html),
         },
       },
       default: "roll",
+      render: (html) => {
+        html
+          .find("input[name='attackdr']")
+          .on("change", onAttackBaseDRChange.bind(actor));
+        html.find("input[name='attackdr']").trigger("change");
+      },
       close: () => resolve(null),
     }).render(true);
   });
 };
+
+function onAttackBaseDRChange(event) {
+  const baseDR = parseInt(event.target.value) || 0;
+  const itemId = event.target.form.itemid.value;
+  const item = this.items.get(itemId);
+  const itemRollData = item.getRollData();
+  const isRanged = itemRollData.weaponType === "ranged";
+  const ability = isRanged ? "presence" : "strength";
+
+  const { drSources, totalModifier } = calculateDRModifiers(this, baseDR, 'attack', ability, item);
+  const modifiedDR = baseDR + totalModifier;
+
+  // Update the modified DR field
+  event.target.form.attackmodifieddr.value = modifiedDR;
+
+  // Update the tooltip
+  const tooltip = drSources.map(source => `${source.name}: ${source.value > 0 ? '+' : ''}${source.value}`).join('\n');
+  event.target.form.attackmodifieddr.setAttribute('data-tooltip', `<div class='dr-sources-tooltip'>${tooltip}</div>`);
+
+  // Update the modifier list
+  const modifierList = event.target.form.querySelector('.dr-modifier');
+  if (modifierList) {
+    modifierList.innerHTML = `( ${drSources.map(source => `${source.name}: ${source.value > 0 ? '+' : ''}${source.value}`).join(', ')} )`;
+  }
+}
 
 async function unautomatedAttack(actor, itemId) {
   const item = actor.items.get(itemId);
@@ -57,6 +98,7 @@ async function unautomatedAttack(actor, itemId) {
   const actorRollData = actor.getRollData();
   const isRanged = itemRollData.weaponType === "ranged";
   const ability = isRanged ? "presence" : "strength";
+  const attackModifier = actor.getCombatModifier('attack');
   const attackRoll = new Roll(`d20+@abilities.${ability}.value`, actorRollData);
   await attackRoll.evaluate();
   await showDice(attackRoll);
@@ -77,6 +119,7 @@ async function unautomatedAttack(actor, itemId) {
     attackRoll,
     cardTitle,
     item,
+    attackModifier
   };
   const html = await renderTemplate(
     "systems/crysborg/templates/chat/unautomated-attack-roll-card.hbs",
@@ -122,10 +165,13 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
   const itemRollData = item.getRollData();
   const actorRollData = actor.getRollData();
 
-  // roll 1: attack
+  // Calculate DR modifiers
   const isRanged = itemRollData.weaponType === "ranged";
-  // ranged weapons use presence; melee weapons use strength
   const ability = isRanged ? "presence" : "strength";
+  const { drSources, totalModifier } = calculateDRModifiers(actor, attackDR, 'attack', ability, item);
+  const modifiedDR = attackDR + totalModifier;
+
+  // roll 1: attack
   const attackRoll = new Roll(`d20+@abilities.${ability}.value`, actorRollData);
   await attackRoll.evaluate();
   await showDice(attackRoll);
@@ -138,7 +184,7 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
   // nat 1 is always a miss, nat 20 is always a hit, otherwise check vs DR
   const isHit =
     attackRoll.total !== 1 &&
-    (attackRoll.total === 20 || attackRoll.total >= attackDR);
+    (attackRoll.total === 20 || attackRoll.total >= modifiedDR);
 
   let attackOutcome = null;
   let damageRoll = null;
@@ -187,7 +233,9 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
     attackRoll,
     attackOutcome,
     damageRoll,
+    drSources,
     items: [item],
+    modifiedDR,
     takeDamage,
     targetArmorRoll,
     weaponTypeKey,

@@ -28,7 +28,8 @@
   "MB.ArmorTierLight": "Light",
   "MB.ArmorTierMedium": "Medium",
   "MB.ArmorTierNone": "None",
-  "MB.ArmorTierNote": "Tier Note",
+  "MB.ArmorTierNote": "Armor Effect",
+  "MB.ArmorEffectPlaceholder": "Armor effects or properties",
   "MB.Attack": "Attack",
   "MB.AttackButtonTitle": "Attack with this weapon",
   "MB.AttackCritText": "Crit: x2 damage, target armor reduced one tier.",
@@ -65,6 +66,9 @@
   "MB.Dice": "Dice",
   "MB.Dodge": "Dodge",
   "MB.DR": "DR",
+  "MB.DRModifiers": "DR Modifiers",
+  "MB.DRModifiersDescription": "Modifies difficulty rating for ability checks. Negative values make checks easier (lower DR), positive values make checks harder (higher DR)",
+  "MB.ModifierPriorityInfo": "When an item has both combat modifiers (attack/defense) and ability DR modifiers that could apply to the same roll, the combat modifier takes priority. If there is no combat modifier, the ability DR modifier will be used instead.",
   "MB.DropCheck": "Drop Check",
   "MB.DeathCheck": "Death Check",
   "MB.EditAllowedScvmClassesMenu": "Allowed classes",
@@ -335,5 +339,12 @@
   "MB.SvampätareDescr": "Once noble, now nothing but a laughing ruin—you found the red mushrooms, and they found you, and now you wander, chewing visions and muttering truths no one asked for.",
   "MB.THEBellfounderDescr": "You forged bells in silence until one sang the world's true ending—now you carry its echo, reshaping fate with each toll, even as it reshapes you.",
   "MB.TheSharpCardDescr": "You dodged death in the mud for debt in the shadows—trained by a guild of secrets, bound by contract and coin, every move now costs more than blood.",
-  "MB.TormentedToymakerDescr": "Grief splintered your mind and your craft—now your toys twitch with cursed life, spreading sorrow and slaughter with every wind-up and whir."
+  "MB.TormentedToymakerDescr": "Grief splintered your mind and your craft—now your toys twitch with cursed life, spreading sorrow and slaughter with every wind-up and whir.",
+  "MB.CombatModifiers": "Combat Modifiers",
+  "MB.CombatModifiersDescription": "Modifies attack and defense rolls. Negative values make rolls harder (lower result), positive values make rolls easier (higher result)",
+  "MB.AttackModifier": "Attack",
+  "MB.AttackModifierDescription": "Modifies attack rolls. Applied to both melee and ranged attacks",
+  "MB.DefenseModifier": "Defense",
+  "MB.DefenseModifierDescription": "Modifies defense rolls",
+  "MB.BaseDR": "Base DR"
 }

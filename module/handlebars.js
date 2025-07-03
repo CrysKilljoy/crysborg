@@ -72,6 +72,14 @@ export function configureHandlebars() {
     }
   });
 
+  Handlebars.registerHelper("sum", function (a, b) {
+    return Number(a) + Number(b);
+  });
+
+  Handlebars.registerHelper("gt", function (a, b) {
+    return Number(a) > Number(b);
+  });
+
   loadTemplates([
     "systems/crysborg/templates/actor/character/feats-tab.hbs",
     "systems/crysborg/templates/actor/character/obituary-tab.hbs",
