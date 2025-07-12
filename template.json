@@ -174,7 +174,15 @@
       "description": "",
       "rollFormula": "",
       "rollMacro": "",
-      "rollLabel": ""
+      "rollLabel": "",
+      "drModifiers": {
+        "strength": 0,
+        "agility": 0,
+        "toughness": 0,
+        "presence": 0,
+        "attack": 0,
+        "defense": 0
+      }
     },
 
     "misc": {

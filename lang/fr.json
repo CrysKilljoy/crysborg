@@ -97,6 +97,7 @@
   "MB.ItemDamageDie": "Dés de dégâts",
   "MB.ItemDamageReductionDie": "Damage Reduction Die",
   "MB.ItemDefenseDRModifier": "Defense DR Modifier",
+  "MB.DRModifiers": "Modificateurs DR",
   "MB.ItemDelete": "Supprimer l'objet",
   "MB.ItemDeleteMessage": "Voulez-vous vraiment supprimer le conteneur et tous ses éléments?",
   "MB.ItemDropped": "Dropped",

@@ -6,6 +6,13 @@
     <span class="item-name">{{item.name}}</span>
   </div>
   {{/each}}
+  {{#if drModifiers}}
+  <div class="dr-modifiers">
+    {{#each drModifiers}}
+    <div class="dr-modifier">{{this}}</div>
+    {{/each}}
+  </div>
+  {{/if}}
   <div class="roll-result">
     <div class="roll-title">
       <span

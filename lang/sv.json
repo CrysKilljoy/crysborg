@@ -97,6 +97,7 @@
   "MB.ItemDamageDie": "Skadetärning",
   "MB.ItemDamageReductionDie": "Skadreduktion Tärning",
   "MB.ItemDefenseDRModifier": "Försvar SG Modifikation",
+  "MB.DRModifiers": "DR-modifikationer",
   "MB.ItemDelete": "Radera Objekt",
   "MB.ItemDeleteMessage": "Are you sure you want to delete the container and all the items?",
   "MB.ItemDropped": "Dropped",

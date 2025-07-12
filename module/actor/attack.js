@@ -6,24 +6,23 @@ function computeAttackDrModifier(actor, isRanged) {
   const drModifiers = [];
   const items = [];
   for (const item of actor.items) {
-    if (!item.system?.equipped) continue;
+    const active = item.system?.equipped ?? item.type === "feat";
+    if (!active) continue;
     const mods = item.system?.drModifiers || {};
-    let used = false;
+    const candidates = [];
     if (mods.attack) {
-      modifier += parseInt(mods.attack);
-      drModifiers.push(
-        `${item.name}: ${game.i18n.localize("MB.DR")} ${mods.attack >= 0 ? "+" : ""}${mods.attack}`
-      );
-      used = true;
+      candidates.push(parseInt(mods.attack));
     }
     if (!isRanged && mods.strength) {
-      modifier += parseInt(mods.strength);
-      drModifiers.push(
-        `${item.name}: ${game.i18n.localize("MB.DR")} ${mods.strength >= 0 ? "+" : ""}${mods.strength}`
-      );
-      used = true;
+      candidates.push(parseInt(mods.strength));
     }
-    if (used) items.push(item);
+    if (candidates.length === 0) continue;
+    const value = candidates.reduce((a, b) => (Math.abs(b) > Math.abs(a) ? b : a));
+    modifier += value;
+    drModifiers.push(
+      `${item.name}: ${game.i18n.localize("MB.DR")} ${value >= 0 ? "+" : ""}${value}`
+    );
+    items.push(item);
   }
   return { modifier, drModifiers, items };
 }
@@ -241,7 +240,17 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
     attackRoll,
     attackOutcome,
     damageRoll,
-    items: [item, ...modItems],
+    items: (() => {
+      const arr = [];
+      const seen = new Set();
+      for (const it of [item, ...modItems]) {
+        if (!seen.has(it.id)) {
+          seen.add(it.id);
+          arr.push(it);
+        }
+      }
+      return arr;
+    })(),
     drModifiers,
     takeDamage,
     targetArmorRoll,

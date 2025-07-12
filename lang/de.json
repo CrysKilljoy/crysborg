@@ -97,6 +97,7 @@
   "MB.ItemDamageDie": "Schadenswürfel",
   "MB.ItemDamageReductionDie": "Schadensreduktionswürfel",
   "MB.ItemDefenseDRModifier": "Verteidigungs DR Modifikator",
+  "MB.DRModifiers": "DR-Modifikatoren",
   "MB.ItemDelete": "Lösche Item",
   "MB.ItemDeleteMessage": "Are you sure you want to delete the container and all the items?",
   "MB.ItemDropped": "Dropped",

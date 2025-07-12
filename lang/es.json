@@ -102,6 +102,7 @@
   "MB.ItemDamageDie": "Dado de Daño",
   "MB.ItemDamageReductionDie": "Dado Reducción de Daño",
   "MB.ItemDefenseDRModifier": "Modificador CD de Defensa",
+  "MB.DRModifiers": "Modificadores de CD",
   "MB.ItemDelete": "Borrar Item",
   "MB.ItemDeleteMessage": "¿Estás seguro de eliminar el contenedor y todos sus objetos?",
   "MB.ItemDropped": "Dropea",
