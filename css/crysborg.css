@@ -755,6 +755,48 @@
   text-shadow: 0 0 10px var(--highlight-background-color);
   cursor: pointer;
 }
+
+/* Omens input group styling */
+.omens-input-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.omens-input-group .stat-input {
+  text-align: center;
+  min-width: 40px;
+  flex: 1;
+}
+
+.omens-decrement,
+.omens-increment {
+  background: var(--background-color);
+  border: 1px solid var(--foreground-color);
+  color: var(--foreground-color);
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.omens-decrement:hover,
+.omens-increment:hover {
+  background: var(--foreground-color);
+  color: var(--background-color);
+  text-shadow: 0 0 5px var(--highlight-background-color);
+}
+
+.omens-decrement:active,
+.omens-increment:active {
+  transform: scale(0.95);
+}
 .crysborg.sheet.actor.character .sheet-header .omen-rule {
   flex: 0 0 90px;
   margin-left: 10px;
@@ -2652,4 +2694,90 @@ option, optgroup {
 .tag-dropdown .tag-option:hover {
   background: var(--highlight-background-color);
   color: var(--highlight-foreground-color);
+}
+remove the white borders between the abilities,
+/* ================== COLLAPSIBLE SECTIONS =================== */
+details.dr-modifiers {
+  margin: 8px 0;
+  border: 1px solid var(--foreground-color);
+  border-radius: 4px;
+  background: var(--background-color);
+}
+
+/* Collapsible section header styling */
+details.dr-modifiers summary {
+  padding: 5px 6px;
+  background: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+  font-family: var(--h2-font);
+  font-weight: bold;
+  font-size: 1.5em; /* Header text size - increase this value to make header bigger */
+  cursor: pointer;
+  user-select: none;
+  border-radius: 3px 3px 0 0;
+  transition: all 0.2s ease;
+}
+
+details.dr-modifiers summary:hover {
+  background: var(--foreground-color);
+  color: var(--background-color);
+  text-shadow: 0 0 5px var(--highlight-background-color);
+}
+
+/* Collapsible arrow marker styling */
+details.dr-modifiers summary::marker {
+  color: var(--highlight-foreground-color);
+  font-size: 1em;
+}
+
+details.dr-modifiers[open] summary::marker {
+  color: var(--background-color);
+}
+
+/* Content container styling */
+details.dr-modifiers > div {
+  padding: 8px 12px;
+  border-top: 1px solid var(--foreground-color);
+}
+
+/* Individual form group styling */
+details.dr-modifiers .form-group {
+  margin: 0;
+  padding: 4px 0;
+  border: none; /* Remove all borders by default */
+  border-bottom: none; /* Remove all bottom borders by default */
+}
+
+/* Remove any inherited borders from parent styles */
+details.dr-modifiers .form-group label {
+  border: none;
+}
+
+details.dr-modifiers .form-group input {
+  border: 1px solid var(--foreground-color);
+}
+
+/* Combat modifiers section separator - line between ability and combat modifiers */
+/* Using attribute selector to target the Attack field specifically */
+details.dr-modifiers .form-group input[name="system.drModifiers.attack"] {
+  border-top: 1px solid var(--foreground-color); /* Add top border to separate sections */
+  margin-top: 8px; /* Space above the separator line */
+  padding-top: 8px; /* Space below the separator line */
+}
+
+/* Alternative: if the above doesn't work, try this nth-child approach */
+details.dr-modifiers .form-group:nth-child(6) { /* Attack - first combat modifier */
+  border-top: 1px solid var(--foreground-color); /* Add top border to separate sections */
+  margin-top: 8px; /* Space above the separator line */
+  padding-top: 8px; /* Space below the separator line */
+}
+
+/* Combat modifiers section (last 2 fields) - no borders between them */
+details.dr-modifiers .form-group:nth-child(7) { /* Defense - second combat modifier */
+  border-bottom: none;
+}
+
+/* Remove bottom margin from last form group */
+details.dr-modifiers .form-group:last-child {
+  margin-bottom: 0;
 }

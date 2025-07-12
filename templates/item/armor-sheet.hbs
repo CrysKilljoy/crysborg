@@ -7,8 +7,6 @@
     
     {{!-- Details Tab --}}
     <div class="tab" data-group="primary" data-tab="details">
-      {{> systems/crysborg/templates/item/common/base-fields.hbs }} 
-      
       {{!-- Armor Current Tier --}}
       <div class="form-group">
         <label>{{ localize "MB.ArmorCurrentTier" }}:</label>
@@ -42,6 +40,9 @@
         <label>{{ localize "MB.ArmorTierNote" }}:</label>
         <input name="system.tierNote" type="text" value="{{data.system.tierNote}}" data-dtype="String"/>
       </div>
+
+      {{!-- Base Fields (moved to bottom) --}}
+      {{> systems/crysborg/templates/item/common/base-fields.hbs }} 
     </div>
   </section>
 </form>

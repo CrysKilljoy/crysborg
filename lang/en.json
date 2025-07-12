@@ -164,6 +164,8 @@
   "MB.Ok": "Ok",
   "MB.Omens": "Luck",
   "MB.OmensHelpText": "Max damage, re-roll, -d6 damage, DR -4, no crit/fumble",
+  "MB.IncrementOmens": "Increment Luck",
+  "MB.DecrementOmens": "Decrement Luck",
   "MB.Outcome": "Outcome",
   "MB.Party": "Party",
   "MB.PartyInitiative": "Party Initiative",

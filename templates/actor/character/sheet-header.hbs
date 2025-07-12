@@ -50,17 +50,21 @@
       </div>
       <div class="omens-block">
         <span
-          class="stat-label omens-label"
+          class="stat-label omens-label rollable"
           title="{{ localize 'MB.OmensHelpText' }}"
           >{{ localize "MB.Omens" }}:</span
         >
-        <input
-          class="stat-input"
-          name="system.omens.value"
-          type="number"
-          value="{{data.system.omens.value}}"
-          data-dtype="Number"
-        />
+        <div class="omens-input-group">
+          <button type="button" class="omens-decrement" title="{{ localize 'MB.DecrementOmens' }}">-</button>
+          <input
+            class="stat-input"
+            name="system.omens.value"
+            type="number"
+            value="{{data.system.omens.value}}"
+            data-dtype="Number"
+          />
+          <button type="button" class="omens-increment" title="{{ localize 'MB.IncrementOmens' }}">+</button>
+        </div>
       </div>    
     </div>
     <div class="hitpoints-row">

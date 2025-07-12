@@ -83,5 +83,13 @@ export class MBItemSheet extends ItemSheet {
 
     // Initialize tag input
     TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
+
+    // Keep DR modifiers section open when values change
+    html.find('details.dr-modifiers input').on('change', (event) => {
+      const detailsElement = $(event.target).closest('details.dr-modifiers');
+      if (!detailsElement[0].open) {
+        detailsElement[0].open = true;
+      }
+    });
   }
 }

@@ -14,7 +14,7 @@ import {
   testStrength,
   testToughness,
 } from "../test-abilities.js";
-import { rollOmens } from "../omens.js";
+import { rollOmens, testOmens } from "../omens.js";
 import { wieldPower } from "../powers.js";
 import { upperCaseFirst } from "../../utils.js";
 
@@ -196,8 +196,14 @@ export class MBCharacterSheet extends MBActorSheet {
 
     html.find(".reroll-button").click(this._onReroll.bind(this));
     html
-      .find(".omens-row span.rollable")
+      .find(".omens-label.rollable")
       .on("click", this._onOmensRoll.bind(this));
+    html
+      .find("button.omens-increment")
+      .on("click", this._onOmensIncrement.bind(this));
+    html
+      .find("button.omens-decrement")
+      .on("click", this._onOmensDecrement.bind(this));
     html.find(".get-better-button").on("click", this._onGetBetter.bind(this));
     html.find(".rest-button").on("click", this._onRest.bind(this));
     // powers tab
@@ -245,7 +251,31 @@ export class MBCharacterSheet extends MBActorSheet {
 
   _onOmensRoll(event) {
     event.preventDefault();
-    rollOmens(this.actor);
+    testOmens(this.actor);
+  }
+
+  _onOmensIncrement(event) {
+    event.preventDefault();
+    console.log("Increment button clicked");
+    const currentValue = this.actor.system.omens.value || 0;
+    const maxValue = this.actor.system.omens.max || 0;
+    // Only limit to max if max is greater than 0 and less than current + 1
+    const newValue = maxValue > 0 ? Math.min(currentValue + 1, maxValue) : currentValue + 1;
+    console.log(`Increment: ${currentValue} + 1 = ${newValue} (max: ${maxValue})`);
+    this.actor.update({ "system.omens.value": newValue });
+    // Force the input field to update
+    $(event.target).siblings('input[name="system.omens.value"]').val(newValue);
+  }
+
+  _onOmensDecrement(event) {
+    event.preventDefault();
+    console.log("Decrement button clicked");
+    const currentValue = this.actor.system.omens.value || 0;
+    const newValue = Math.max(currentValue - 1, 0);
+    console.log(`Decrement: ${currentValue} - 1 = ${newValue}`);
+    this.actor.update({ "system.omens.value": newValue });
+    // Force the input field to update
+    $(event.target).siblings('input[name="system.omens.value"]').val(newValue);
   }
 
   _onBroken(event) {

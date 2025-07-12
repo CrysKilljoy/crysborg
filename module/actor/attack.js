@@ -23,24 +23,6 @@ function computeAttackDrModifier(actor, isRanged) {
       `${item.name}: ${game.i18n.localize("MB.DR")} ${value >= 0 ? "+" : ""}${value}`
     );
     items.push(item);
-    if (!item.system?.equipped) continue;
-    const mods = item.system?.drModifiers || {};
-    let used = false;
-    if (mods.attack) {
-      modifier += parseInt(mods.attack);
-      drModifiers.push(
-        `${item.name}: ${game.i18n.localize("MB.DR")} ${mods.attack >= 0 ? "+" : ""}${mods.attack}`
-      );
-      used = true;
-    }
-    if (!isRanged && mods.strength) {
-      modifier += parseInt(mods.strength);
-      drModifiers.push(
-        `${item.name}: ${game.i18n.localize("MB.DR")} ${mods.strength >= 0 ? "+" : ""}${mods.strength}`
-      );
-      used = true;
-    }
-    if (used) items.push(item);
   }
   return { modifier, drModifiers, items };
 }
@@ -269,7 +251,6 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
       }
       return arr;
     })(),
-    items: [item, ...modItems],
     drModifiers,
     takeDamage,
     targetArmorRoll,
