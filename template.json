@@ -124,7 +124,15 @@
         "equipped": false,
         "carried": true,
         "price": 0,
-        "quantity": 1
+        "quantity": 1,
+        "drModifiers": {
+          "strength": 0,
+          "agility": 0,
+          "toughness": 0,
+          "presence": 0,
+          "attack": 0,
+          "defense": 0
+        }
       }
     },
     "ammo": {

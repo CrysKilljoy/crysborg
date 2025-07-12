@@ -1,6 +1,33 @@
 import { addShowDicePromise, diceSound, showDice } from "../dice.js";
 import { hitAutomation, trackAmmo } from "../settings.js";
 
+function computeAttackDrModifier(actor, isRanged) {
+  let modifier = 0;
+  const drModifiers = [];
+  const items = [];
+  for (const item of actor.items) {
+    if (!item.system?.equipped) continue;
+    const mods = item.system?.drModifiers || {};
+    let used = false;
+    if (mods.attack) {
+      modifier += parseInt(mods.attack);
+      drModifiers.push(
+        `${item.name}: ${game.i18n.localize("MB.DR")} ${mods.attack >= 0 ? "+" : ""}${mods.attack}`
+      );
+      used = true;
+    }
+    if (!isRanged && mods.strength) {
+      modifier += parseInt(mods.strength);
+      drModifiers.push(
+        `${item.name}: ${game.i18n.localize("MB.DR")} ${mods.strength >= 0 ? "+" : ""}${mods.strength}`
+      );
+      used = true;
+    }
+    if (used) items.push(item);
+  }
+  return { modifier, drModifiers, items };
+}
+
 /**
  * Attack!
  */
@@ -23,8 +50,14 @@ async function automatedAttack(actor, itemId) {
     CONFIG.MB.systemName,
     CONFIG.MB.flags.TARGET_ARMOR
   );
+  const item = actor.items.get(itemId);
+  const isRanged = item?.system?.weaponType === "ranged";
+  const { modifier, drModifiers } = computeAttackDrModifier(actor, isRanged);
+  const modifiedDR = parseInt(attackDR) + modifier;
   const dialogData = {
     attackDR,
+    modifiedDR,
+    drModifiers,
     config: CONFIG.crysborg,
     itemId,
     targetArmor,
@@ -46,6 +79,13 @@ async function automatedAttack(actor, itemId) {
         },
       },
       default: "roll",
+      render: (html) => {
+        html
+          .find("input[name='attackbasedr']")
+          .data("drModifier", modifier)
+          .on("change", onAttackBaseDRChange);
+        html.find("input[name='attackbasedr']").trigger("change");
+      },
       close: () => resolve(null),
     }).render(true);
   });
@@ -89,29 +129,42 @@ async function unautomatedAttack(actor, itemId) {
   });
 };
 
+function onAttackBaseDRChange(event) {
+  event.preventDefault();
+  const baseInput = $(event.currentTarget);
+  const drModifier = parseInt(baseInput.data("drModifier")) || 0;
+  const modifiedDr = parseInt(baseInput[0].value) + drModifier;
+  const modifiedInput = baseInput
+    .parent()
+    .parent()
+    .find("input[name='attackmodifieddr']");
+  modifiedInput.val(modifiedDr.toString());
+}
+
 /**
  * Callback from attack dialog.
  */
 async function attackDialogCallback(actor, html) {
   const form = html[0].querySelector("form");
   const itemId = form.itemid.value;
-  const attackDR = parseInt(form.attackdr.value);
+  const baseDR = parseInt(form.attackbasedr.value);
+  const modifiedDR = parseInt(form.attackmodifieddr.value);
   const targetArmor = form.targetarmor.value;
-  if (!itemId || !attackDR) {
+  if (!itemId || !baseDR || !modifiedDR) {
     // TODO: prevent form submit via required fields
     return;
   }
   await actor.setFlag(
     CONFIG.MB.systemName,
     CONFIG.MB.flags.ATTACK_DR,
-    attackDR
+    baseDR
   );
   await actor.setFlag(
     CONFIG.MB.systemName,
     CONFIG.MB.flags.TARGET_ARMOR,
     targetArmor
   );
-  await rollAttack(actor, itemId, attackDR, targetArmor);
+  await rollAttack(actor, itemId, modifiedDR, targetArmor);
 };
 
 /**
@@ -124,6 +177,7 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
 
   // roll 1: attack
   const isRanged = itemRollData.weaponType === "ranged";
+  const { drModifiers, items: modItems } = computeAttackDrModifier(actor, isRanged);
   // ranged weapons use presence; melee weapons use strength
   const ability = isRanged ? "presence" : "strength";
   const attackRoll = new Roll(`d20+@abilities.${ability}.value`, actorRollData);
@@ -187,7 +241,8 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
     attackRoll,
     attackOutcome,
     damageRoll,
-    items: [item],
+    items: [item, ...modItems],
+    drModifiers,
     takeDamage,
     targetArmorRoll,
     weaponTypeKey,
