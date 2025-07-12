@@ -23,7 +23,6 @@ function computeAttackDrModifier(actor, isRanged) {
       `${item.name}: ${game.i18n.localize("MB.DR")} ${value >= 0 ? "+" : ""}${value}`
     );
     items.push(item);
-=======
     if (!item.system?.equipped) continue;
     const mods = item.system?.drModifiers || {};
     let used = false;
@@ -270,7 +269,6 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
       }
       return arr;
     })(),
-=======
     items: [item, ...modItems],
     drModifiers,
     takeDamage,
@@ -311,4 +309,4 @@ async function renderAttackRollCard(actor, rollResult) {
     sound: diceSound(),
     speaker: ChatMessage.getSpeaker({ actor }),
   });
-};
+}
