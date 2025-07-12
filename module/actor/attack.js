@@ -6,6 +6,24 @@ function computeAttackDrModifier(actor, isRanged) {
   const drModifiers = [];
   const items = [];
   for (const item of actor.items) {
+    const active = item.system?.equipped ?? item.type === "feat";
+    if (!active) continue;
+    const mods = item.system?.drModifiers || {};
+    const candidates = [];
+    if (mods.attack) {
+      candidates.push(parseInt(mods.attack));
+    }
+    if (!isRanged && mods.strength) {
+      candidates.push(parseInt(mods.strength));
+    }
+    if (candidates.length === 0) continue;
+    const value = candidates.reduce((a, b) => (Math.abs(b) > Math.abs(a) ? b : a));
+    modifier += value;
+    drModifiers.push(
+      `${item.name}: ${game.i18n.localize("MB.DR")} ${value >= 0 ? "+" : ""}${value}`
+    );
+    items.push(item);
+=======
     if (!item.system?.equipped) continue;
     const mods = item.system?.drModifiers || {};
     let used = false;
@@ -241,6 +259,18 @@ async function rollAttack(actor, itemId, attackDR, targetArmor) {
     attackRoll,
     attackOutcome,
     damageRoll,
+    items: (() => {
+      const arr = [];
+      const seen = new Set();
+      for (const it of [item, ...modItems]) {
+        if (!seen.has(it.id)) {
+          seen.add(it.id);
+          arr.push(it);
+        }
+      }
+      return arr;
+    })(),
+=======
     items: [item, ...modItems],
     drModifiers,
     takeDamage,

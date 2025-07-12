@@ -112,6 +112,7 @@
   "MB.ItemDamageDie": "Damage Die",
   "MB.ItemDamageReductionDie": "Damage Reduction Die",
   "MB.ItemDefenseDRModifier": "Defense DR Modifier",
+  "MB.DRModifiers": "DR Modifiers",
   "MB.ItemDelete": "Delete Item",
   "MB.ItemDeleteMessage": "Are you sure you want to delete the container and all the items?",
   "MB.ItemDropped": "Dropped",
