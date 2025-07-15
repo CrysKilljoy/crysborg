@@ -21,7 +21,8 @@ export class MBMiseryTrackerSheet extends ActorSheet {
     const data = await super.getData();
     for (let i = 1; i <= 6; i++) {
       const field = `misery${i}`;
-      const misery = data.data.system[field];
+      const misery = data.data.system[field] || {};
+      data.data.system[field] = data.data.system[field] || { psalm: null, verse: null };
       data.data.system[field].cssClass =
         misery.psalm && misery.verse ? "activated" : "";
     }

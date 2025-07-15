@@ -211,6 +211,25 @@ export class MBCharacterSheet extends MBActorSheet {
     html
       .find(".wield-power-button")
       .on("click", this._onWieldPowerRoll.bind(this));
+
+    // Save scroll position before actions that re-render
+    const saveScroll = () => {
+      const tab = this.element.find('.equipment-tab')[0];
+      this._equipmentScrollTop = tab ? tab.scrollTop : 0;
+    };
+    html.find('.item-qty-plus, .item-qty-minus, .item-toggle-equipped').on('click', saveScroll);
+  }
+
+  /** @override */
+  async render(force=false, options={}) {
+    const prevScroll = this._equipmentScrollTop;
+    await super.render(force, options);
+    if (prevScroll !== undefined) {
+      requestAnimationFrame(() => {
+        const tab = this.element.find('.equipment-tab')[0];
+        if (tab) tab.scrollTop = prevScroll;
+      });
+    }
   }
 
   _onDeathCheckRoll(event) {

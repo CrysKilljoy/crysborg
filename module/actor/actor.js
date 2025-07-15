@@ -231,4 +231,34 @@ export class MBActor extends Actor {
       .filter((item) => item.isEquipment && !item.hasContainer)
       .reduce((containerSpace, item) => containerSpace + item.totalSpace, 0);
   }
+
+  /**
+   * Returns all registered ActorSheet types from all modules and the system.
+   */
+  static getAllActorSheetTypes() {
+    const types = new Set();
+    for (const namespace in Actors._sheets) {
+      for (const sheet of Actors._sheets[namespace]) {
+        if (sheet.options?.types) {
+          sheet.options.types.forEach(type => types.add(type));
+        }
+      }
+    }
+    return Array.from(types);
+  }
+}
+
+/**
+ * Gibt alle aktuell registrierten Actor-Typen zurück (dynamisch, inkl. Module).
+ */
+export function getAvailableActorTypes() {
+  const types = new Set();
+  // Foundry v10+: Actors.sheetClasses, v9: Actors._sheets
+  const sheetClasses = Actors.sheetClasses ? Array.from(Actors.sheetClasses.values()).flat() : (Actors._sheets ? Object.values(Actors._sheets).flat() : []);
+  for (const sheet of sheetClasses) {
+    if (sheet.options?.types) {
+      for (const t of sheet.options.types) types.add(t);
+    }
+  }
+  return Array.from(types);
 }

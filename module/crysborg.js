@@ -21,6 +21,7 @@ import { registerSystemSettings } from "./settings.js";
 import { dumpUuids } from "./exporter.js";
 import { drawFromTable } from "./packutils.js";
 import { TagManager } from "./utils/tag-manager.js";
+import { getAvailableActorTypes } from "./actor/actor.js";
 
 Hooks.once("init", async function () {
   console.log("Initializing CRYS BORG system");
@@ -50,26 +51,43 @@ function registerDocumentClasses() {
 }
 
 function registerSheets() {
+  console.log("📦 registerSheets() wurde aufgerufen");
+
   // Register all actor sheets
   Actors.unregisterSheet("core", ActorSheet);
+
+  console.log("MBCharacterSheet:", MBCharacterSheet);
   Actors.registerSheet("crysborg", MBCharacterSheet, {
     types: ["character"],
+    label: "Character Sheet",
     makeDefault: true,
   });
+
+  console.log("MBContainerSheet:", MBContainerSheet);
   Actors.registerSheet("crysborg", MBContainerSheet, {
     types: ["container"],
+    label: "Container Sheet",
     makeDefault: true,
   });
+
+  console.log("MBCreatureSheet:", MBCreatureSheet);
   Actors.registerSheet("crysborg", MBCreatureSheet, {
     types: ["creature"],
+    label: "Creature Sheet",
     makeDefault: true,
   });
+
+  console.log("MBFollowerSheet:", MBFollowerSheet);
   Actors.registerSheet("crysborg", MBFollowerSheet, {
     types: ["follower"],
+    label: "Follower Sheet",
     makeDefault: true,
   });
+
+  console.log("MBMiseryTrackerSheet:", MBMiseryTrackerSheet);
   Actors.registerSheet("crysborg", MBMiseryTrackerSheet, {
     types: ["misery-tracker"],
+    label: "Misery Tracker Sheet",
     makeDefault: true,
   });
 
@@ -81,3 +99,25 @@ function registerSheets() {
   Journal.unregisterSheet("core", JournalSheet);
   Journal.registerSheet("crysborg", MBJournalSheet, { makeDefault: true });
 }
+
+Hooks.once("ready", () => {
+  console.log("✅ CONFIG.Actor.sheetClasses Map:");
+  Object.entries(CONFIG.Actor.sheetClasses).forEach(([type, sheets]) => {
+    // sheets ist meist eine Map (Foundry V10+)
+    if (sheets instanceof Map) {
+      sheets.forEach((sheet, id) => {
+        console.log(`• Type: ${type}, id: ${id}, label: "${sheet.label}", default: ${sheet.default}`);
+      });
+    } else if (Array.isArray(sheets)) {
+      sheets.forEach(sheet => {
+        console.log(`• Type: ${type}, id: ${sheet.id}, label: "${sheet.label}", default: ${sheet.default}`);
+      });
+    } else if (typeof sheets === "object") {
+      Object.entries(sheets).forEach(([id, sheet]) => {
+        console.log(`• Type: ${type}, id: ${id}, label: "${sheet.label}", default: ${sheet.default}`);
+      });
+    } else {
+      console.log(`• Type: ${type}, sheets:`, sheets);
+    }
+  });
+});
