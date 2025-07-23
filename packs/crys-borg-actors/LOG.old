@@ -1,14 +1,3 @@
-2025/07/15-18:07:11.380 3838 Recovering log #967
-2025/07/15-18:07:11.384 3838 Delete type=0 #967
-2025/07/15-18:07:11.385 3838 Delete type=3 #966
-2025/07/15-18:07:39.459 1ba4 Level-0 table #971: started
-2025/07/15-18:07:39.459 1ba4 Level-0 table #971: 0 bytes OK
-2025/07/15-18:07:39.461 1ba4 Delete type=0 #969
-2025/07/15-18:07:39.471 1ba4 Manual compaction at level-0 from '!actors!0GnkStFCgXGqmxJ3' @ 72057594037927935 : 1 .. '!folders!gCNzDSbKMSOi94YQ' @ 0 : 0; will stop at '!folders!iGa3EP8sW9G2CsfT' @ 934 : 0
-2025/07/15-18:07:39.471 1ba4 Compacting 1@0 + 1@1 files
-2025/07/15-18:07:39.476 1ba4 Generated table #972@0: 182 keys, 181175 bytes
-2025/07/15-18:07:39.476 1ba4 Compacted 1@0 + 1@1 files => 181175 bytes
-2025/07/15-18:07:39.478 1ba4 compacted to: files[ 0 1 0 0 0 0 0 ]
-2025/07/15-18:07:39.478 1ba4 Delete type=2 #875
-2025/07/15-18:07:39.479 1ba4 Delete type=2 #942
-2025/07/15-18:07:39.483 1ba4 Manual compaction at level-0 from '!folders!iGa3EP8sW9G2CsfT' @ 934 : 0 .. '!folders!gCNzDSbKMSOi94YQ' @ 0 : 0; will stop at (end)
+2025/07/23-16:52:10.328 54f0 Recovering log #1018
+2025/07/23-16:52:10.332 54f0 Delete type=0 #1018
+2025/07/23-16:52:10.332 54f0 Delete type=3 #1017

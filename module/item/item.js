@@ -101,7 +101,12 @@ export class MBItem extends Item {
   }
 
   get quantity() {
-    return this.system.quantity || 1;
+    const qty = this.system.quantity;
+    // Ensure quantity is a valid number
+    if (typeof qty === 'number' && !isNaN(qty) && qty > 0) {
+      return qty;
+    }
+    return 1; // Default to 1 if invalid
   }
 
   get itemsData() {
@@ -169,7 +174,8 @@ export class MBItem extends Item {
         this.items.reduce((weight, itemId) => {
           const item = actor.items.get(itemId);
           if (item) {
-            weight += Math.ceil(item.carryWeight * item.quantity);
+            const qty = item.quantity; // Uses validated getter
+            weight += Math.ceil(item.carryWeight * qty);
           }
           return weight;
         }, 0) + this.carryWeight
@@ -183,7 +189,8 @@ export class MBItem extends Item {
     return this.items.reduce((space, itemId) => {
       const item = actor.items.get(itemId);
       if (item) {
-        space += Math.ceil(item.containerSpace * item.quantity);
+        const qty = item.quantity; // Uses validated getter
+        space += Math.ceil(item.containerSpace * qty);
       }
       return space;
     }, 0);

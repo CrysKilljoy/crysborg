@@ -28,9 +28,12 @@ export class MBContainerSheet extends MBActorSheet {
     const superData = await super.getData();
     const data = superData.data;
     data.config = CONFIG.MB;
-    if (this.actor.type == "container") {
-      this._prepareContainerItems(data);
-    }
+    this.actor.update({ "system.calculatesContainerSpace": true });
+    data.system.containerSpace ??= this.actor.system.containerSpace;
+    data.system.carryingWeight ??= this.actor.system.carryingWeight;
+    data.system.carryingCapacity ??= this.actor.system.carryingCapacity;
+    data.system.encumbered ??= this.actor.system.encumbered;
+    this._prepareContainerItems(data);
     return superData;
   }
 
@@ -46,5 +49,9 @@ export class MBContainerSheet extends MBActorSheet {
       .filter((item) => CONFIG.MB.itemEquipmentTypes.includes(item.type))
       .filter((item) => !item.hasContainer)
       .sort(byName);
+    // Set canPlusMinus for container items
+    sheetData.system.equipment.forEach(item => {
+      item.system.canPlusMinus = CONFIG.MB.plusMinusItemTypes.includes(item.type);
+    });
   }
 }

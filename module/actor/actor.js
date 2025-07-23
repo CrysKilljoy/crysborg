@@ -26,6 +26,7 @@ export class MBActor extends Actor {
         vision: true,
       };
     } else if (data.type === "container") {
+      data.system = { calculatesContainerSpace: true };
       defaults = {
         actorLink: false,
         disposition: 0,
@@ -99,26 +100,27 @@ export class MBActor extends Actor {
   /** @override */
   prepareDerivedData() {
     super.prepareDerivedData();
-
-    this.items.forEach((item) => item.prepareActorItemDerivedData(this));
-
-    if (this.type === "character") {
-      this.system.carryingWeight = this.carryingWeight();
-      this.system.carryingCapacity = this.normalCarryingCapacity();
-      this.system.encumbered = this.isEncumbered();
-    }
-
-    if (this.type === "container") {
+    // Prepare item data if not already done
+    this.items.forEach(item => {
+      if (typeof item.prepareActorItemDerivedData === "function") {
+        item.prepareActorItemDerivedData(this);
+      }
+    });
+    // Store calculated values centrally
+    this.system.carryingCapacity = this.normalCarryingCapacity();
+    this.system.carryingWeight = this.carryingWeight();
+    this.system.encumbered = this.isEncumbered();
+    if (this.system?.calculatesContainerSpace) {
       this.system.containerSpace = this.containerSpace();
     }
   }
 
   /** @override */
-  _onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId) {
+  _onCreateDescendantDocuments(embeddedName, documents, result, options, userId) {
     if (documents[0].type === CONFIG.MB.itemTypes.class) {
       this._deleteEarlierItems(CONFIG.MB.itemTypes.class);
     }
-    super._onCreateEmbeddedDocuments(
+    super._onCreateDescendantDocuments(
       embeddedName,
       documents,
       result,
@@ -206,7 +208,7 @@ export class MBActor extends Actor {
   }
 
   normalCarryingCapacity() {
-    return this.system.abilities.strength.value + 8;
+    return (this.system.abilities?.strength.value ?? 0) + 8;
   }
 
   maxCarryingCapacity() {
@@ -231,6 +233,7 @@ export class MBActor extends Actor {
       .filter((item) => item.isEquipment && !item.hasContainer)
       .reduce((containerSpace, item) => containerSpace + item.totalSpace, 0);
   }
+
 
   /**
    * Returns all registered ActorSheet types from all modules and the system.

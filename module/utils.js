@@ -100,3 +100,8 @@ export function upperCaseFirst(str) {
 export function lowerCaseFirst(str) {
   return str.charAt(0).toLowerCase() + str.slice(1);
 };
+
+// Utility to calculate normal carrying capacity for an actor
+export function calculateNormalCarryingCapacity(actorData) {
+  return (actorData.system?.abilities?.strength?.value ?? 0) + 8;
+}
