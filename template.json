@@ -79,15 +79,17 @@
     },
     "carriage": {
       "abilities": {
-        "speed": { "value": 0 },
-        "stability": { "value": 100 }
+        "speed": { "value": 0, "base": 0 },
+        "stability": { "value": 100, "base": 100 }
       },
       "description": "",
-      "hp": { "max": 1, "value": 1 },
+      "hp": { "max": 1, "value": 1, "base": 1 },
       "ram": "0",
+      "ramBase": "0",
       "armor": "0",
+      "armorBase": "0",
       "cargo": 0,
-      "size": "",
+      "cargoBase": 0,
       "cost": 0,
       "draft": []
     },

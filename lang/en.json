@@ -79,6 +79,8 @@
   "MB.EditAllowedScvmClassesMenuButtonLabel": "Edit",  "MB.Encumbered": "Encumbered",
   "MB.EquipArmorToAbsorb": "Equip armor to absorb damage.",
   "MB.EquipAWeaponToAttack": "Equip a weapon to attack.",
+  "MB.EquipWhere": "Where do you want to equip it?",
+  "MB.Equip": "Equip",
   "MB.InactiveArmor": "Equipped, but if even your finest fails, this offers only false hope.",
   "MB.Equipment": "Equipment",
   "MB.Failure": "Failure",

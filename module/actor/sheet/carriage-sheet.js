@@ -4,6 +4,7 @@ import { testCustomAbility } from "../test-abilities.js";
 import { trackCarryingCapacity } from "../../settings.js";
 import { showDice } from "../../dice.js";
 import { attack } from "../attack.js";
+import { defend } from "../defend.js";
 
 /**
  * @extends {ActorSheet}
@@ -41,7 +42,10 @@ export class MBCarriageSheet extends MBActorSheet {
     data.system.orderedAbilities.push(stability);
 
     data.system.carriageUpgrades = data.items
-      .filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade)
+      .filter(
+        (i) =>
+          i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped
+      )
       .sort(byName);
 
     data.system.class = data.items.find(
@@ -51,6 +55,10 @@ export class MBCarriageSheet extends MBActorSheet {
     data.system.equipment = data.items
       .filter((item) => CONFIG.MB.itemEquipmentTypes.includes(item.type))
       .filter((item) => !item.system.hasContainer)
+      .filter(
+        (item) =>
+          item.type !== CONFIG.MB.itemTypes.carriageUpgrade || !item.system.equipped
+      )
       .sort(byName);
 
     data.system.draftActors = [];
@@ -62,6 +70,12 @@ export class MBCarriageSheet extends MBActorSheet {
 
     data.system.trackCarryingCapacity = trackCarryingCapacity();
 
+    const ramSources = this.actor.system.ramSources || [];
+    data.system.ramTooltip = [
+      `${game.i18n.localize("MB.Ram")}: ${this.actor.system.ram}`,
+      ...ramSources.map((s) => `${s.label}: ${s.value}`),
+    ].join("\n");
+
     return superData;
   }
 
@@ -71,6 +85,7 @@ export class MBCarriageSheet extends MBActorSheet {
     html.find(".speed-roll").on("click", this._onSpeedRoll.bind(this));
     html.find(".stability-roll").on("click", this._onStabilityRoll.bind(this));
     html.find(".ram-roll").on("click", this._onRamRoll.bind(this));
+    html.find(".armor-roll").on("click", this._onDefendRoll.bind(this));
 
     const stabilityInput = html.find(".stability-value");
     stabilityInput.on("focus", (ev) => {
@@ -213,6 +228,11 @@ export class MBCarriageSheet extends MBActorSheet {
     if (tempItem) {
       await attack(this.actor, tempItem);
     }
+  }
+
+  async _onDefendRoll(event) {
+    event.preventDefault();
+    await defend(this.actor);
   }
 
   _onOpenFollower(event) {

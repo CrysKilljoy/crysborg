@@ -117,41 +117,51 @@ export class MBActor extends Actor {
     if (this.type === "carriage") {
       // Ensure ability and structure fields exist
       this.system.abilities ??= {};
-      this.system.abilities.speed ??= { value: 0 };
-      this.system.abilities.stability ??= { value: 100 };
-      if (this.system.abilities.stability.value == null) {
-        this.system.abilities.stability.value = 100;
+      this.system.abilities.speed ??= { value: 0, base: 0 };
+      this.system.abilities.stability ??= { value: 100, base: 100 };
+      if (this.system.abilities.stability.base == null) {
+        this.system.abilities.stability.base = 100;
       }
-      this.system.hp ??= { max: 0, value: 0 };
-      this.system.ram = this.system.ram || "0";
-      this.system.armor = this.system.armor || "0";
-      this.system.cargo = Number(this.system.cargo) || 0;
+      this.system.hp ??= { max: 0, value: 0, base: 0 };
+      this.system.ramBase ??= this.system.ram || "0";
+      this.system.armorBase ??= this.system.armor || "0";
+      this.system.cargoBase = Number(this.system.cargoBase ?? this.system.cargo ?? 0);
+      this.system.hp.base ??= Number(this.system.hp.max) || 0;
 
       // Start from base values to avoid cumulative modifiers
-      let speed = Number(this.system.abilities.speed.value) || 0;
-      let stability = Number(this.system.abilities.stability.value) || 0;
-      let ram = this.system.ram;
-      let armor = this.system.armor;
-      let cargo = this.system.cargo;
-      let structureMax = Number(this.system.hp.max) || 0;
-      let structureVal = Number(this.system.hp.value) || 0;
+      let speed = Number(this.system.abilities.speed.base) || 0;
+      let stability = Number(this.system.abilities.stability.base) || 0;
+      let ram = this.system.ramBase || "0";
+      let armor = this.system.armorBase || "0";
+      let cargo = Number(this.system.cargoBase) || 0;
+      let structureMax = Number(this.system.hp.base) || 0;
+      let structureVal = Number(this.system.hp.base) || 0;
+
+      const ramSources = [
+        { label: game.i18n.localize("MB.Base"), value: ram }
+      ];
+      const armorSources = [
+        { label: game.i18n.localize("MB.Base"), value: armor }
+      ];
 
       for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped)) {
         speed += item.system.speed || 0;
         stability += item.system.stability || 0;
         if (item.system.ram) {
-          if (ram === "0") {
+          if (ram === "0" || ram === "") {
             ram = item.system.ram;
           } else {
             ram = `${ram}+${item.system.ram}`;
           }
+          ramSources.push({ label: item.name, value: item.system.ram });
         }
         if (item.system.armor) {
-          if (armor === "0") {
+          if (armor === "0" || armor === "") {
             armor = item.system.armor;
           } else {
             armor = `${armor}+${item.system.armor}`;
           }
+          armorSources.push({ label: item.name, value: item.system.armor });
         }
         cargo += item.system.cargo || 0;
         if (item.system.structure) {
@@ -170,7 +180,9 @@ export class MBActor extends Actor {
       this.system.abilities.speed.value = speed;
       this.system.abilities.stability.value = stability;
       this.system.ram = ram;
+      this.system.ramSources = ramSources;
       this.system.armor = armor;
+      this.system.armorSources = armorSources;
       this.system.cargo = cargo;
       this.system.carryingCapacity = cargo;
       this.system.hp.max = structureMax;
@@ -243,12 +255,18 @@ export class MBActor extends Actor {
       .filter((d) => d)
       .join("\n");
     await this.update({
+      "system.abilities.speed.base": speed,
       "system.abilities.speed.value": speed,
+      "system.ramBase": ram,
       "system.ram": ram,
+      "system.hp.base": structure,
       "system.hp.max": structure,
       "system.hp.value": structure,
+      "system.abilities.stability.base": stability,
       "system.abilities.stability.value": stability,
+      "system.armorBase": armor,
       "system.armor": armor,
+      "system.cargoBase": cargo,
       "system.cargo": cargo,
       "system.description": newDescription,
     });
@@ -297,12 +315,79 @@ export class MBActor extends Actor {
           await otherItem.unequip();
         }
       }
+      return item.equip();
     }
+
+    if (item.type === CONFIG.MB.itemTypes.carriageUpgrade) {
+      const location = await this._chooseCarriageLocation(item);
+      if (!location) return;
+      const qty = item.system.quantity || 1;
+      if (qty > 1) {
+        await item.update({ "system.quantity": qty - 1 });
+        const newItemData = item.toObject();
+        delete newItemData._id;
+        newItemData.system.quantity = 1;
+        newItemData.system.equipped = true;
+        newItemData.system.location = location;
+        await this.createEmbeddedDocuments("Item", [newItemData]);
+      } else {
+        await item.update({ "system.equipped": true, "system.location": location });
+      }
+      return;
+    }
+
     await item.equip();
   }
 
   async unequipItem(item) {
+    if (item.type === CONFIG.MB.itemTypes.carriageUpgrade) {
+      const stack = this.items.find(
+        (i) =>
+          i.id !== item.id &&
+          i.type === CONFIG.MB.itemTypes.carriageUpgrade &&
+          !i.system.equipped &&
+          i.name === item.name
+      );
+      if (stack) {
+        const qty = stack.system.quantity || 1;
+        await stack.update({ "system.quantity": qty + 1 });
+        await item.delete();
+      } else {
+        await item.update({ "system.equipped": false });
+      }
+      return;
+    }
     await item.unequip();
+  }
+
+  async _chooseCarriageLocation(item) {
+    const options = Object.entries(CONFIG.MB.carriageLocations)
+      .map(([key, label]) => {
+        const selected = item.system.location === key ? "selected" : "";
+        return `<option value="${key}" ${selected}>${game.i18n.localize(label)}</option>`;
+      })
+      .join("");
+    const html = `<form><p>${game.i18n.localize("MB.EquipWhere")}</p><div class="form-group"><select name="location">${options}</select></div></form>`;
+    return new Promise((resolve) => {
+      new Dialog({
+        title: game.i18n.localize("MB.ItemEquipped"),
+        content: html,
+        buttons: {
+          equip: {
+            label: game.i18n.localize("MB.Equip"),
+            callback: (html) => {
+              const loc = html[0].querySelector("select[name='location']").value;
+              resolve(loc);
+            },
+          },
+          cancel: {
+            label: game.i18n.localize("MB.Cancel"),
+            callback: () => resolve(null),
+          },
+        },
+        default: "equip",
+      }).render(true);
+    });
   }
 
   normalCarryingCapacity() {

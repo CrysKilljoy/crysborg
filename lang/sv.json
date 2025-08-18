@@ -63,6 +63,8 @@
   "MB.Encumbered": "Överbelastad",
   "MB.EquipArmorToAbsorb": "Utrusta rustning för absorbera skador.",
   "MB.EquipAWeaponToAttack": "Utrusta ett vapen för att attackera.",
+  "MB.EquipWhere": "Var vill du utrusta den?",
+  "MB.Equip": "Utrusta",
   "MB.Equipment": "Utrustning",
   "MB.Failure": "Misslyckande",
   "MB.FollowerSpeciality": "Specialitet",
