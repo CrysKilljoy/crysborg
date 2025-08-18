@@ -129,16 +129,19 @@ export class MBActor extends Actor {
       this.system.hp.base ??= Number(this.system.hp.max) || 0;
 
       // Start from base values to avoid cumulative modifiers
-      let speed = Number(this.system.abilities.speed.base) || 0;
-      let stability = Number(this.system.abilities.stability.base) || 0;
+      const speedBase = Number(this.system.abilities.speed.base) || 0;
+      const stabilityBase = Number(this.system.abilities.stability.base) || 0;
+      let speed = speedBase;
+      let stability = stabilityBase;
       let ram = this.system.ramBase || "0";
       let armor = this.system.armorBase || "0";
       let cargo = Number(this.system.cargoBase) || 0;
       let structureMax = Number(this.system.hp.base) || 0;
       let structureVal = Number(this.system.hp.base) || 0;
 
-      this.system.abilities.speed.value = speed;
-      this.system.abilities.stability.value = stability;
+      // Reset stored ability values to their bases so modifiers aren't persisted
+      this.system.abilities.speed.value = speedBase;
+      this.system.abilities.stability.value = stabilityBase;
 
       const ramSources = [
         { label: game.i18n.localize("MB.Base"), value: ram }
@@ -180,8 +183,9 @@ export class MBActor extends Actor {
         }
       }
 
-      this.system.abilities.speed.value = speed;
-      this.system.abilities.stability.value = stability;
+      // Store derived totals separately so they're not saved
+      this.system.abilities.speed.total = speed;
+      this.system.abilities.stability.total = stability;
       this.system.ram = ram;
       this.system.ramSources = ramSources;
       this.system.armor = armor;
@@ -299,6 +303,18 @@ export class MBActor extends Actor {
     });
     this.prepareData();
     this.sheet?.render(false);
+  }
+
+  /** @override */
+  getRollData() {
+    const data = super.getRollData();
+    if (this.type === "carriage") {
+      data.abilities.speed ??= {};
+      data.abilities.speed.value = this.system.abilities.speed.total ?? this.system.abilities.speed.base ?? 0;
+      data.abilities.stability ??= {};
+      data.abilities.stability.value = this.system.abilities.stability.total ?? this.system.abilities.stability.base ?? 0;
+    }
+    return data;
   }
 
   _firstEquipped(itemType) {

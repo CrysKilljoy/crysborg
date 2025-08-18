@@ -95,7 +95,7 @@ export class MBCarriageSheet extends MBActorSheet {
 
     const stabilityInput = html.find(".stability-value");
     stabilityInput.on("focus", (ev) => {
-      ev.currentTarget.value = this.actor.system.abilities.stability.value;
+      ev.currentTarget.value = this.actor.system.abilities.stability.total;
     });
     stabilityInput.on("blur", (ev) => {
       const input = ev.currentTarget;
@@ -103,7 +103,7 @@ export class MBCarriageSheet extends MBActorSheet {
       setTimeout(() => {
         input.value = this.actor.system.overloaded
           ? this.actor.system.abilities.stability.overloaded
-          : this.actor.system.abilities.stability.value;
+          : this.actor.system.abilities.stability.total;
       }, 0);
     });
 
@@ -120,7 +120,7 @@ export class MBCarriageSheet extends MBActorSheet {
     event.preventDefault();
     const stability = this.actor.system.overloaded
       ? this.actor.system.abilities.stability.overloaded
-      : this.actor.system.abilities.stability.value;
+      : this.actor.system.abilities.stability.total;
     const roll = new Roll("1d100");
     await roll.evaluate();
     await showDice(roll);
