@@ -190,12 +190,28 @@ MB.actorTypes = {
   container: "container",
   follower: "follower",
   miseryTracker: "misery-tracker",
+  carriage: "carriage",
 };
 
 MB.ammoTypes = {
   arrow: "MB.AmmoTypeArrow",
   bolt: "MB.AmmoTypeBolt",
   slingstone: "MB.AmmoTypeSlingstone",
+};
+
+MB.carriageLocations = {
+  roof: "MB.CarriageLocationRoof",
+  left: "MB.CarriageLocationLeft",
+  right: "MB.CarriageLocationRight",
+  back: "MB.CarriageLocationBack",
+  front: "MB.CarriageLocationFront",
+  wheels: "MB.CarriageLocationWheels",
+};
+
+MB.carriageAttackModes = {
+  none: "MB.AttackModeNone",
+  attack: "MB.AttackModeAttack",
+  custom: "MB.AttackModeCustom",
 };
 
 MB.itemTypes = {
@@ -208,6 +224,8 @@ MB.itemTypes = {
   scroll: "scroll",
   shield: "shield",
   weapon: "weapon",
+  carriageClass: "carriage-class",
+  carriageUpgrade: "carriage-upgrade",
 };
 
 MB.itemTypeKeys = {
@@ -220,6 +238,8 @@ MB.itemTypeKeys = {
   scroll: "MB.ItemTypeScroll",
   shield: "MB.ItemTypeShield",
   weapon: "MB.ItemTypeWeapon",
+  carriageClass: "MB.ItemTypeCarriageClass",
+  carriageUpgrade: "MB.ItemTypeCarriageUpgrade",
 };
 
 // these Item types are "equipment"
@@ -231,6 +251,7 @@ MB.itemEquipmentTypes = [
   MB.itemTypes.scroll,
   MB.itemTypes.shield,
   MB.itemTypes.weapon,
+  MB.itemTypes.carriageUpgrade,
 ];
 
 MB.allowedContainerItemTypes = [
@@ -246,6 +267,7 @@ MB.equippableItemTypes = [
   MB.itemTypes.armor,
   MB.itemTypes.shield,
   MB.itemTypes.weapon,
+  MB.itemTypes.carriageUpgrade,
 ];
 
 MB.droppableItemTypes = [MB.itemTypes.container];

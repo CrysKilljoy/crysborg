@@ -1,5 +1,6 @@
 import { trackCarryingCapacity } from "../settings.js";
 import HPZeroDialog from "./sheet/hp-zero-dialog.js";
+import { rollTotal } from "../utils.js";
 
 /**
  * @extends {Actor}
@@ -113,15 +114,108 @@ export class MBActor extends Actor {
     if (this.system?.calculatesContainerSpace) {
       this.system.containerSpace = this.containerSpace();
     }
+    if (this.type === "carriage") {
+      // Ensure ability and structure fields exist
+      this.system.abilities ??= {};
+      this.system.abilities.speed ??= { value: 0, base: 0 };
+      this.system.abilities.stability ??= { value: 100, base: 100 };
+      if (this.system.abilities.stability.base == null) {
+        this.system.abilities.stability.base = 100;
+      }
+      this.system.hp ??= { max: 0, value: 0, base: 0 };
+      this.system.ramBase ??= "0";
+      this.system.armorBase ??= "0";
+      this.system.cargoBase ??= 0;
+      this.system.hp.base ??= Number(this.system.hp.max) || 0;
+
+      // Start from base values to avoid cumulative modifiers
+      const speedBase = Number(this.system.abilities.speed.base) || 0;
+      const stabilityBase = Number(this.system.abilities.stability.base) || 0;
+      let speed = speedBase;
+      let stability = stabilityBase;
+      let ram = this.system.ramBase || "0";
+      let armor = this.system.armorBase || "0";
+      let cargo = Number(this.system.cargoBase) || 0;
+      let structureMax = Number(this.system.hp.base) || 0;
+      let structureVal = Number(this.system.hp.base) || 0;
+
+      const ramSources = [
+        { label: game.i18n.localize("MB.Base"), value: ram }
+      ];
+      const armorSources = [
+        { label: game.i18n.localize("MB.Base"), value: armor }
+      ];
+
+      for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped)) {
+        speed += Number(item.system.speed) || 0;
+        stability += Number(item.system.stability) || 0;
+        if (item.system.ram) {
+          if (ram === "0" || ram === "") {
+            ram = item.system.ram;
+          } else {
+            ram = `${ram}+${item.system.ram}`;
+          }
+          ramSources.push({ label: item.name, value: item.system.ram });
+        }
+        if (item.system.armor) {
+          if (armor === "0" || armor === "") {
+            armor = item.system.armor;
+          } else {
+            armor = `${armor}+${item.system.armor}`;
+          }
+          armorSources.push({ label: item.name, value: item.system.armor });
+        }
+        cargo += Number(item.system.cargo) || 0;
+        if (item.system.structure) {
+          const struct = Number(item.system.structure) || 0;
+          structureMax += struct;
+          structureVal += struct;
+        }
+      }
+
+      for (const id of this.system.draft || []) {
+        const follower = game.actors?.get(id);
+        if (follower) {
+          speed += Number(follower.system?.carriageSpeed || 0);
+        }
+      }
+
+      // Apply derived totals without persisting them
+      this.system.abilities.speed.value = speed;
+      this.system.abilities.stability.value = stability;
+      this.system.ram = ram;
+      this.system.ramSources = ramSources;
+      this.system.armor = armor;
+      this.system.armorSources = armorSources;
+      this.system.cargo = cargo;
+      this.system.carryingCapacity = cargo;
+      this.system.hp.max = structureMax;
+      this.system.hp.value = Math.min(structureVal, structureMax);
+
+      const overloaded = this.carryingWeight() > cargo;
+      this.system.overloaded = overloaded;
+      if (overloaded) {
+        this.system.abilities.stability.overloaded = Math.floor(stability / 2);
+      } else {
+        delete this.system.abilities.stability.overloaded;
+      }
+    }
   }
 
   /** @override */
-  _onCreateDescendantDocuments(embeddedName, documents, result, options, userId) {
-    if (documents[0].type === CONFIG.MB.itemTypes.class) {
-      this._deleteEarlierItems(CONFIG.MB.itemTypes.class);
+  _onCreateDescendantDocuments(parent, collection, documents, result, options, userId) {
+    if (parent === this && collection === this.items) {
+      if (documents[0].type === CONFIG.MB.itemTypes.class) {
+        this._deleteEarlierItems(CONFIG.MB.itemTypes.class);
+      }
+      if (documents[0].type === CONFIG.MB.itemTypes.carriageClass) {
+        this._deleteEarlierItems(CONFIG.MB.itemTypes.carriageClass);
+        this._applyCarriageClass(documents[0]);
+      }
     }
     super._onCreateDescendantDocuments(
-      embeddedName,
+      parent,
+      collection,
       documents,
       result,
       options,
@@ -129,18 +223,39 @@ export class MBActor extends Actor {
     );
   }
 
-  _onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId) {
-    for (const document of documents) {
-      if (document.isContainer) {
-        this.deleteEmbeddedDocuments("Item", document.items);
-      }
-      if (document.hasContainer) {
-        document.container.removeItem(document.id);
+  /** @override */
+  _onUpdateDescendantDocuments(parent, collection, documents, result, options, userId) {
+    // When carriage upgrades are edited or toggled, immediately recompute stats
+    if (parent === this && collection === this.items && this.type === "carriage") {
+      this.prepareData();
+      this.sheet?.render(false);
+    }
+    super._onUpdateDescendantDocuments(
+      parent,
+      collection,
+      documents,
+      result,
+      options,
+      userId
+    );
+  }
+
+  /** @override */
+  _onDeleteDescendantDocuments(parent, collection, documents, result, options, userId) {
+    if (parent === this && collection === this.items) {
+      for (const document of documents) {
+        if (document.isContainer) {
+          this.deleteEmbeddedDocuments("Item", document.items);
+        }
+        if (document.hasContainer) {
+          document.container.removeItem(document.id);
+        }
       }
     }
 
-    super._onDeleteEmbeddedDocuments(
-      embeddedName,
+    super._onDeleteDescendantDocuments(
+      parent,
+      collection,
       documents,
       result,
       options,
@@ -154,6 +269,42 @@ export class MBActor extends Actor {
     const deletions = itemsOfType.map((i) => i.id);
     // not awaiting this async call, just fire it off
     this.deleteEmbeddedDocuments("Item", deletions);
+  }
+
+  async _applyCarriageClass(item) {
+    const speed = await rollTotal(item.system.speed || "0");
+    const ram = item.system.ram || "0";
+    const structure = await rollTotal(item.system.structure || "0");
+    const stability = await rollTotal(item.system.stability || "100");
+    const armor = item.system.armor || "0";
+    const cargo = Number(item.system.cargo) || 0;
+    const classDescription = item.system.description || "";
+    const newDescription = [this.system.description, classDescription]
+      .filter((d) => d)
+      .join("\n");
+    await this.update({
+      "system.abilities.speed.base": speed,
+      "system.ramBase": ram,
+      "system.hp.base": structure,
+      "system.abilities.stability.base": stability,
+      "system.armorBase": armor,
+      "system.cargoBase": cargo,
+      "system.description": newDescription,
+    });
+    this.prepareData();
+    this.sheet?.render(false);
+  }
+
+  /** @override */
+  getRollData() {
+    const data = super.getRollData();
+    if (this.type === "carriage") {
+      data.abilities.speed ??= {};
+      data.abilities.speed.value = this.system.abilities.speed.value ?? this.system.abilities.speed.base ?? 0;
+      data.abilities.stability ??= {};
+      data.abilities.stability.value = this.system.abilities.stability.value ?? this.system.abilities.stability.base ?? 0;
+    }
+    return data;
   }
 
   _firstEquipped(itemType) {
@@ -199,16 +350,86 @@ export class MBActor extends Actor {
           await otherItem.unequip();
         }
       }
+      return item.equip();
     }
+
+    if (item.type === CONFIG.MB.itemTypes.carriageUpgrade) {
+      const location = await this._chooseCarriageLocation(item);
+      if (!location) return;
+      const qty = item.system.quantity || 1;
+      if (qty > 1) {
+        await item.update({ "system.quantity": qty - 1 });
+        const newItemData = item.toObject();
+        delete newItemData._id;
+        newItemData.system.quantity = 1;
+        newItemData.system.equipped = true;
+        newItemData.system.location = location;
+        await this.createEmbeddedDocuments("Item", [newItemData]);
+      } else {
+        await item.update({ "system.equipped": true, "system.location": location });
+      }
+      return;
+    }
+
     await item.equip();
   }
 
   async unequipItem(item) {
+    if (item.type === CONFIG.MB.itemTypes.carriageUpgrade) {
+      const stack = this.items.find(
+        (i) =>
+          i.id !== item.id &&
+          i.type === CONFIG.MB.itemTypes.carriageUpgrade &&
+          !i.system.equipped &&
+          i.name === item.name
+      );
+      if (stack) {
+        const qty = stack.system.quantity || 1;
+        await stack.update({ "system.quantity": qty + 1 });
+        await item.delete();
+      } else {
+        await item.update({ "system.equipped": false });
+      }
+      return;
+    }
     await item.unequip();
   }
 
+  async _chooseCarriageLocation(item) {
+    const options = Object.entries(CONFIG.MB.carriageLocations)
+      .map(([key, label]) => {
+        const selected = item.system.location === key ? "selected" : "";
+        return `<option value="${key}" ${selected}>${game.i18n.localize(label)}</option>`;
+      })
+      .join("");
+    const html = `<form><p>${game.i18n.localize("MB.EquipWhere")}</p><div class="form-group"><select name="location">${options}</select></div></form>`;
+    return new Promise((resolve) => {
+      new Dialog({
+        title: game.i18n.localize("MB.ItemEquipped"),
+        content: html,
+        buttons: {
+          equip: {
+            label: game.i18n.localize("MB.Equip"),
+            callback: (html) => {
+              const loc = html[0].querySelector("select[name='location']").value;
+              resolve(loc);
+            },
+          },
+          cancel: {
+            label: game.i18n.localize("MB.Cancel"),
+            callback: () => resolve(null),
+          },
+        },
+        default: "equip",
+      }).render(true);
+    });
+  }
+
   normalCarryingCapacity() {
-    return (this.system.abilities?.strength.value ?? 0) + 8;
+    if (this.type === "carriage") {
+      return Number(this.system.cargo) || 0;
+    }
+    return (this.system.abilities?.strength?.value ?? 0) + 8;
   }
 
   maxCarryingCapacity() {

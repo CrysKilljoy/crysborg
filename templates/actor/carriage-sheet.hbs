@@ -1,0 +1,14 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  {{> systems/crysborg/templates/actor/carriage/sheet-header.hbs }}
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="obituary">{{ localize 'MB.TabObituary' }}</a>
+    <a class="item" data-tab="cargo">{{ localize 'MB.TabCargo' }}</a>
+  </nav>
+
+  <section class="sheet-body">
+    {{> systems/crysborg/templates/actor/character/obituary-tab.hbs }}
+    {{> systems/crysborg/templates/actor/carriage/cargo-tab.hbs }}
+  </section>
+</form>
+

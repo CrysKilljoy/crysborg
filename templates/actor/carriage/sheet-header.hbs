@@ -1,0 +1,42 @@
+<header class="sheet-header">
+  <div class="header-col1">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+  </div>
+  <div class="header-gutter-col"></div>
+  <div class="header-col2">
+    <div class="name-row">
+      <input class="actor-name" name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'MB.Name' }}" spellcheck="false" />
+    </div>
+    <div class="classname-row item" data-item-id="{{data.system.class._id}}">
+      <span class="stat-label">{{ localize "MB.Class" }}:</span>
+      <label class="classname item-edit rollable">{{data.system.class.name}}</label>
+    </div>
+    <div class="hitpoints-row">
+      <div class="hp-entries">
+        <span class="stat-label">{{ localize "MB.Structure" }}:</span>
+        <input class="stat-input" name="system.hp.value" type="number" value="{{data.system.hp.value}}" data-dtype="Number" /> /
+        <input class="stat-input" name="system.hp.base" type="number" value="{{data.system.hp.max}}" data-dtype="Number" />
+      </div>
+    </div>
+    <div class="armor-row" title="{{data.system.armorTooltip}}">
+      <div class="hp-entries">
+        <span class="stat-label rollable armor-roll">{{ localize "MB.Armor" }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="header-gutter-col"></div>
+  <div class="header-col3">
+    <div class="ability-row" title="{{localize 'MB.AbilitySpeedTooltip'}}">
+      <input class="ability-input" type="text" name="system.abilities.speed.base" value="{{numberFormat data.system.abilities.speed.value decimals=0 sign=false}}" data-dtype="Number" size="3" />
+      <span class="ability-label rollable speed-roll">{{ localize 'MB.AbilitySpeedAbbrev' }}</span>
+    </div>
+    <div class="ability-row" title="{{localize 'MB.AbilityStabilityTooltip'}}">
+      <input class="ability-input" type="text" name="system.abilities.stability.base" value="{{#if data.system.overloaded}}{{numberFormat data.system.abilities.stability.overloaded decimals=0 sign=false}}{{else}}{{numberFormat data.system.abilities.stability.value decimals=0 sign=false}}{{/if}}" data-dtype="Number" size="3" />
+      <span class="ability-label rollable stability-roll">{{ localize 'MB.AbilityStabilityAbbrev' }}</span>
+    </div>
+    <div class="ability-row" title="{{data.system.ramTooltip}}">
+      <span class="ability-label rollable ram-roll">{{ localize 'MB.Ram' }}</span>
+    </div>
+  </div>
+</header>
+

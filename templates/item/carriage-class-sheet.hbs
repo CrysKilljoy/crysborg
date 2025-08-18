@@ -1,0 +1,38 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+  {{> systems/crysborg/templates/item/common/sheet-header.hbs }}
+  <section class="sheet-body">
+    <div class="form-group">
+      <label>{{ localize "MB.Description" }}:</label>
+      <textarea name="system.description" rows="4">{{data.system.description}}</textarea>
+    </div>
+    <div class="form-group">
+      <label>{{localize 'MB.AbilitySpeed'}}:</label>
+      <input type="text" name="system.speed" value="{{data.system.speed}}" data-dtype="String" />
+    </div>
+    <div class="form-group">
+      <label>Ram:</label>
+      <input type="text" name="system.ram" value="{{data.system.ram}}" data-dtype="String" />
+    </div>
+    <div class="form-group">
+      <label>{{localize 'MB.Structure'}}:</label>
+      <input type="text" name="system.structure" value="{{data.system.structure}}" data-dtype="String" />
+    </div>
+    <div class="form-group">
+      <label>{{localize 'MB.AbilityStability'}}:</label>
+      <input type="text" name="system.stability" value="{{data.system.stability}}" data-dtype="String" />
+    </div>
+    <div class="form-group">
+      <label>{{localize 'MB.Armor'}}:</label>
+      <input type="text" name="system.armor" value="{{data.system.armor}}" data-dtype="String" />
+    </div>
+    <div class="form-group">
+      <label>Cargo Capacity:</label>
+      <input type="text" name="system.cargo" value="{{data.system.cargo}}" data-dtype="Number" />
+    </div>
+    <div class="form-group">
+      <label>Cost:</label>
+      <input type="text" name="system.cost" value="{{data.system.cost}}" data-dtype="Number" />
+    </div>
+  </section>
+</form>
+

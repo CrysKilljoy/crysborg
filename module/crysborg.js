@@ -7,6 +7,7 @@ import { MBContainerSheet } from "./actor/sheet/container-sheet.js";
 import { MBCreatureSheet } from "./actor/sheet/creature-sheet.js";
 import { MBFollowerSheet } from "./actor/sheet/follower-sheet.js";
 import { MBMiseryTrackerSheet } from "./actor/sheet/misery-tracker-sheet.js";
+import { MBCarriageSheet } from "./actor/sheet/carriage-sheet.js";
 import { registerCombat } from "./combat.js";
 import { MB } from "./config.js";
 import { enrichTextEditors } from "./enricher.js";
@@ -81,6 +82,13 @@ function registerSheets() {
   Actors.registerSheet("crysborg", MBFollowerSheet, {
     types: ["follower"],
     label: "Follower Sheet",
+    makeDefault: true,
+  });
+
+  console.log("MBCarriageSheet:", MBCarriageSheet);
+  Actors.registerSheet("crysborg", MBCarriageSheet, {
+    types: ["carriage"],
+    label: "Carriage Sheet",
     makeDefault: true,
   });
 
