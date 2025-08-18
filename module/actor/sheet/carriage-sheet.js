@@ -196,7 +196,7 @@ export class MBCarriageSheet extends MBActorSheet {
             name: item.name,
             type: "weapon",
             system: {
-              damageDie: item.system.ram || "0",
+              damageDie: item.system.attack.formula || "0",
               weaponType: "melee",
             },
           },
