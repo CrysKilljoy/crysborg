@@ -125,7 +125,7 @@ export class MBActor extends Actor {
       this.system.hp ??= { max: 0, value: 0, base: 0 };
       this.system.ramBase ??= "0";
       this.system.armorBase ??= "0";
-      this.system.cargoBase ??= Number(this.system.cargo ?? 0);
+      this.system.cargoBase ??= 0;
       this.system.hp.base ??= Number(this.system.hp.max) || 0;
 
       // Start from base values to avoid cumulative modifiers
@@ -138,10 +138,6 @@ export class MBActor extends Actor {
       let cargo = Number(this.system.cargoBase) || 0;
       let structureMax = Number(this.system.hp.base) || 0;
       let structureVal = Number(this.system.hp.base) || 0;
-
-      // Reset stored ability values to their bases so modifiers aren't persisted
-      this.system.abilities.speed.value = speedBase;
-      this.system.abilities.stability.value = stabilityBase;
 
       const ramSources = [
         { label: game.i18n.localize("MB.Base"), value: ram }
@@ -183,9 +179,9 @@ export class MBActor extends Actor {
         }
       }
 
-      // Store derived totals separately so they're not saved
-      this.system.abilities.speed.total = speed;
-      this.system.abilities.stability.total = stability;
+      // Apply derived totals without persisting them
+      this.system.abilities.speed.value = speed;
+      this.system.abilities.stability.value = stability;
       this.system.ram = ram;
       this.system.ramSources = ramSources;
       this.system.armor = armor;
@@ -310,9 +306,9 @@ export class MBActor extends Actor {
     const data = super.getRollData();
     if (this.type === "carriage") {
       data.abilities.speed ??= {};
-      data.abilities.speed.value = this.system.abilities.speed.total ?? this.system.abilities.speed.base ?? 0;
+      data.abilities.speed.value = this.system.abilities.speed.value ?? this.system.abilities.speed.base ?? 0;
       data.abilities.stability ??= {};
-      data.abilities.stability.value = this.system.abilities.stability.total ?? this.system.abilities.stability.base ?? 0;
+      data.abilities.stability.value = this.system.abilities.stability.value ?? this.system.abilities.stability.base ?? 0;
     }
     return data;
   }

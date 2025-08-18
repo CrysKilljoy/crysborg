@@ -93,20 +93,6 @@ export class MBCarriageSheet extends MBActorSheet {
     html.find(".ram-roll").on("click", this._onRamRoll.bind(this));
     html.find(".armor-roll").on("click", this._onDefendRoll.bind(this));
 
-    const stabilityInput = html.find(".stability-value");
-    stabilityInput.on("focus", (ev) => {
-      ev.currentTarget.value = this.actor.system.abilities.stability.total;
-    });
-    stabilityInput.on("blur", (ev) => {
-      const input = ev.currentTarget;
-      // Allow form application to update the value before showing overloaded again
-      setTimeout(() => {
-        input.value = this.actor.system.overloaded
-          ? this.actor.system.abilities.stability.overloaded
-          : this.actor.system.abilities.stability.total;
-      }, 0);
-    });
-
     html.find(".follower-open").on("click", this._onOpenFollower.bind(this));
     html.find(".follower-remove").on("click", this._onRemoveFollower.bind(this));
   }
@@ -120,7 +106,7 @@ export class MBCarriageSheet extends MBActorSheet {
     event.preventDefault();
     const stability = this.actor.system.overloaded
       ? this.actor.system.abilities.stability.overloaded
-      : this.actor.system.abilities.stability.total;
+      : this.actor.system.abilities.stability.value;
     const roll = new Roll("1d100");
     await roll.evaluate();
     await showDice(roll);
