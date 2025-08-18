@@ -46,9 +46,15 @@
       {{#each data.system.carriageUpgrades as |item id|}}
         <li class="item flexrow" data-item-id="{{item._id}}">
           <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
-          <div class="weapon-name-col"><h4 class="item-name item-edit rollable">{{item.name}}</h4></div>
+          <div class="weapon-name-col">
+            <h4 class="item-name item-edit rollable">
+              {{item.name}}
+              {{#ifGt item.system.quantity 1}}
+                ({{item.system.quantity}})
+              {{/ifGt}}
+            </h4>
+          </div>
           <div class="item-fields">
-            <span class="item-field quantity">{{item.system.quantity}}</span>
             <span class="item-field">{{localize (lookup ../config.carriageLocations item.system.location)}}</span>
           </div>
           {{#ifNe item.system.attack.mode 'none'}}
