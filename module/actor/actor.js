@@ -174,7 +174,7 @@ export class MBActor extends Actor {
   }
 
   /** @override */
-  _onCreateDescendantDocuments(embeddedName, documents, result, options, userId) {
+  _onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId) {
     if (documents[0].type === CONFIG.MB.itemTypes.class) {
       this._deleteEarlierItems(CONFIG.MB.itemTypes.class);
     }
@@ -182,7 +182,7 @@ export class MBActor extends Actor {
       this._deleteEarlierItems(CONFIG.MB.itemTypes.carriageClass);
       this._applyCarriageClass(documents[0]);
     }
-    super._onCreateDescendantDocuments(
+    super._onCreateEmbeddedDocuments(
       embeddedName,
       documents,
       result,

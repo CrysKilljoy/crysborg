@@ -4,6 +4,7 @@ import { byName, showRollResultCard } from "../../utils.js";
 import { testCustomAbility } from "../test-abilities.js";
 import { trackCarryingCapacity } from "../../settings.js";
 import { showDice } from "../../dice.js";
+import { attack } from "../attack.js";
 
 /**
  * @extends {ActorSheet}
@@ -82,6 +83,10 @@ export class MBCarriageSheet extends MBActorSheet {
       { rollTitle: "1d100", roll, outcomeLines: [] },
     ];
     if (roll.total < stability) {
+      rollResults[0].outcomeLines.push(
+        game.i18n.localize("MB.StabilitySuccess")
+      );
+    } else {
       const follow = new Roll("1d4");
       await follow.evaluate();
       await showDice(follow);
@@ -108,61 +113,67 @@ export class MBCarriageSheet extends MBActorSheet {
     const button = $(event.currentTarget);
     const li = button.parents(".item");
     const itemId = li.data("itemId");
-    const rollData = this.actor.getRollData();
+    let tempItem;
 
     if (!itemId) {
-      const roll = new Roll("1d20", rollData);
-      await roll.evaluate();
-      await showDice(roll);
-      const rollResults = [{ rollTitle: "1d20", roll, outcomeLines: [] }];
-      const damageDie = this.actor.system.ram;
-      if (damageDie) {
-        const dmg = new Roll(damageDie);
-        await dmg.evaluate();
-        await showDice(dmg);
-        rollResults.push({ rollTitle: damageDie, roll: dmg, outcomeLines: [] });
-      }
-      await showRollResultCard(this.actor, {
-        cardTitle: game.i18n.localize("MB.Attack"),
-        items: [{ name: game.i18n.localize("MB.Ram"), img: this.actor.img }],
-        rollResults,
-      });
-      return;
-    }
-
-    const item = this.actor.items.get(itemId);
-    if (!item) return;
-    const mode = item.system.attack?.mode ?? "none";
-    if (mode === "none") return;
-
-    let formula;
-    let flavor;
-    if (mode === "custom") {
-      formula = item.system.attack.formula;
-      flavor = item.system.attack.chat || item.name;
+      tempItem = new CONFIG.Item.documentClass(
+        {
+          _id: foundry.utils.randomID(),
+          name: game.i18n.localize("MB.Ram"),
+          type: "weapon",
+          system: { damageDie: this.actor.system.ram || "0", weaponType: "melee" },
+        },
+        { parent: this.actor }
+      );
     } else {
-      formula = "d20+@abilities.speed.value";
-      flavor = item.name;
+      const item = this.actor.items.get(itemId);
+      if (!item) return;
+      const mode = item.system.attack?.mode ?? "none";
+      if (mode === "none") return;
+      if (mode === "attack") {
+        tempItem = new CONFIG.Item.documentClass(
+          {
+            _id: foundry.utils.randomID(),
+            name: item.name,
+            type: "weapon",
+            system: {
+              damageDie: item.system.ram || "0",
+              weaponType: "melee",
+            },
+          },
+          { parent: this.actor }
+        );
+      } else if (mode === "custom") {
+        const formula = item.system.attack.formula;
+        const flavor = item.system.attack.chat || item.name;
+        if (formula) {
+          const roll = new Roll(formula, this.actor.getRollData());
+          await roll.evaluate();
+          await showDice(roll);
+          roll.toMessage({
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            flavor,
+          });
+        } else if (flavor) {
+          ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            content: flavor,
+          });
+        }
+        if (item.system.consumable) {
+          const qty = Number(item.system.quantity || 0);
+          await item.update({ "system.quantity": Math.max(qty - 1, 0) });
+        }
+        return;
+      }
+      if (item.system.consumable) {
+        const qty = Number(item.system.quantity || 0);
+        await item.update({ "system.quantity": Math.max(qty - 1, 0) });
+      }
     }
 
-    if (formula) {
-      const roll = new Roll(formula, rollData);
-      await roll.evaluate();
-      await showDice(roll);
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor,
-      });
-    } else if (flavor) {
-      ChatMessage.create({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        content: flavor,
-      });
-    }
-
-    if (item.system.consumable) {
-      const qty = Number(item.system.quantity || 0);
-      await item.update({ "system.quantity": Math.max(qty - 1, 0) });
+    if (tempItem) {
+      await attack(this.actor, tempItem);
     }
   }
 }

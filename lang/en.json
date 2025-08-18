@@ -153,6 +153,7 @@
   "MB.StabilityRollOver": "The carriage rolls over.",
   "MB.StabilityStuck": "The carriage is stuck and the puller runs off.",
   "MB.StabilityItemLost": "A random item is lost.",
+  "MB.StabilitySuccess": "The carriage stays steady.",
   "MB.CarriageLocationRoof": "Roof",
   "MB.CarriageLocationLeft": "Left Side",
   "MB.CarriageLocationRight": "Right Side",

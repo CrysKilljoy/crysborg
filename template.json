@@ -79,7 +79,7 @@
     "carriage": {
       "abilities": {
         "speed": { "value": 0 },
-        "stability": { "value": 0 }
+        "stability": { "value": 100 }
       },
       "description": "",
       "hp": { "max": 1, "value": 1 },
