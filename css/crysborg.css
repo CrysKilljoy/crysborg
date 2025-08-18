@@ -382,6 +382,7 @@
 
 .crysborg.sheet.item.carriage-upgrade .sheet-body {
   overflow-y: auto;
+  height: 100%;
 }
 .crysborg.sheet.actor .sheet-body .tab,
 .crysborg.sheet.item .sheet-body .tab {

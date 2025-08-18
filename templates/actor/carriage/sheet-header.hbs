@@ -26,10 +26,7 @@
       <span class="ability-label rollable speed-roll">{{ localize 'MB.AbilitySpeedAbbrev' }}</span>
     </div>
     <div class="ability-row" title="{{localize 'MB.AbilityStabilityTooltip'}}">
-      <input class="ability-input" type="text" name="system.abilities.stability.value" value="{{numberFormat data.system.abilities.stability.value decimals=0 sign=false}}" data-dtype="Number" size="3" />
-      {{#if data.system.overloaded}}
-        <span class="overloaded-value">/{{data.system.abilities.stability.overloaded}}</span>
-      {{/if}}
+      <input class="ability-input stability-value" type="text" name="system.abilities.stability.value" value="{{#if data.system.overloaded}}{{data.system.abilities.stability.overloaded}}{{else}}{{numberFormat data.system.abilities.stability.value decimals=0 sign=false}}{{/if}}" data-dtype="Number" size="3" />
       <span class="ability-label rollable stability-roll">{{ localize 'MB.AbilityStabilityAbbrev' }}</span>
     </div>
   </div>

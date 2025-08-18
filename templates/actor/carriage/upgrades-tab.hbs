@@ -1,6 +1,22 @@
 <div class="tab upgrades-tab" data-group="primary" data-tab="upgrades">
   <ol class="items-list inventory-list">
     <li class="items-header flexrow">
+      <h3 class="item-name flexrow">{{localize 'MB.DraftSlot'}}</h3>
+    </li>
+    <ol class="item-list">
+      {{#each data.system.draftActors as |follower|}}
+        <li class="item flexrow" data-follower-id="{{follower.id}}">
+          <img src="{{follower.img}}" title="{{follower.name}}" width="24" height="24" />
+          <h4 class="item-name follower-open">{{follower.name}}</h4>
+          <div class="item-controls">
+            <a class="follower-remove" title="{{localize 'MB.Remove'}}"><i class="fas fa-trash"></i></a>
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </ol>
+  <ol class="items-list inventory-list">
+    <li class="items-header flexrow">
       <h3 class="item-name flexrow">{{localize 'MB.ItemTypeCarriageUpgrade'}}</h3>
       <div class="item-controls flexrow">
         <a class="item-control item-create" data-type="carriage-upgrade" title="{{localize 'MB.Add'}}"><i class="fas fa-plus"></i></a>

@@ -87,7 +87,8 @@
       "armor": "0",
       "cargo": 0,
       "size": "",
-      "cost": 0
+      "cost": 0,
+      "draft": []
     },
     "misery-tracker": {
       "miseryDie": "1d20",

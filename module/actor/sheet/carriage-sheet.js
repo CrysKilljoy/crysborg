@@ -5,7 +5,6 @@ import { testCustomAbility } from "../test-abilities.js";
 import { trackCarryingCapacity } from "../../settings.js";
 import { showDice } from "../../dice.js";
 import { attack } from "../attack.js";
-import { defend } from "../defend.js";
 
 /**
  * @extends {ActorSheet}
@@ -58,6 +57,13 @@ export class MBCarriageSheet extends MBActorSheet {
       .filter((item) => !item.system.hasContainer)
       .sort(byName);
 
+    data.system.draftActors = [];
+    const draftIds = this.actor.system.draft || [];
+    for (const id of draftIds) {
+      const follower = game.actors?.get(id);
+      if (follower) data.system.draftActors.push(follower);
+    }
+
     data.system.trackCarryingCapacity = trackCarryingCapacity();
 
     return superData;
@@ -68,7 +74,23 @@ export class MBCarriageSheet extends MBActorSheet {
     if (!this.options.editable) return;
     html.find(".speed-roll").on("click", this._onSpeedRoll.bind(this));
     html.find(".stability-roll").on("click", this._onStabilityRoll.bind(this));
-    html.find(".defend-button").on("click", this._onDefendRoll.bind(this));
+
+    const stabilityInput = html.find(".stability-value");
+    stabilityInput.on("focus", (ev) => {
+      ev.currentTarget.value = this.actor.system.abilities.stability.value;
+    });
+    stabilityInput.on("blur", (ev) => {
+      const input = ev.currentTarget;
+      // Allow form application to update the value before showing overloaded again
+      setTimeout(() => {
+        input.value = this.actor.system.overloaded
+          ? this.actor.system.abilities.stability.overloaded
+          : this.actor.system.abilities.stability.value;
+      }, 0);
+    });
+
+    html.find(".follower-open").on("click", this._onOpenFollower.bind(this));
+    html.find(".follower-remove").on("click", this._onRemoveFollower.bind(this));
   }
 
   _onSpeedRoll(event) {
@@ -182,9 +204,34 @@ export class MBCarriageSheet extends MBActorSheet {
     }
   }
 
-  _onDefendRoll(event) {
+  _onOpenFollower(event) {
     event.preventDefault();
-    defend(this.actor);
+    const li = $(event.currentTarget).parents(".item");
+    const followerId = li.data("followerId");
+    const follower = game.actors?.get(followerId);
+    follower?.sheet?.render(true);
+  }
+
+  async _onRemoveFollower(event) {
+    event.preventDefault();
+    const li = $(event.currentTarget).parents(".item");
+    const followerId = li.data("followerId");
+    const follower = game.actors?.get(followerId);
+    if (!follower) return;
+
+    const confirmed = await Dialog.confirm({
+      title: game.i18n.localize("MB.ReleaseDraftTitle"),
+      content: game.i18n.format("MB.ReleaseDraftContent", { name: follower.name }),
+      yes: () => true,
+      no: () => false,
+      defaultYes: false,
+    });
+    if (!confirmed) return;
+
+    const draft = Array.from(this.actor.system.draft || []).filter(
+      (id) => id !== followerId
+    );
+    await this.actor.update({ "system.draft": draft });
   }
 
   async _onDrop(event) {
@@ -192,12 +239,9 @@ export class MBCarriageSheet extends MBActorSheet {
     if (data.type === "Actor") {
       const droppedActor = await fromUuid(data.uuid);
       if (droppedActor?.type === "follower") {
-        const itemData = {
-          name: droppedActor.name,
-          type: CONFIG.MB.itemTypes.carriageUpgrade,
-          system: { location: "front", equipped: true },
-        };
-        return await this.actor.createEmbeddedDocuments("Item", [itemData]);
+        const draft = Array.from(this.actor.system.draft || []);
+        if (!draft.includes(droppedActor.id)) draft.push(droppedActor.id);
+        return this.actor.update({ "system.draft": draft });
       }
     }
     return super._onDrop(event);
