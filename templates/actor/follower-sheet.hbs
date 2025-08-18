@@ -65,6 +65,18 @@
         />
       </div>
 
+      {{!-- Carriage Speed --}}
+      <div class="form-group">
+        <label>{{ localize "MB.FollowerCarriageSpeed" }}:</label>
+        <input
+          type="number"
+          name="system.carriageSpeed"
+          value="{{data.system.carriageSpeed}}"
+          placeholder="0"
+          data-dtype="Number"
+        />
+      </div>
+
       {{!-- Tags --}}
       <div class="form-group">
         <label>{{ localize "MB.Tags" }}:</label>

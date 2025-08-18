@@ -74,7 +74,8 @@
       "silver": 0,
       "speciality": "",
       "trait": "",
-      "value": ""
+      "value": "",
+      "carriageSpeed": 0
     },
     "carriage": {
       "abilities": {

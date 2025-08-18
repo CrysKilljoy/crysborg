@@ -380,9 +380,8 @@
   overflow: hidden;
 }
 
-.crysborg.sheet.item.carriage-upgrade .sheet-body {
-  overflow-y: auto;
-  height: 100%;
+.window-app.crysborg.sheet.item.carriage-upgrade {
+  height: 700px !important;
 }
 .crysborg.sheet.actor .sheet-body .tab,
 .crysborg.sheet.item .sheet-body .tab {

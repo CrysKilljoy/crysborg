@@ -58,7 +58,7 @@ export class MBCarriageSheet extends MBActorSheet {
       .sort(byName);
 
     data.system.draftActors = [];
-    const draftIds = this.actor.system.draft || [];
+    const draftIds = (this.actor.system.draft || []).slice(0, 2);
     for (const id of draftIds) {
       const follower = game.actors?.get(id);
       if (follower) data.system.draftActors.push(follower);
@@ -240,6 +240,10 @@ export class MBCarriageSheet extends MBActorSheet {
       const droppedActor = await fromUuid(data.uuid);
       if (droppedActor?.type === "follower") {
         const draft = Array.from(this.actor.system.draft || []);
+        if (draft.length >= 2) {
+          ui.notifications.warn(game.i18n.localize("MB.DraftFull"));
+          return false;
+        }
         if (!draft.includes(droppedActor.id)) draft.push(droppedActor.id);
         return this.actor.update({ "system.draft": draft });
       }

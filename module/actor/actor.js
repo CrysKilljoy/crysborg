@@ -160,6 +160,13 @@ export class MBActor extends Actor {
         }
       }
 
+      for (const id of this.system.draft || []) {
+        const follower = game.actors?.get(id);
+        if (follower) {
+          speed += Number(follower.system?.carriageSpeed || 0);
+        }
+      }
+
       this.system.abilities.speed.value = speed;
       this.system.abilities.stability.value = stability;
       this.system.ram = ram;
@@ -231,6 +238,10 @@ export class MBActor extends Actor {
     const stability = await rollTotal(item.system.stability || "100");
     const armor = item.system.armor || "0";
     const cargo = Number(item.system.cargo) || 0;
+    const classDescription = item.system.description || "";
+    const newDescription = [this.system.description, classDescription]
+      .filter((d) => d)
+      .join("\n");
     await this.update({
       "system.abilities.speed.value": speed,
       "system.ram": ram,
@@ -239,6 +250,7 @@ export class MBActor extends Actor {
       "system.abilities.stability.value": stability,
       "system.armor": armor,
       "system.cargo": cargo,
+      "system.description": newDescription,
     });
   }
 
