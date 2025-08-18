@@ -236,5 +236,7 @@
   "MB.WieldAPowerText": "PRE DR12, or -d2 HP and no Powers for 1 hr",
   "MB.YouAreHit": "Vous êtes touchés !",
   "MB.YouHaveNoFeats": "Vous n'avez pas de don",
-  "MB.YouHaveNoScrolls": "Vous n'avez pas de parchemin"
+  "MB.YouHaveNoScrolls": "Vous n'avez pas de parchemin",
+  "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
+  "MB.CarriageFittings": "Carriage Fittings"
 }

@@ -239,5 +239,7 @@
   "MB.WieldAPowerText": "NÄR SG12 eller -t2 TP och inga Krafter i 1 tim.",
   "MB.YouAreHit": "You are Hit",
   "MB.YouHaveNoFeats": "Du har inga Förmågor",
-  "MB.YouHaveNoScrolls": "Du har inga Rullar"
+  "MB.YouHaveNoScrolls": "Du har inga Rullar",
+  "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
+  "MB.CarriageFittings": "Carriage Fittings"
 }

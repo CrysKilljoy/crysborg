@@ -263,5 +263,7 @@
   "MB.WieldAPowerText": "PRE+d4 veces al día. PRE CD12 para equipar o -d2 HP y sin poderes por 1 hr.",
   "MB.YouAreHit": "Eres golpeado",
   "MB.YouHaveNoFeats": "No tienes rasgos",
-  "MB.YouHaveNoScrolls": "No tienes pergaminos"
+  "MB.YouHaveNoScrolls": "No tienes pergaminos",
+  "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
+  "MB.CarriageFittings": "Carriage Fittings"
 }
