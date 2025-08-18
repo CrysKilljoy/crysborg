@@ -94,24 +94,25 @@ async function unautomatedAttack(actor, item) {
   const itemRollData = item.getRollData();
   const actorRollData = actor.getRollData();
   const isRanged = itemRollData.weaponType === "ranged";
-  const ability = actor.type === "carriage" ? "speed" : isRanged ? "presence" : "strength";
-  const attackRoll = new Roll(`d20+@abilities.${ability}.value`, actorRollData);
+  const ability = isRanged ? "presence" : "strength";
+  const attackRoll = actor.type === "carriage"
+    ? new Roll("1d20", actorRollData)
+    : new Roll(`d20+@abilities.${ability}.value`, actorRollData);
   await attackRoll.evaluate();
   await showDice(attackRoll);
 
-  const abilityAbbrevKey =
-    actor.type === "carriage"
-      ? "MB.AbilitySpeedAbbrev"
-      : isRanged
-      ? "MB.AbilityPresenceAbbrev"
-      : "MB.AbilityStrengthAbbrev";
+  const abilityAbbrevKey = isRanged
+    ? "MB.AbilityPresenceAbbrev"
+    : "MB.AbilityStrengthAbbrev";
   const weaponTypeKey = isRanged ? "MB.WeaponTypeRanged" : "MB.WeaponTypeMelee";
   await decrementWeaponAmmo(actor, item);
 
   const cardTitle = `${game.i18n.localize(weaponTypeKey)} ${game.i18n.localize(
     "MB.Attack"
   )}`;
-  const attackFormula = `1d20 + ${game.i18n.localize(abilityAbbrevKey)}`;
+  const attackFormula = actor.type === "carriage"
+    ? "1d20"
+    : `1d20 + ${game.i18n.localize(abilityAbbrevKey)}`;
   const rollResult = {
     actor,
     attackFormula,
@@ -176,8 +177,10 @@ async function rollAttack(actor, item, attackDR, targetArmor) {
   // roll 1: attack
   const isRanged = itemRollData.weaponType === "ranged";
   const { drModifiers, items: modItems } = computeAttackDrModifier(actor, isRanged);
-  const ability = actor.type === "carriage" ? "speed" : isRanged ? "presence" : "strength";
-  const attackRoll = new Roll(`d20+@abilities.${ability}.value`, actorRollData);
+  const ability = isRanged ? "presence" : "strength";
+  const attackRoll = actor.type === "carriage"
+    ? new Roll("1d20", actorRollData)
+    : new Roll(`d20+@abilities.${ability}.value`, actorRollData);
   await attackRoll.evaluate();
   await showDice(attackRoll);
 
@@ -227,17 +230,16 @@ async function rollAttack(actor, item, attackDR, targetArmor) {
   }
 
   // TODO: decide keys in handlebars/template?
-  const abilityAbbrevKey =
-    actor.type === "carriage"
-      ? "MB.AbilitySpeedAbbrev"
-      : isRanged
-      ? "MB.AbilityPresenceAbbrev"
-      : "MB.AbilityStrengthAbbrev";
+  const abilityAbbrevKey = isRanged
+    ? "MB.AbilityPresenceAbbrev"
+    : "MB.AbilityStrengthAbbrev";
   const weaponTypeKey = isRanged ? "MB.WeaponTypeRanged" : "MB.WeaponTypeMelee";
   const rollResult = {
     actor,
     attackDR,
-    attackFormula: `1d20 + ${game.i18n.localize(abilityAbbrevKey)}`,
+    attackFormula: actor.type === "carriage"
+      ? "1d20"
+      : `1d20 + ${game.i18n.localize(abilityAbbrevKey)}`,
     attackRoll,
     attackOutcome,
     damageRoll,
