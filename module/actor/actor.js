@@ -124,7 +124,7 @@ export class MBActor extends Actor {
       }
       this.system.hp ??= { max: 0, value: 0 };
       this.system.ram = this.system.ram || "0";
-      this.system.armor = Number(this.system.armor) || 0;
+      this.system.armor = this.system.armor || "0";
       this.system.cargo = Number(this.system.cargo) || 0;
 
       // Start from base values to avoid cumulative modifiers
@@ -146,7 +146,13 @@ export class MBActor extends Actor {
             ram = `${ram}+${item.system.ram}`;
           }
         }
-        armor += item.system.armor || 0;
+        if (item.system.armor) {
+          if (armor === "0") {
+            armor = item.system.armor;
+          } else {
+            armor = `${armor}+${item.system.armor}`;
+          }
+        }
         cargo += item.system.cargo || 0;
         if (item.system.structure) {
           structureMax += item.system.structure;
@@ -223,7 +229,7 @@ export class MBActor extends Actor {
     const ram = item.system.ram || "0";
     const structure = await rollTotal(item.system.structure || "0");
     const stability = await rollTotal(item.system.stability || "100");
-    const armor = Number(item.system.armor) || 0;
+    const armor = item.system.armor || "0";
     const cargo = Number(item.system.cargo) || 0;
     await this.update({
       "system.abilities.speed.value": speed,

@@ -12,6 +12,7 @@
       </select>
     </div>
     <div class="form-group"><label>{{ localize "MB.Quantity" }}:</label><input type="number" name="system.quantity" value="{{data.system.quantity}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>{{ localize "MB.CarryWeight" }}:</label><input type="number" name="system.carryWeight" value="{{data.system.carryWeight}}" data-dtype="Number" /></div>
     <div class="form-group"><label>{{ localize "MB.Consumable" }}:</label><input type="checkbox" name="system.consumable" {{checked data.system.consumable}} data-dtype="Boolean" /></div>
     <div class="form-group">
       <label>{{ localize "MB.AttackButton" }}:</label>
@@ -26,7 +27,7 @@
     <div class="form-group"><label>Ram Mod:</label><input type="text" name="system.ram" value="{{data.system.ram}}" data-dtype="String" /></div>
     <div class="form-group"><label>Structure Mod:</label><input type="number" name="system.structure" value="{{data.system.structure}}" data-dtype="Number" /></div>
     <div class="form-group"><label>Stability Mod:</label><input type="number" name="system.stability" value="{{data.system.stability}}" data-dtype="Number" /></div>
-    <div class="form-group"><label>Armor Mod:</label><input type="number" name="system.armor" value="{{data.system.armor}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>Armor Mod:</label><input type="text" name="system.armor" value="{{data.system.armor}}" data-dtype="String" /></div>
     <div class="form-group"><label>Cargo Mod:</label><input type="number" name="system.cargo" value="{{data.system.cargo}}" data-dtype="Number" /></div>
     <div class="form-group"><label>Cost Mod:</label><input type="number" name="system.cost" value="{{data.system.cost}}" data-dtype="Number" /></div>
   </section>

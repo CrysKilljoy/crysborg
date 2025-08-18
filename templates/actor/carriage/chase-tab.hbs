@@ -1,40 +1,63 @@
 <div class="tab chase-tab" data-group="primary" data-tab="chase">
-  <ol class="items-list weapon-list">
-    <li class="item flexrow">
-      <div class="weapon-name-col"><h4 class="item-name">Ram</h4></div>
-      <div class="item-fields">
-        <label class="item-field-label">{{localize 'MB.Damage'}}</label>
-        <span class="item-field damage-die">{{data.system.ram}}</span>
-      </div>
-      <div class="item-buttons">
-        <button type="button" class="item-button rollable attack-button">{{localize 'MB.Attack'}}</button>
-      </div>
+  <ol class="items-list inventory-list">
+    <li class="items-header flexrow">
+      <h3 class="item-name flexrow">{{localize 'MB.Attack'}}</h3>
     </li>
-    {{#each data.system.carriageUpgrades as |item id|}}
-      <li class="item flexrow" data-item-id="{{item._id}}">
-        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
-        <div class="weapon-name-col"><h4 class="item-name item-edit rollable">{{item.name}}</h4></div>
+    <ol class="item-list weapon-list">
+      <li class="item flexrow">
+        <div class="weapon-name-col"><h4 class="item-name">Ram</h4></div>
         <div class="item-fields">
-          <span class="item-field damage-die">{{item.system.ram}}</span>
-          <span class="item-field quantity">{{item.system.quantity}}</span>
+          <span class="item-field damage-die">{{data.system.ram}}</span>
         </div>
-        {{#ifNe item.system.attack.mode 'none'}}
-          <div class="item-buttons">
-            <button type="button" class="item-button rollable attack-button">
-              {{#ifEq item.system.attack.mode 'custom'}}
-                {{item.system.attack.label}}
-              {{else}}
-                {{localize 'MB.Attack'}}
-              {{/ifEq}}
-            </button>
-          </div>
-        {{/ifNe}}
-        <div class="item-controls">
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <div class="item-buttons">
+          <button type="button" class="item-button rollable attack-button">{{localize 'MB.Attack'}}</button>
         </div>
+        <div class="item-controls"></div>
       </li>
-    {{/each}}
+      {{#each data.system.carriageUpgrades as |item id|}}
+        <li class="item flexrow" data-item-id="{{item._id}}">
+          <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
+          <div class="weapon-name-col"><h4 class="item-name item-edit rollable">{{item.name}}</h4></div>
+          <div class="item-fields">
+            <span class="item-field damage-die">{{item.system.ram}}</span>
+            <span class="item-field quantity">{{item.system.quantity}}</span>
+          </div>
+          {{#ifNe item.system.attack.mode 'none'}}
+            <div class="item-buttons">
+              <button type="button" class="item-button rollable attack-button">
+                {{#ifEq item.system.attack.mode 'custom'}}
+                  {{item.system.attack.label}}
+                {{else}}
+                  {{localize 'MB.Attack'}}
+                {{/ifEq}}
+              </button>
+            </div>
+          {{/ifNe}}
+          <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+    <div class="rule-text attack-rule">{{localize 'MB.AttackCritText'}} {{localize 'MB.AttackFumbleText'}}</div>
+    <div class="violence-gutter"></div>
   </ol>
+  <div class="underarmor-row">
+    <div class="incoming-attack">
+      <div>
+        <button
+          type="button"
+          class="rollable sheet-button defend-button"
+          title="{{localize 'MB.DefendButtonTitle'}}"
+        >
+          {{localize 'MB.Defend'}}
+        </button>
+      </div>
+      <div class="rule-text defend-rule">
+        {{localize 'MB.DefendCritText'}} {{localize 'MB.DefendFumbleText'}}
+      </div>
+    </div>
+  </div>
 </div>
 

@@ -84,7 +84,7 @@
       "description": "",
       "hp": { "max": 1, "value": 1 },
       "ram": "0",
-      "armor": 0,
+      "armor": "0",
       "cargo": 0,
       "size": "",
       "cost": 0
@@ -226,7 +226,7 @@
       "ram": "0",
       "structure": "0",
       "stability": "0",
-      "armor": 0,
+      "armor": "0",
       "cargo": 0,
       "cost": 0
     },
@@ -238,7 +238,7 @@
       "ram": "0",
       "structure": 0,
       "stability": 0,
-      "armor": 0,
+      "armor": "0",
       "cargo": 0,
       "cost": 0,
       "quantity": 1,

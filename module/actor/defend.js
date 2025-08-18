@@ -170,12 +170,13 @@ async function defendDialogCallback(actor, html) {
  */
 async function rollDefend(actor, defendDR, incomingAttack) {
   const rollData = actor.getRollData();
-  const armor = actor.equippedArmor();
-  const shield = actor.equippedShield();
+  const ability = actor.type === "carriage" ? "speed" : "agility";
+  const armor = actor.type === "carriage" ? null : actor.equippedArmor();
+  const shield = actor.type === "carriage" ? null : actor.equippedShield();
   const { drModifiers, items: modItems } = computeDefendDrModifier(actor);
 
   // roll 1: defend
-  const defendRoll = new Roll("d20+@abilities.agility.value", rollData);
+  const defendRoll = new Roll(`d20+@abilities.${ability}.value`, rollData);
   await defendRoll.evaluate();
   await showDice(defendRoll);
 
@@ -215,7 +216,10 @@ async function rollDefend(actor, defendDR, incomingAttack) {
     let damage = damageRoll.total;
 
     // roll 3: damage reduction from equipped armor and shield
-    let damageReductionDie = "";
+  let damageReductionDie = "";
+  if (actor.type === "carriage") {
+    damageReductionDie = actor.system.armor || "";
+  } else {
     if (armor) {
       damageReductionDie =
         CONFIG.MB.armorTiers[armor.system.tier.value].damageReductionDie;
@@ -225,7 +229,8 @@ async function rollDefend(actor, defendDR, incomingAttack) {
       damageReductionDie += "+1";
       if (!items.includes(shield)) items.push(shield);
     }
-    if (damageReductionDie) {
+  }
+    if (damageReductionDie && damageReductionDie !== "0") {
       armorRoll = new Roll("@die", { die: damageReductionDie });
       await armorRoll.evaluate();
       addShowDicePromise(dicePromises, armorRoll);
@@ -244,7 +249,11 @@ async function rollDefend(actor, defendDR, incomingAttack) {
     armorRoll,
     damageRoll,
     defendDR,
-    defendFormula: `1d20 + ${game.i18n.localize("MB.AbilityAgilityAbbrev")}`,
+    defendFormula: `1d20 + ${
+      actor.type === "carriage"
+        ? game.i18n.localize("MB.AbilitySpeedAbbrev")
+        : game.i18n.localize("MB.AbilityAgilityAbbrev")
+    }`,
     defendOutcome,
     defendRoll,
     drModifiers,

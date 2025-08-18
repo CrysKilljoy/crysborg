@@ -251,6 +251,7 @@ MB.itemEquipmentTypes = [
   MB.itemTypes.scroll,
   MB.itemTypes.shield,
   MB.itemTypes.weapon,
+  MB.itemTypes.carriageUpgrade,
 ];
 
 MB.allowedContainerItemTypes = [

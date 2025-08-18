@@ -5,6 +5,7 @@ import { testCustomAbility } from "../test-abilities.js";
 import { trackCarryingCapacity } from "../../settings.js";
 import { showDice } from "../../dice.js";
 import { attack } from "../attack.js";
+import { defend } from "../defend.js";
 
 /**
  * @extends {ActorSheet}
@@ -42,7 +43,10 @@ export class MBCarriageSheet extends MBActorSheet {
     data.system.orderedAbilities.push(stability);
 
     data.system.carriageUpgrades = data.items
-      .filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade)
+      .filter(
+        (i) =>
+          i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped
+      )
       .sort(byName);
 
     data.system.class = data.items.find(
@@ -64,6 +68,7 @@ export class MBCarriageSheet extends MBActorSheet {
     if (!this.options.editable) return;
     html.find(".speed-roll").on("click", this._onSpeedRoll.bind(this));
     html.find(".stability-roll").on("click", this._onStabilityRoll.bind(this));
+    html.find(".defend-button").on("click", this._onDefendRoll.bind(this));
   }
 
   _onSpeedRoll(event) {
@@ -175,6 +180,27 @@ export class MBCarriageSheet extends MBActorSheet {
     if (tempItem) {
       await attack(this.actor, tempItem);
     }
+  }
+
+  _onDefendRoll(event) {
+    event.preventDefault();
+    defend(this.actor);
+  }
+
+  async _onDrop(event) {
+    const data = TextEditor.getDragEventData(event);
+    if (data.type === "Actor") {
+      const droppedActor = await fromUuid(data.uuid);
+      if (droppedActor?.type === "follower") {
+        const itemData = {
+          name: droppedActor.name,
+          type: CONFIG.MB.itemTypes.carriageUpgrade,
+          system: { location: "front", equipped: true },
+        };
+        return await this.actor.createEmbeddedDocuments("Item", [itemData]);
+      }
+    }
+    return super._onDrop(event);
   }
 }
 
