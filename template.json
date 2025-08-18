@@ -244,7 +244,6 @@
       "stability": 0,
       "armor": "0",
       "cargo": 0,
-      "cost": 0,
       "quantity": 1,
       "consumable": false,
       "usesAmmo": false,
