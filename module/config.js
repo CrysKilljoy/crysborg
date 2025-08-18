@@ -266,6 +266,7 @@ MB.equippableItemTypes = [
   MB.itemTypes.armor,
   MB.itemTypes.shield,
   MB.itemTypes.weapon,
+  MB.itemTypes.carriageUpgrade,
 ];
 
 MB.droppableItemTypes = [MB.itemTypes.container];

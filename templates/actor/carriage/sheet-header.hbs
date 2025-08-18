@@ -27,7 +27,10 @@
     </div>
     <div class="ability-row" title="{{localize 'MB.AbilityStabilityTooltip'}}">
       <input class="ability-input" type="text" name="system.abilities.stability.value" value="{{numberFormat data.system.abilities.stability.value decimals=0 sign=false}}" data-dtype="Number" size="3" />
-      <span class="ability-label">{{ localize 'MB.AbilityStabilityAbbrev' }}</span>
+      {{#if data.system.overloaded}}
+        <span class="overloaded-value">/{{data.system.abilities.stability.overloaded}}</span>
+      {{/if}}
+      <span class="ability-label rollable stability-roll">{{ localize 'MB.AbilityStabilityAbbrev' }}</span>
     </div>
   </div>
 </header>

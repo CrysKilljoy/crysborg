@@ -1,5 +1,6 @@
 import { trackCarryingCapacity } from "../settings.js";
 import HPZeroDialog from "./sheet/hp-zero-dialog.js";
+import { rollTotal } from "../utils.js";
 
 /**
  * @extends {Actor}
@@ -117,9 +118,12 @@ export class MBActor extends Actor {
       // Ensure ability and structure fields exist
       this.system.abilities ??= {};
       this.system.abilities.speed ??= { value: 0 };
-      this.system.abilities.stability ??= { value: 0 };
+      this.system.abilities.stability ??= { value: 100 };
+      if (this.system.abilities.stability.value == null) {
+        this.system.abilities.stability.value = 100;
+      }
       this.system.hp ??= { max: 0, value: 0 };
-      this.system.ram = Number(this.system.ram) || 0;
+      this.system.ram = this.system.ram || "0";
       this.system.armor = Number(this.system.armor) || 0;
       this.system.cargo = Number(this.system.cargo) || 0;
 
@@ -132,10 +136,16 @@ export class MBActor extends Actor {
       let structureMax = Number(this.system.hp.max) || 0;
       let structureVal = Number(this.system.hp.value) || 0;
 
-      for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade)) {
+      for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped)) {
         speed += item.system.speed || 0;
         stability += item.system.stability || 0;
-        ram += item.system.ram || 0;
+        if (item.system.ram) {
+          if (ram === "0") {
+            ram = item.system.ram;
+          } else {
+            ram = `${ram}+${item.system.ram}`;
+          }
+        }
         armor += item.system.armor || 0;
         cargo += item.system.cargo || 0;
         if (item.system.structure) {
@@ -149,8 +159,17 @@ export class MBActor extends Actor {
       this.system.ram = ram;
       this.system.armor = armor;
       this.system.cargo = cargo;
+      this.system.carryingCapacity = cargo;
       this.system.hp.max = structureMax;
       this.system.hp.value = Math.min(structureVal, structureMax);
+
+      const overloaded = this.carryingWeight() > cargo;
+      this.system.overloaded = overloaded;
+      if (overloaded) {
+        this.system.abilities.stability.overloaded = Math.floor(stability / 2);
+      } else {
+        delete this.system.abilities.stability.overloaded;
+      }
     }
   }
 
@@ -161,6 +180,7 @@ export class MBActor extends Actor {
     }
     if (documents[0].type === CONFIG.MB.itemTypes.carriageClass) {
       this._deleteEarlierItems(CONFIG.MB.itemTypes.carriageClass);
+      this._applyCarriageClass(documents[0]);
     }
     super._onCreateDescendantDocuments(
       embeddedName,
@@ -196,6 +216,24 @@ export class MBActor extends Actor {
     const deletions = itemsOfType.map((i) => i.id);
     // not awaiting this async call, just fire it off
     this.deleteEmbeddedDocuments("Item", deletions);
+  }
+
+  async _applyCarriageClass(item) {
+    const speed = await rollTotal(item.system.speed || "0");
+    const ram = item.system.ram || "0";
+    const structure = await rollTotal(item.system.structure || "0");
+    const stability = await rollTotal(item.system.stability || "100");
+    const armor = Number(item.system.armor) || 0;
+    const cargo = Number(item.system.cargo) || 0;
+    await this.update({
+      "system.abilities.speed.value": speed,
+      "system.ram": ram,
+      "system.hp.max": structure,
+      "system.hp.value": structure,
+      "system.abilities.stability.value": stability,
+      "system.armor": armor,
+      "system.cargo": cargo,
+    });
   }
 
   _firstEquipped(itemType) {

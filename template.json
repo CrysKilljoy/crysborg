@@ -222,7 +222,6 @@
     },
     "carriage-class": {
       "description": "",
-      "size": "",
       "speed": "0",
       "ram": "0",
       "structure": "0",
@@ -232,10 +231,11 @@
       "cost": 0
     },
     "carriage-upgrade": {
+      "templates": ["baseEquipment"],
       "description": "",
       "location": "front",
       "speed": 0,
-      "ram": 0,
+      "ram": "0",
       "structure": 0,
       "stability": 0,
       "armor": 0,

@@ -1,44 +1,39 @@
 <div class="tab chase-tab" data-group="primary" data-tab="chase">
-  <ol class="items-list inventory-list">
-    <li class="items-header flexrow">
-      <h3 class="item-name flexrow">Ram</h3>
+  <ol class="items-list weapon-list">
+    <li class="item flexrow">
+      <div class="weapon-name-col"><h4 class="item-name">Ram</h4></div>
+      <div class="item-fields">
+        <span class="item-field damage-die">{{data.system.ram}}</span>
+      </div>
+      <div class="item-buttons">
+        <button type="button" class="item-button rollable attack-button">{{localize 'MB.Attack'}}</button>
+      </div>
     </li>
-    <ol class="item-list weapon-list">
-      <li class="item flexrow">
-        <div class="weapon-name-col"><h4 class="item-name">Ram</h4></div>
+    {{#each data.system.carriageUpgrades as |item id|}}
+      <li class="item flexrow" data-item-id="{{item._id}}">
+        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
+        <div class="weapon-name-col"><h4 class="item-name item-edit rollable">{{item.name}}</h4></div>
         <div class="item-fields">
-          <span class="item-field damage-die">{{data.system.ram}}</span>
+          <span class="item-field damage-die">{{item.system.ram}}</span>
+          <span class="item-field quantity">{{item.system.quantity}}</span>
         </div>
-        <div class="item-buttons">
-          <button type="button" class="item-button rollable attack-button" data-roll="d20+@abilities.speed.value">{{localize 'MB.Attack'}}</button>
+        {{#ifNe item.system.attack.mode 'none'}}
+          <div class="item-buttons">
+            <button type="button" class="item-button rollable attack-button">
+              {{#ifEq item.system.attack.mode 'custom'}}
+                {{item.system.attack.label}}
+              {{else}}
+                {{localize 'MB.Attack'}}
+              {{/ifEq}}
+            </button>
+          </div>
+        {{/ifNe}}
+        <div class="item-controls">
+          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
         </div>
       </li>
-      {{#each data.system.carriageUpgrades as |item id|}}
-        <li class="item flexrow" data-item-id="{{item._id}}">
-          <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
-          <div class="weapon-name-col"><h4 class="item-name item-edit rollable">{{item.name}}</h4></div>
-          <div class="item-fields">
-            <span class="item-field damage-die">{{item.system.ram}}</span>
-            <span class="item-field quantity">{{item.system.quantity}}</span>
-          </div>
-          {{#ifNe item.system.attack.mode 'none'}}
-            <div class="item-buttons">
-              <button type="button" class="item-button rollable attack-button">
-                {{#ifEq item.system.attack.mode 'custom'}}
-                  {{item.system.attack.label}}
-                {{else}}
-                  {{localize 'MB.Attack'}}
-                {{/ifEq}}
-              </button>
-            </div>
-          {{/ifNe}}
-          <div class="item-controls">
-            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-          </div>
-        </li>
-      {{/each}}
-    </ol>
+    {{/each}}
   </ol>
 </div>
 

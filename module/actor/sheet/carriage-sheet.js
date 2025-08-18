@@ -1,6 +1,6 @@
 import MBActorSheet from "./actor-sheet.js";
 import { MB } from "../../config.js";
-import { byName } from "../../utils.js";
+import { byName, showRollResultCard } from "../../utils.js";
 import { testCustomAbility } from "../test-abilities.js";
 import { trackCarryingCapacity } from "../../settings.js";
 import { showDice } from "../../dice.js";
@@ -62,11 +62,45 @@ export class MBCarriageSheet extends MBActorSheet {
     super.activateListeners(html);
     if (!this.options.editable) return;
     html.find(".speed-roll").on("click", this._onSpeedRoll.bind(this));
+    html.find(".stability-roll").on("click", this._onStabilityRoll.bind(this));
   }
 
   _onSpeedRoll(event) {
     event.preventDefault();
     testCustomAbility(this.actor, "speed");
+  }
+
+  async _onStabilityRoll(event) {
+    event.preventDefault();
+    const stability = this.actor.system.overloaded
+      ? this.actor.system.abilities.stability.overloaded
+      : this.actor.system.abilities.stability.value;
+    const roll = new Roll("1d100");
+    await roll.evaluate();
+    await showDice(roll);
+    const rollResults = [
+      { rollTitle: "1d100", roll, outcomeLines: [] },
+    ];
+    if (roll.total < stability) {
+      const follow = new Roll("1d4");
+      await follow.evaluate();
+      await showDice(follow);
+      const outcomes = {
+        1: game.i18n.localize("MB.StabilityBreak"),
+        2: game.i18n.localize("MB.StabilityRollOver"),
+        3: game.i18n.localize("MB.StabilityStuck"),
+        4: game.i18n.localize("MB.StabilityItemLost"),
+      };
+      rollResults.push({
+        rollTitle: "1d4",
+        roll: follow,
+        outcomeLines: [outcomes[follow.total]],
+      });
+    }
+    await showRollResultCard(this.actor, {
+      cardTitle: game.i18n.localize("MB.StabilityCheck"),
+      rollResults,
+    });
   }
 
   async _onAttackRoll(event) {
@@ -77,14 +111,21 @@ export class MBCarriageSheet extends MBActorSheet {
     const rollData = this.actor.getRollData();
 
     if (!itemId) {
-      const formula = button.data("roll");
-      if (!formula) return;
-      const roll = new Roll(formula, rollData);
+      const roll = new Roll("1d20", rollData);
       await roll.evaluate();
       await showDice(roll);
-      roll.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: game.i18n.localize("MB.Attack"),
+      const rollResults = [{ rollTitle: "1d20", roll, outcomeLines: [] }];
+      const damageDie = this.actor.system.ram;
+      if (damageDie) {
+        const dmg = new Roll(damageDie);
+        await dmg.evaluate();
+        await showDice(dmg);
+        rollResults.push({ rollTitle: damageDie, roll: dmg, outcomeLines: [] });
+      }
+      await showRollResultCard(this.actor, {
+        cardTitle: game.i18n.localize("MB.Attack"),
+        items: [{ name: game.i18n.localize("MB.Ram"), img: this.actor.img }],
+        rollResults,
       });
       return;
     }

@@ -17,7 +17,11 @@ export class MBItem extends Item {
 
   /** @override */
   prepareActorItemDerivedData(actor) {
-    if (actor.type === "character" || actor.type === "follower") {
+    if (
+      actor.type === "character" ||
+      actor.type === "follower" ||
+      actor.type === "carriage"
+    ) {
       this.system.equippable = CONFIG.MB.equippableItemTypes.includes(
         this.type
       );
