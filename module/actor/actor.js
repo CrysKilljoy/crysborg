@@ -202,16 +202,19 @@ export class MBActor extends Actor {
   }
 
   /** @override */
-  _onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId) {
-    if (documents[0].type === CONFIG.MB.itemTypes.class) {
-      this._deleteEarlierItems(CONFIG.MB.itemTypes.class);
+  _onCreateDescendantDocuments(parent, collection, documents, result, options, userId) {
+    if (parent === this && collection === this.items) {
+      if (documents[0].type === CONFIG.MB.itemTypes.class) {
+        this._deleteEarlierItems(CONFIG.MB.itemTypes.class);
+      }
+      if (documents[0].type === CONFIG.MB.itemTypes.carriageClass) {
+        this._deleteEarlierItems(CONFIG.MB.itemTypes.carriageClass);
+        this._applyCarriageClass(documents[0]);
+      }
     }
-    if (documents[0].type === CONFIG.MB.itemTypes.carriageClass) {
-      this._deleteEarlierItems(CONFIG.MB.itemTypes.carriageClass);
-      this._applyCarriageClass(documents[0]);
-    }
-    super._onCreateEmbeddedDocuments(
-      embeddedName,
+    super._onCreateDescendantDocuments(
+      parent,
+      collection,
       documents,
       result,
       options,
@@ -219,18 +222,22 @@ export class MBActor extends Actor {
     );
   }
 
-  _onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId) {
-    for (const document of documents) {
-      if (document.isContainer) {
-        this.deleteEmbeddedDocuments("Item", document.items);
-      }
-      if (document.hasContainer) {
-        document.container.removeItem(document.id);
+  /** @override */
+  _onDeleteDescendantDocuments(parent, collection, documents, result, options, userId) {
+    if (parent === this && collection === this.items) {
+      for (const document of documents) {
+        if (document.isContainer) {
+          this.deleteEmbeddedDocuments("Item", document.items);
+        }
+        if (document.hasContainer) {
+          document.container.removeItem(document.id);
+        }
       }
     }
 
-    super._onDeleteEmbeddedDocuments(
-      embeddedName,
+    super._onDeleteDescendantDocuments(
+      parent,
+      collection,
       documents,
       result,
       options,
