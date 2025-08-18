@@ -101,16 +101,20 @@ export class MBCarriageSheet extends MBActorSheet {
       ev.currentTarget.value = this.actor.system.abilities.speed.base ?? 0;
     });
     speedInput.on("blur", (ev) => {
-      ev.currentTarget.value = this.actor.system.abilities.speed.value ?? 0;
+      setTimeout(() => {
+        ev.currentTarget.value = this.actor.system.abilities.speed.value ?? 0;
+      }, 0);
     });
     const stabInput = html.find("input[name='system.abilities.stability.base']");
     stabInput.on("focus", (ev) => {
       ev.currentTarget.value = this.actor.system.abilities.stability.base ?? 0;
     });
     stabInput.on("blur", (ev) => {
-      ev.currentTarget.value = this.actor.system.overloaded
-        ? this.actor.system.abilities.stability.overloaded
-        : this.actor.system.abilities.stability.value;
+      setTimeout(() => {
+        ev.currentTarget.value = this.actor.system.overloaded
+          ? this.actor.system.abilities.stability.overloaded
+          : this.actor.system.abilities.stability.value;
+      }, 0);
     });
   }
 

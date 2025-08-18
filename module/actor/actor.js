@@ -284,18 +284,11 @@ export class MBActor extends Actor {
       .join("\n");
     await this.update({
       "system.abilities.speed.base": speed,
-      "system.abilities.speed.value": speed,
       "system.ramBase": ram,
-      "system.ram": ram,
       "system.hp.base": structure,
-      "system.hp.max": structure,
-      "system.hp.value": structure,
       "system.abilities.stability.base": stability,
-      "system.abilities.stability.value": stability,
       "system.armorBase": armor,
-      "system.armor": armor,
       "system.cargoBase": cargo,
-      "system.cargo": cargo,
       "system.description": newDescription,
     });
     this.prepareData();
