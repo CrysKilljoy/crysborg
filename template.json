@@ -247,6 +247,7 @@
       "cost": 0,
       "quantity": 1,
       "consumable": false,
+      "usesAmmo": false,
       "attack": {
         "mode": "none",
         "label": "",
