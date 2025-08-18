@@ -1,6 +1,6 @@
 import { trackCarryingCapacity } from "../settings.js";
 import HPZeroDialog from "./sheet/hp-zero-dialog.js";
-import { rollTotal } from "../utils.js";
+import { rollTotal, rollTotalSync } from "../utils.js";
 
 /**
  * @extends {Actor}
@@ -148,8 +148,8 @@ export class MBActor extends Actor {
       ];
 
       for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped)) {
-        speed += item.system.speed || 0;
-        stability += item.system.stability || 0;
+        speed += rollTotalSync(String(item.system.speed || 0));
+        stability += rollTotalSync(String(item.system.stability || 0));
         if (item.system.ram) {
           if (ram === "0" || ram === "") {
             ram = item.system.ram;
@@ -166,17 +166,19 @@ export class MBActor extends Actor {
           }
           armorSources.push({ label: item.name, value: item.system.armor });
         }
-        cargo += item.system.cargo || 0;
+        cargo += rollTotalSync(String(item.system.cargo || 0));
         if (item.system.structure) {
-          structureMax += item.system.structure;
-          structureVal += item.system.structure;
+          const structMod = rollTotalSync(String(item.system.structure));
+          structureMax += structMod;
+          structureVal += structMod;
         }
       }
 
-      for (const id of this.system.draft || []) {
+      const draftIds = Array.from(new Set(this.system.draft || []));
+      for (const id of draftIds) {
         const follower = game.actors?.get(id);
         if (follower) {
-          speed += Number(follower.system?.carriageSpeed || 0);
+          speed += rollTotalSync(String(follower.system?.carriageSpeed || 0));
         }
       }
 

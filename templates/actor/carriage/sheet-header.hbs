@@ -15,7 +15,8 @@
       <div class="hp-entries">
         <span class="stat-label">{{ localize "MB.Structure" }}:</span>
         <input class="stat-input" name="system.hp.value" type="number" value="{{data.system.hp.value}}" data-dtype="Number" /> /
-        <input class="stat-input" name="system.hp.base" type="number" value="{{data.system.hp.max}}" data-dtype="Number" />
+        <input class="stat-input" name="system.hp.max" type="number" value="{{data.system.hp.max}}" data-dtype="Number" />
+        <input type="hidden" name="system.hp.base" value="{{data.system.hp.base}}" />
       </div>
     </div>
     <div class="armor-row" title="{{data.system.armorTooltip}}">
@@ -27,11 +28,13 @@
   <div class="header-gutter-col"></div>
   <div class="header-col3">
     <div class="ability-row" title="{{localize 'MB.AbilitySpeedTooltip'}}">
-      <input class="ability-input" type="text" name="system.abilities.speed.base" value="{{numberFormat data.system.abilities.speed.value decimals=0 sign=false}}" data-dtype="Number" size="3" />
+      <input class="ability-input" type="text" name="system.abilities.speed.value" value="{{numberFormat data.system.abilities.speed.value decimals=0 sign=false}}" data-dtype="Number" size="3" />
+      <input type="hidden" name="system.abilities.speed.base" value="{{numberFormat data.system.abilities.speed.base decimals=0 sign=false}}" />
       <span class="ability-label rollable speed-roll">{{ localize 'MB.AbilitySpeedAbbrev' }}</span>
     </div>
     <div class="ability-row" title="{{localize 'MB.AbilityStabilityTooltip'}}">
-      <input class="ability-input stability-value" type="text" name="system.abilities.stability.base" value="{{#if data.system.overloaded}}{{data.system.abilities.stability.overloaded}}{{else}}{{numberFormat data.system.abilities.stability.value decimals=0 sign=false}}{{/if}}" data-dtype="Number" size="3" />
+      <input class="ability-input stability-value" type="text" name="system.abilities.stability.value" value="{{#if data.system.overloaded}}{{data.system.abilities.stability.overloaded}}{{else}}{{numberFormat data.system.abilities.stability.value decimals=0 sign=false}}{{/if}}" data-dtype="Number" size="3" />
+      <input type="hidden" name="system.abilities.stability.base" value="{{numberFormat data.system.abilities.stability.base decimals=0 sign=false}}" />
       <span class="ability-label rollable stability-roll">{{ localize 'MB.AbilityStabilityAbbrev' }}</span>
     </div>
     <div class="ability-row" title="{{data.system.ramTooltip}}">
