@@ -123,9 +123,9 @@ export class MBActor extends Actor {
         this.system.abilities.stability.base = 100;
       }
       this.system.hp ??= { max: 0, value: 0, base: 0 };
-      this.system.ramBase ??= this.system.ram || "0";
-      this.system.armorBase ??= this.system.armor || "0";
-      this.system.cargoBase = Number(this.system.cargoBase ?? this.system.cargo ?? 0);
+      this.system.ramBase ??= "0";
+      this.system.armorBase ??= "0";
+      this.system.cargoBase ??= Number(this.system.cargo ?? 0);
       this.system.hp.base ??= Number(this.system.hp.max) || 0;
 
       // Start from base values to avoid cumulative modifiers
@@ -136,6 +136,9 @@ export class MBActor extends Actor {
       let cargo = Number(this.system.cargoBase) || 0;
       let structureMax = Number(this.system.hp.base) || 0;
       let structureVal = Number(this.system.hp.base) || 0;
+
+      this.system.abilities.speed.value = speed;
+      this.system.abilities.stability.value = stability;
 
       const ramSources = [
         { label: game.i18n.localize("MB.Base"), value: ram }
@@ -270,6 +273,8 @@ export class MBActor extends Actor {
       "system.cargo": cargo,
       "system.description": newDescription,
     });
+    this.prepareData();
+    this.sheet?.render(false);
   }
 
   _firstEquipped(itemType) {

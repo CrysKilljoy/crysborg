@@ -18,10 +18,9 @@
         <input class="stat-input" name="system.hp.base" type="number" value="{{data.system.hp.max}}" data-dtype="Number" />
       </div>
     </div>
-    <div class="armor-row">
+    <div class="armor-row" title="{{data.system.armorTooltip}}">
       <div class="hp-entries">
-        <span class="stat-label rollable armor-roll">{{ localize "MB.Armor" }}:</span>
-        <input class="stat-input" name="system.armorBase" type="text" value="{{data.system.armor}}" data-dtype="String" />
+        <span class="stat-label rollable armor-roll">{{ localize "MB.Armor" }}</span>
       </div>
     </div>
   </div>

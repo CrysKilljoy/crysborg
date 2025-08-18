@@ -76,6 +76,12 @@ export class MBCarriageSheet extends MBActorSheet {
       ...ramSources.map((s) => `${s.label}: ${s.value}`),
     ].join("\n");
 
+    const armorSources = this.actor.system.armorSources || [];
+    data.system.armorTooltip = [
+      `${game.i18n.localize("MB.Armor")}: ${this.actor.system.armor}`,
+      ...armorSources.map((s) => `${s.label}: ${s.value}`),
+    ].join("\n");
+
     return superData;
   }
 

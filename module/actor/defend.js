@@ -170,13 +170,14 @@ async function defendDialogCallback(actor, html) {
  */
 async function rollDefend(actor, defendDR, incomingAttack) {
   const rollData = actor.getRollData();
-  const ability = actor.type === "carriage" ? "speed" : "agility";
-  const armor = actor.type === "carriage" ? null : actor.equippedArmor();
-  const shield = actor.type === "carriage" ? null : actor.equippedShield();
+  const isCarriage = actor.type === "carriage";
+  const armor = isCarriage ? null : actor.equippedArmor();
+  const shield = isCarriage ? null : actor.equippedShield();
   const { drModifiers, items: modItems } = computeDefendDrModifier(actor);
 
   // roll 1: defend
-  const defendRoll = new Roll(`d20+@abilities.${ability}.value`, rollData);
+  const defendFormula = isCarriage ? "d20" : "d20+@abilities.agility.value";
+  const defendRoll = new Roll(defendFormula, rollData);
   await defendRoll.evaluate();
   await showDice(defendRoll);
 
@@ -249,11 +250,9 @@ async function rollDefend(actor, defendDR, incomingAttack) {
     armorRoll,
     damageRoll,
     defendDR,
-    defendFormula: `1d20 + ${
-      actor.type === "carriage"
-        ? game.i18n.localize("MB.AbilitySpeedAbbrev")
-        : game.i18n.localize("MB.AbilityAgilityAbbrev")
-    }`,
+    defendFormula: isCarriage
+      ? "1d20"
+      : `1d20 + ${game.i18n.localize("MB.AbilityAgilityAbbrev")}`,
     defendOutcome,
     defendRoll,
     drModifiers,
