@@ -114,17 +114,43 @@ export class MBActor extends Actor {
       this.system.containerSpace = this.containerSpace();
     }
     if (this.type === "carriage") {
+      // Ensure ability and structure fields exist
+      this.system.abilities ??= {};
+      this.system.abilities.speed ??= { value: 0 };
+      this.system.abilities.stability ??= { value: 0 };
+      this.system.hp ??= { max: 0, value: 0 };
+      this.system.ram = Number(this.system.ram) || 0;
+      this.system.armor = Number(this.system.armor) || 0;
+      this.system.cargo = Number(this.system.cargo) || 0;
+
+      // Start from base values to avoid cumulative modifiers
+      let speed = Number(this.system.abilities.speed.value) || 0;
+      let stability = Number(this.system.abilities.stability.value) || 0;
+      let ram = this.system.ram;
+      let armor = this.system.armor;
+      let cargo = this.system.cargo;
+      let structureMax = Number(this.system.hp.max) || 0;
+      let structureVal = Number(this.system.hp.value) || 0;
+
       for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade)) {
-        this.system.abilities.speed.value += item.system.speed || 0;
-        this.system.abilities.stability.value += item.system.stability || 0;
-        this.system.ram = (Number(this.system.ram) || 0) + (item.system.ram || 0);
-        this.system.armor += item.system.armor || 0;
-        this.system.cargo += item.system.cargo || 0;
+        speed += item.system.speed || 0;
+        stability += item.system.stability || 0;
+        ram += item.system.ram || 0;
+        armor += item.system.armor || 0;
+        cargo += item.system.cargo || 0;
         if (item.system.structure) {
-          this.system.hp.max += item.system.structure;
-          this.system.hp.value += item.system.structure;
+          structureMax += item.system.structure;
+          structureVal += item.system.structure;
         }
       }
+
+      this.system.abilities.speed.value = speed;
+      this.system.abilities.stability.value = stability;
+      this.system.ram = ram;
+      this.system.armor = armor;
+      this.system.cargo = cargo;
+      this.system.hp.max = structureMax;
+      this.system.hp.value = Math.min(structureVal, structureMax);
     }
   }
 
