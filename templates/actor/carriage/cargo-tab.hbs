@@ -49,9 +49,13 @@
           <div class="weapon-name-col">
             <h4 class="item-name item-edit rollable">
               {{item.name}}
-              {{#ifGt item.system.quantity 1}}
-                ({{item.system.quantity}})
-              {{/ifGt}}
+              {{#ifEq item.system.quantity 0}}
+                ({{localize 'MB.Empty'}})
+              {{else}}
+                {{#ifGt item.system.quantity 1}}
+                  ({{item.system.quantity}})
+                {{/ifGt}}
+              {{/ifEq}}
             </h4>
           </div>
           <div class="item-fields">

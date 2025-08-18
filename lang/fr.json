@@ -60,6 +60,7 @@
   "MB.EditAllowedScvmClassesMenuHint": "Permets d'éditer les classes permises dans le générateur de personnage.",
   "MB.EditAllowedScvmClassesMenuButtonLabel": "Editer",
   "MB.Encumbered": "Encombré",
+  "MB.Empty": "vide",
   "MB.EquipArmorToAbsorb": "Equiper une armure pour absorber les dégâts.",
   "MB.EquipAWeaponToAttack": "Equiper une arme pour attaquer.",
   "MB.Equipment": "Equipement",

@@ -61,6 +61,7 @@
   "MB.EditAllowedScvmClassesMenuHint": "Edit the allowed classes in the character generator.",
   "MB.EditAllowedScvmClassesMenuButtonLabel": "Edit",
   "MB.Encumbered": "Överbelastad",
+  "MB.Empty": "tom",
   "MB.EquipArmorToAbsorb": "Utrusta rustning för absorbera skador.",
   "MB.EquipAWeaponToAttack": "Utrusta ett vapen för att attackera.",
   "MB.EquipWhere": "Var vill du utrusta den?",

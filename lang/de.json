@@ -60,6 +60,7 @@
   "MB.EditAllowedScvmClassesMenuHint": "Edit the allowed classes in the character generator.",
   "MB.EditAllowedScvmClassesMenuButtonLabel": "Edit",
   "MB.Encumbered": "Überladen",
+  "MB.Empty": "leer",
   "MB.EquipArmorToAbsorb": "Lege eine Rüstung an um Schaden zu verringern.",
   "MB.EquipAWeaponToAttack": "Lege eine Waffe an um anzugreifen.",
   "MB.Equipment": "Ausrüstung",
