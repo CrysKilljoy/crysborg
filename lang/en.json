@@ -18,6 +18,7 @@
   "MB.AbilityStability": "Stability",
   "MB.AbilityStabilityAbbrev": "STB",
   "MB.AbilityStabilityTooltip": "How well the carriage holds together",
+  "MB.AbilityRamTooltip": "Damage inflicted when ramming",
   "MB.ActorNotFound": "Actor not found",
   "MB.ActorNotInEncounter": "This actor isn't part of the current combat encounter",
   "MB.Add": "Add",

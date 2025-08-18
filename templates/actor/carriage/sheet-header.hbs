@@ -29,6 +29,10 @@
       <input class="ability-input stability-value" type="text" name="system.abilities.stability.value" value="{{#if data.system.overloaded}}{{data.system.abilities.stability.overloaded}}{{else}}{{numberFormat data.system.abilities.stability.value decimals=0 sign=false}}{{/if}}" data-dtype="Number" size="3" />
       <span class="ability-label rollable stability-roll">{{ localize 'MB.AbilityStabilityAbbrev' }}</span>
     </div>
+    <div class="ability-row" title="{{localize 'MB.AbilityRamTooltip'}}">
+      <input class="ability-input" type="text" name="system.ram" value="{{data.system.ram}}" data-dtype="String" size="3" />
+      <span class="ability-label rollable ram-roll">{{ localize 'MB.Ram' }}</span>
+    </div>
   </div>
 </header>
 

@@ -1,5 +1,4 @@
 import MBActorSheet from "./actor-sheet.js";
-import { MB } from "../../config.js";
 import { byName, showRollResultCard } from "../../utils.js";
 import { testCustomAbility } from "../test-abilities.js";
 import { trackCarryingCapacity } from "../../settings.js";
@@ -20,7 +19,7 @@ export class MBCarriageSheet extends MBActorSheet {
         {
           navSelector: ".sheet-tabs",
           contentSelector: ".sheet-body",
-          initial: "chase",
+          initial: "cargo",
         },
       ],
       dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }],
@@ -42,10 +41,7 @@ export class MBCarriageSheet extends MBActorSheet {
     data.system.orderedAbilities.push(stability);
 
     data.system.carriageUpgrades = data.items
-      .filter(
-        (i) =>
-          i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped
-      )
+      .filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade)
       .sort(byName);
 
     data.system.class = data.items.find(
@@ -74,6 +70,7 @@ export class MBCarriageSheet extends MBActorSheet {
     if (!this.options.editable) return;
     html.find(".speed-roll").on("click", this._onSpeedRoll.bind(this));
     html.find(".stability-roll").on("click", this._onStabilityRoll.bind(this));
+    html.find(".ram-roll").on("click", this._onRamRoll.bind(this));
 
     const stabilityInput = html.find(".stability-value");
     stabilityInput.on("focus", (ev) => {
@@ -133,6 +130,20 @@ export class MBCarriageSheet extends MBActorSheet {
       cardTitle: game.i18n.localize("MB.StabilityCheck"),
       rollResults,
     });
+  }
+
+  async _onRamRoll(event) {
+    event.preventDefault();
+    const tempItem = new CONFIG.Item.documentClass(
+      {
+        _id: foundry.utils.randomID(),
+        name: game.i18n.localize("MB.Ram"),
+        type: "weapon",
+        system: { damageDie: this.actor.system.ram || "0", weaponType: "melee" },
+      },
+      { parent: this.actor }
+    );
+    await attack(this.actor, tempItem);
   }
 
   async _onAttackRoll(event) {

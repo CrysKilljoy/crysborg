@@ -8,6 +8,7 @@
   "MB.AbilityStrengthAbbrev": "STY",
   "MB.AbilityToughness": "Tålighet",
   "MB.AbilityToughnessAbbrev": "TÅL",
+  "MB.AbilityRamTooltip": "Skada vid ramming",
   "MB.ActorNotFound": "Skådespelaren hittades inte",
   "MB.ActorNotInEncounter": "Skådespelaren inte i aktuell strid",
   "MB.Add": "Lägg till",

@@ -500,59 +500,47 @@
   font-size: 16px;
   margin-right: 10px;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .items-list,
-.crysborg.sheet.actor .sheet-body .chase-tab .items-list {
+.crysborg.sheet.actor .sheet-body .violence-tab .items-list {
   margin-top: 0px;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .items-list .item,
-.crysborg.sheet.actor .sheet-body .chase-tab .items-list .item {
+.crysborg.sheet.actor .sheet-body .violence-tab .items-list .item {
   align-items: center;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col,
-.crysborg.sheet.actor .sheet-body .chase-tab .item-list.weapon-list .weapon-name-col {
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col {
   display: flex;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col .ammo-select-col,
-.crysborg.sheet.actor .sheet-body .chase-tab .item-list.weapon-list .weapon-name-col .ammo-select-col {
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col .ammo-select-col {
   flex: 0 0 100px;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col .ammo-select-col select.ammo-select,
-.crysborg.sheet.actor .sheet-body .chase-tab .item-list.weapon-list .weapon-name-col .ammo-select-col select.ammo-select {
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .weapon-name-col .ammo-select-col select.ammo-select {
   font-family: var(--item-font);
   font-size: 10pt;
   margin-top: 5px;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .item-buttons,
-.crysborg.sheet.actor .sheet-body .chase-tab .item-list.weapon-list .item-buttons {
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list.weapon-list .item-buttons {
   flex: 0.5;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .item-list .item-name,
-.crysborg.sheet.actor .sheet-body .chase-tab .item-list .item-name {
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list .item-name {
   flex: 1;
   font-size: 16px;
   margin-top: 5px;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .item-list .item-fields,
-.crysborg.sheet.actor .sheet-body .chase-tab .item-list .item-fields {
+.crysborg.sheet.actor .sheet-body .violence-tab .item-list .item-fields {
   flex: 0.5;
   font-size: 16px;
   margin-top: 6px;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .weapon-list .item-field.damage-die,
-.crysborg.sheet.actor .sheet-body .chase-tab .weapon-list .item-field.damage-die {
+.crysborg.sheet.actor .sheet-body .violence-tab .weapon-list .item-field.damage-die {
   text-align: right;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .weapon-list .item-field.weapon-type,
-.crysborg.sheet.actor .sheet-body .chase-tab .weapon-list .item-field.weapon-type {
+.crysborg.sheet.actor .sheet-body .violence-tab .weapon-list .item-field.weapon-type {
   text-align: right;
   width: 60px;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .attack-rule,
-.crysborg.sheet.actor .sheet-body .chase-tab .attack-rule {
+.crysborg.sheet.actor .sheet-body .violence-tab .attack-rule {
   text-align: center;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .violence-gutter,
-.crysborg.sheet.actor .sheet-body .chase-tab .violence-gutter {
+.crysborg.sheet.actor .sheet-body .violence-tab .violence-gutter {
   height: 10px;
 }
 .crysborg.sheet.actor .sheet-body .violence-tab .tier-label {
@@ -640,17 +628,14 @@
   cursor: not-allowed;
 }
 
-.crysborg.sheet.actor .sheet-body .violence-tab .underarmor-row,
-.crysborg.sheet.actor .sheet-body .chase-tab .underarmor-row {
+.crysborg.sheet.actor .sheet-body .violence-tab .underarmor-row {
   margin-top: 0px;
   text-align: center;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .shield-rule,
-.crysborg.sheet.actor .sheet-body .chase-tab .shield-rule {
+.crysborg.sheet.actor .sheet-body .violence-tab .shield-rule {
   margin-top: 5px;
 }
-.crysborg.sheet.actor .sheet-body .violence-tab .defend-rule,
-.crysborg.sheet.actor .sheet-body .chase-tab .defend-rule {
+.crysborg.sheet.actor .sheet-body .violence-tab .defend-rule {
   margin-top: 5px;
   text-align: center;
 }

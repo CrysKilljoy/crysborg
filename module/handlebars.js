@@ -83,8 +83,6 @@ export function configureHandlebars() {
     "systems/crysborg/templates/actor/common/violence-tab.hbs",
     "systems/crysborg/templates/actor/carriage/sheet-header.hbs",
     "systems/crysborg/templates/actor/carriage/cargo-tab.hbs",
-    "systems/crysborg/templates/actor/carriage/chase-tab.hbs",
-    "systems/crysborg/templates/actor/carriage/upgrades-tab.hbs",
     "systems/crysborg/templates/common/description-tab.hbs",
     "systems/crysborg/templates/item/common/base-fields.hbs",
     "systems/crysborg/templates/item/common/dr-modifier-fields.hbs",
