@@ -199,6 +199,15 @@ MB.ammoTypes = {
   slingstone: "MB.AmmoTypeSlingstone",
 };
 
+MB.carriageLocations = {
+  roof: "MB.CarriageLocationRoof",
+  left: "MB.CarriageLocationLeft",
+  right: "MB.CarriageLocationRight",
+  back: "MB.CarriageLocationBack",
+  front: "MB.CarriageLocationFront",
+  wheels: "MB.CarriageLocationWheels",
+};
+
 MB.itemTypes = {
   ammo: "ammo",
   armor: "armor",
@@ -210,7 +219,7 @@ MB.itemTypes = {
   shield: "shield",
   weapon: "weapon",
   carriageClass: "carriage-class",
-  carriagePower: "carriage-power",
+  carriageUpgrade: "carriage-upgrade",
 };
 
 MB.itemTypeKeys = {
@@ -224,7 +233,7 @@ MB.itemTypeKeys = {
   shield: "MB.ItemTypeShield",
   weapon: "MB.ItemTypeWeapon",
   carriageClass: "MB.ItemTypeCarriageClass",
-  carriagePower: "MB.ItemTypeCarriagePower",
+  carriageUpgrade: "MB.ItemTypeCarriageUpgrade",
 };
 
 // these Item types are "equipment"

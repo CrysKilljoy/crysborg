@@ -39,8 +39,8 @@ export class MBCarriageSheet extends MBActorSheet {
     stability.label = game.i18n.localize("MB.AbilityStability");
     data.system.orderedAbilities.push(stability);
 
-    data.system.carriagePowers = data.items
-      .filter((i) => i.type === CONFIG.MB.itemTypes.carriagePower)
+    data.system.carriageUpgrades = data.items
+      .filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade)
       .sort(byName);
 
     data.system.class = data.items.find(

@@ -130,7 +130,7 @@
       "shield",
       "weapon",
       "carriage-class",
-      "carriage-power"
+      "carriage-upgrade"
     ],
     "templates": {
       "baseEquipment": {
@@ -231,7 +231,7 @@
       "cargo": 0,
       "cost": 0
     },
-    "carriage-power": {
+    "carriage-upgrade": {
       "description": "",
       "location": "front",
       "speed": 0,

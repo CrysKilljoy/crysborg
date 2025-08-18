@@ -13,7 +13,7 @@
           <button type="button" class="item-button rollable attack-button" data-roll="d20+@abilities.speed.value">{{localize 'MB.Attack'}}</button>
         </div>
       </li>
-      {{#each data.system.carriagePowers as |item id|}}
+      {{#each data.system.carriageUpgrades as |item id|}}
         <li class="item flexrow" data-item-id="{{item._id}}">
           <img src="{{item.img}}" title="{{item.name}}" width="24" height="24" />
           <div class="weapon-name-col"><h4 class="item-name item-edit rollable">{{item.name}}</h4></div>

@@ -114,7 +114,7 @@ export class MBActor extends Actor {
       this.system.containerSpace = this.containerSpace();
     }
     if (this.type === "carriage") {
-      for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriagePower)) {
+      for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade)) {
         this.system.abilities.speed.value += item.system.speed || 0;
         this.system.abilities.stability.value += item.system.stability || 0;
         this.system.ram = (Number(this.system.ram) || 0) + (item.system.ram || 0);
