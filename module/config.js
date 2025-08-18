@@ -203,6 +203,7 @@ MB.carriageLocations = {
   roof: "MB.CarriageLocationRoof",
   left: "MB.CarriageLocationLeft",
   right: "MB.CarriageLocationRight",
+  sides: "MB.CarriageLocationSides",
   back: "MB.CarriageLocationBack",
   front: "MB.CarriageLocationFront",
   wheels: "MB.CarriageLocationWheels",

@@ -265,5 +265,6 @@
   "MB.YouHaveNoFeats": "No tienes rasgos",
   "MB.YouHaveNoScrolls": "No tienes pergaminos",
   "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
-  "MB.CarriageFittings": "Carriage Fittings"
+  "MB.CarriageFittings": "Carriage Fittings",
+  "MB.CarriageLocationSides": "Sides"
 }

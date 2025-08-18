@@ -165,6 +165,7 @@
   "MB.CarriageLocationRoof": "Roof",
   "MB.CarriageLocationLeft": "Left Side",
   "MB.CarriageLocationRight": "Right Side",
+  "MB.CarriageLocationSides": "Sides",
   "MB.CarriageLocationBack": "Back",
   "MB.CarriageLocationFront": "Front",
   "MB.CarriageLocationWheels": "Wheels",

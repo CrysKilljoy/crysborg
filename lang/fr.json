@@ -238,5 +238,6 @@
   "MB.YouHaveNoFeats": "Vous n'avez pas de don",
   "MB.YouHaveNoScrolls": "Vous n'avez pas de parchemin",
   "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
-  "MB.CarriageFittings": "Carriage Fittings"
+  "MB.CarriageFittings": "Carriage Fittings",
+  "MB.CarriageLocationSides": "Sides"
 }

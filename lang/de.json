@@ -238,5 +238,6 @@
   "MB.YouHaveNoFeats": "Du hast keine Taten übrig",
   "MB.YouHaveNoScrolls": "Du hast keine Schriftrollen",
   "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
-  "MB.CarriageFittings": "Carriage Fittings"
+  "MB.CarriageFittings": "Carriage Fittings",
+  "MB.CarriageLocationSides": "Sides"
 }

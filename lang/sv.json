@@ -241,5 +241,6 @@
   "MB.YouHaveNoFeats": "Du har inga Förmågor",
   "MB.YouHaveNoScrolls": "Du har inga Rullar",
   "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
-  "MB.CarriageFittings": "Carriage Fittings"
+  "MB.CarriageFittings": "Carriage Fittings",
+  "MB.CarriageLocationSides": "Sides"
 }
