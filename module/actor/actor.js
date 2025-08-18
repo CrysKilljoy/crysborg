@@ -147,8 +147,8 @@ export class MBActor extends Actor {
       ];
 
       for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped)) {
-        speed += item.system.speed || 0;
-        stability += item.system.stability || 0;
+        speed += Number(item.system.speed) || 0;
+        stability += Number(item.system.stability) || 0;
         if (item.system.ram) {
           if (ram === "0" || ram === "") {
             ram = item.system.ram;
@@ -165,10 +165,11 @@ export class MBActor extends Actor {
           }
           armorSources.push({ label: item.name, value: item.system.armor });
         }
-        cargo += item.system.cargo || 0;
+        cargo += Number(item.system.cargo) || 0;
         if (item.system.structure) {
-          structureMax += item.system.structure;
-          structureVal += item.system.structure;
+          const struct = Number(item.system.structure) || 0;
+          structureMax += struct;
+          structureVal += struct;
         }
       }
 

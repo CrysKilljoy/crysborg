@@ -95,6 +95,23 @@ export class MBCarriageSheet extends MBActorSheet {
 
     html.find(".follower-open").on("click", this._onOpenFollower.bind(this));
     html.find(".follower-remove").on("click", this._onRemoveFollower.bind(this));
+
+    const speedInput = html.find("input[name='system.abilities.speed.base']");
+    speedInput.on("focus", (ev) => {
+      ev.currentTarget.value = this.actor.system.abilities.speed.base ?? 0;
+    });
+    speedInput.on("blur", (ev) => {
+      ev.currentTarget.value = this.actor.system.abilities.speed.value ?? 0;
+    });
+    const stabInput = html.find("input[name='system.abilities.stability.base']");
+    stabInput.on("focus", (ev) => {
+      ev.currentTarget.value = this.actor.system.abilities.stability.base ?? 0;
+    });
+    stabInput.on("blur", (ev) => {
+      ev.currentTarget.value = this.actor.system.overloaded
+        ? this.actor.system.abilities.stability.overloaded
+        : this.actor.system.abilities.stability.value;
+    });
   }
 
   _onSpeedRoll(event) {
