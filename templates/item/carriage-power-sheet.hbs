@@ -1,0 +1,30 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+  {{> systems/crysborg/templates/item/common/sheet-header.hbs }}
+  <section class="sheet-body">
+    <div class="form-group">
+      <label>{{ localize "MB.Description" }}:</label>
+      <textarea name="system.description" rows="4">{{data.system.description}}</textarea>
+    </div>
+    <div class="form-group">
+      <label>Location:</label>
+      <select name="system.location" data-dtype="String">
+        {{#select data.system.location}}
+          <option value="roof">Roof</option>
+          <option value="left">Left Side</option>
+          <option value="right">Right Side</option>
+          <option value="back">Back</option>
+          <option value="front">Front</option>
+          <option value="wheels">Wheels</option>
+        {{/select}}
+      </select>
+    </div>
+    <div class="form-group"><label>Speed Mod:</label><input type="number" name="system.speed" value="{{data.system.speed}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>Ram Mod:</label><input type="number" name="system.ram" value="{{data.system.ram}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>Structure Mod:</label><input type="number" name="system.structure" value="{{data.system.structure}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>Stability Mod:</label><input type="number" name="system.stability" value="{{data.system.stability}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>Armor Mod:</label><input type="number" name="system.armor" value="{{data.system.armor}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>Cargo Mod:</label><input type="number" name="system.cargo" value="{{data.system.cargo}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>Cost Mod:</label><input type="number" name="system.cost" value="{{data.system.cost}}" data-dtype="Number" /></div>
+  </section>
+</form>
+

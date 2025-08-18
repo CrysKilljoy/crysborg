@@ -190,6 +190,7 @@ MB.actorTypes = {
   container: "container",
   follower: "follower",
   miseryTracker: "misery-tracker",
+  carriage: "carriage",
 };
 
 MB.ammoTypes = {
@@ -208,6 +209,8 @@ MB.itemTypes = {
   scroll: "scroll",
   shield: "shield",
   weapon: "weapon",
+  carriageClass: "carriage-class",
+  carriagePower: "carriage-power",
 };
 
 MB.itemTypeKeys = {
@@ -220,6 +223,8 @@ MB.itemTypeKeys = {
   scroll: "MB.ItemTypeScroll",
   shield: "MB.ItemTypeShield",
   weapon: "MB.ItemTypeWeapon",
+  carriageClass: "MB.ItemTypeCarriageClass",
+  carriagePower: "MB.ItemTypeCarriagePower",
 };
 
 // these Item types are "equipment"

@@ -5,7 +5,8 @@
       "container",
       "creature",
       "follower",
-      "misery-tracker"
+      "misery-tracker",
+      "carriage"
     ],
     "templates": {
       "common": {
@@ -75,6 +76,19 @@
       "trait": "",
       "value": ""
     },
+    "carriage": {
+      "abilities": {
+        "speed": { "value": 0 },
+        "stability": { "value": 0 }
+      },
+      "description": "",
+      "hp": { "max": 1, "value": 1 },
+      "ram": "0",
+      "armor": 0,
+      "cargo": 0,
+      "size": "",
+      "cost": 0
+    },
     "misery-tracker": {
       "miseryDie": "1d20",
       "misery1": {
@@ -114,7 +128,9 @@
       "misc",
       "scroll",
       "shield",
-      "weapon"
+      "weapon",
+      "carriage-class",
+      "carriage-power"
     ],
     "templates": {
       "baseEquipment": {
@@ -203,6 +219,28 @@
       "fumbleOn": 1,
       "usesAmmo": false,
       "weaponType": "melee"
+    },
+    "carriage-class": {
+      "description": "",
+      "size": "",
+      "speed": "0",
+      "ram": "0",
+      "structure": "0",
+      "stability": "0",
+      "armor": 0,
+      "cargo": 0,
+      "cost": 0
+    },
+    "carriage-power": {
+      "description": "",
+      "location": "front",
+      "speed": 0,
+      "ram": 0,
+      "structure": 0,
+      "stability": 0,
+      "armor": 0,
+      "cargo": 0,
+      "cost": 0
     }
   }
 }

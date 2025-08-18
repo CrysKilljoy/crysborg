@@ -113,12 +113,28 @@ export class MBActor extends Actor {
     if (this.system?.calculatesContainerSpace) {
       this.system.containerSpace = this.containerSpace();
     }
+    if (this.type === "carriage") {
+      for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriagePower)) {
+        this.system.abilities.speed.value += item.system.speed || 0;
+        this.system.abilities.stability.value += item.system.stability || 0;
+        this.system.ram = (Number(this.system.ram) || 0) + (item.system.ram || 0);
+        this.system.armor += item.system.armor || 0;
+        this.system.cargo += item.system.cargo || 0;
+        if (item.system.structure) {
+          this.system.hp.max += item.system.structure;
+          this.system.hp.value += item.system.structure;
+        }
+      }
+    }
   }
 
   /** @override */
   _onCreateDescendantDocuments(embeddedName, documents, result, options, userId) {
     if (documents[0].type === CONFIG.MB.itemTypes.class) {
       this._deleteEarlierItems(CONFIG.MB.itemTypes.class);
+    }
+    if (documents[0].type === CONFIG.MB.itemTypes.carriageClass) {
+      this._deleteEarlierItems(CONFIG.MB.itemTypes.carriageClass);
     }
     super._onCreateDescendantDocuments(
       embeddedName,
