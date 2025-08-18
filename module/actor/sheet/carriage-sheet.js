@@ -3,6 +3,7 @@ import { MB } from "../../config.js";
 import { byName } from "../../utils.js";
 import { testCustomAbility } from "../test-abilities.js";
 import { trackCarryingCapacity } from "../../settings.js";
+import { showDice } from "../../dice.js";
 
 /**
  * @extends {ActorSheet}
@@ -66,6 +67,62 @@ export class MBCarriageSheet extends MBActorSheet {
   _onSpeedRoll(event) {
     event.preventDefault();
     testCustomAbility(this.actor, "speed");
+  }
+
+  async _onAttackRoll(event) {
+    event.preventDefault();
+    const button = $(event.currentTarget);
+    const li = button.parents(".item");
+    const itemId = li.data("itemId");
+    const rollData = this.actor.getRollData();
+
+    if (!itemId) {
+      const formula = button.data("roll");
+      if (!formula) return;
+      const roll = new Roll(formula, rollData);
+      await roll.evaluate();
+      await showDice(roll);
+      roll.toMessage({
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        flavor: game.i18n.localize("MB.Attack"),
+      });
+      return;
+    }
+
+    const item = this.actor.items.get(itemId);
+    if (!item) return;
+    const mode = item.system.attack?.mode ?? "none";
+    if (mode === "none") return;
+
+    let formula;
+    let flavor;
+    if (mode === "custom") {
+      formula = item.system.attack.formula;
+      flavor = item.system.attack.chat || item.name;
+    } else {
+      formula = "d20+@abilities.speed.value";
+      flavor = item.name;
+    }
+
+    if (formula) {
+      const roll = new Roll(formula, rollData);
+      await roll.evaluate();
+      await showDice(roll);
+      roll.toMessage({
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        flavor,
+      });
+    } else if (flavor) {
+      ChatMessage.create({
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        content: flavor,
+      });
+    }
+
+    if (item.system.consumable) {
+      const qty = Number(item.system.quantity || 0);
+      await item.update({ "system.quantity": Math.max(qty - 1, 0) });
+    }
   }
 }
 

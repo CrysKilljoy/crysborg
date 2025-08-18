@@ -208,6 +208,12 @@ MB.carriageLocations = {
   wheels: "MB.CarriageLocationWheels",
 };
 
+MB.carriageAttackModes = {
+  none: "MB.AttackModeNone",
+  attack: "MB.AttackModeAttack",
+  custom: "MB.AttackModeCustom",
+};
+
 MB.itemTypes = {
   ammo: "ammo",
   armor: "armor",

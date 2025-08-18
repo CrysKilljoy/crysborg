@@ -11,6 +11,17 @@
         {{selectOptions config.carriageLocations selected=data.system.location localize=true}}
       </select>
     </div>
+    <div class="form-group"><label>{{ localize "MB.Quantity" }}:</label><input type="number" name="system.quantity" value="{{data.system.quantity}}" data-dtype="Number" /></div>
+    <div class="form-group"><label>{{ localize "MB.Consumable" }}:</label><input type="checkbox" name="system.consumable" {{checked data.system.consumable}} data-dtype="Boolean" /></div>
+    <div class="form-group">
+      <label>{{ localize "MB.AttackButton" }}:</label>
+      <select name="system.attack.mode" data-dtype="String">
+        {{selectOptions config.carriageAttackModes selected=data.system.attack.mode localize=true}}
+      </select>
+    </div>
+    <div class="form-group"><label>{{ localize "MB.ButtonLabel" }}:</label><input type="text" name="system.attack.label" value="{{data.system.attack.label}}" data-dtype="String" /></div>
+    <div class="form-group"><label>{{ localize "MB.RollFormula" }}:</label><input type="text" name="system.attack.formula" value="{{data.system.attack.formula}}" data-dtype="String" /></div>
+    <div class="form-group"><label>{{ localize "MB.ChatMessage" }}:</label><input type="text" name="system.attack.chat" value="{{data.system.attack.chat}}" data-dtype="String" /></div>
     <div class="form-group"><label>Speed Mod:</label><input type="number" name="system.speed" value="{{data.system.speed}}" data-dtype="Number" /></div>
     <div class="form-group"><label>Ram Mod:</label><input type="number" name="system.ram" value="{{data.system.ram}}" data-dtype="Number" /></div>
     <div class="form-group"><label>Structure Mod:</label><input type="number" name="system.structure" value="{{data.system.structure}}" data-dtype="Number" /></div>

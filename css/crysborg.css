@@ -904,6 +904,128 @@
   color: var(--highlight-background-color);
 }
 
+/* Carriage sheet mirrors character sheet layout */
+.crysborg.sheet.actor.carriage {
+  min-width: 742px;
+  min-height: 650px;
+}
+.crysborg.sheet.actor.carriage .sheet-header {
+  flex: 0 0 200px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .header-col1 {
+  flex: 0 0 200px;
+  margin: 5px;
+  padding: 0;
+}
+.crysborg.sheet.actor.carriage .sheet-header .header-col2 {
+  flex: 1 0 350px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.crysborg.sheet.actor.carriage .sheet-header .header-col2 .hitpoints-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.crysborg.sheet.actor.carriage .sheet-header .header-col2 .classname-row {
+  display: flex;
+  align-items: center;
+}
+.crysborg.sheet.actor.carriage .sheet-header .header-col2 .classname-row .classname {
+  letter-spacing: 2px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .header-col2 .buttons-row {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .header-col2 .buttons-row button {
+  flex: 1;
+}
+.crysborg.sheet.actor.carriage .sheet-header .header-col3 {
+  flex: 0 0 120px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.crysborg.sheet.actor.carriage .sheet-header .profile-img {
+  height: 200px;
+  width: 200px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .name-row {
+  flex: 0 0 50px;
+  margin-bottom: 7px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .name-row input[type=text] {
+  height: 45px;
+  width: 100%;
+}
+.crysborg.sheet.actor.carriage .sheet-header .classname-row {
+  display: flex;
+  flex: 0 0 30px;
+  flex-direction: row;
+  margin-bottom: 7px;
+  width: 100%;
+}
+.crysborg.sheet.actor.carriage .sheet-header .classname-row img.classimg {
+  height: 24px;
+  width: 24px;
+  flex: 0 0 24px;
+  margin-right: 5px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .classname-row label.classname {
+  font-family: var(--h3-font);
+  font-size: 28px;
+  width: 100%;
+}
+.crysborg.sheet.actor.carriage .sheet-header .classname-row .item-controls {
+  flex: 0 0 35px;
+  text-align: right;
+  margin-right: 0;
+  padding-top: 6px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .hitpoints-row {
+  display: flex;
+  flex: 0 0 30px;
+  margin-bottom: 7px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .ability-row {
+  margin-bottom: 10px;
+}
+.crysborg.sheet.actor.carriage .sheet-header .ability-row:last-child {
+  margin-bottom: 0;
+}
+.crysborg.sheet.actor.carriage .sheet-header .ability-label {
+  font-family: var(--h2-font);
+  font-size: 24px;
+  margin-left: 5px;
+  margin-top: 5px;
+  float: left;
+}
+.crysborg.sheet.actor.carriage .sheet-header .ability-input {
+  font-family: var(--item-font);
+  font-size: 14pt;
+  text-align: center;
+  padding: 5px;
+  padding-top: 10px;
+  line-height: 1.5;
+  width: 42px;
+  height: 42px;
+  float: left;
+  border-radius: 0;
+  color: var(--foreground-color);
+}
+.crysborg.sheet.actor.carriage .sheet-body .carry-block {
+  flex: 1;
+}
+.crysborg.sheet.actor.carriage .sheet-body .container-label {
+  margin-left: 40px;
+}
+.crysborg.sheet.actor.carriage .sheet-body .encumbered {
+  color: var(--highlight-background-color);
+}
+
 .journal-sheet .rollable {
   text-decoration: underline;
 }
