@@ -224,7 +224,10 @@ export class MBActor extends Actor {
   }
 
   normalCarryingCapacity() {
-    return (this.system.abilities?.strength.value ?? 0) + 8;
+    if (this.type === "carriage") {
+      return Number(this.system.cargo) || 0;
+    }
+    return (this.system.abilities?.strength?.value ?? 0) + 8;
   }
 
   maxCarryingCapacity() {
