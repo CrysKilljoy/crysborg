@@ -223,6 +223,23 @@ export class MBActor extends Actor {
   }
 
   /** @override */
+  _onUpdateDescendantDocuments(parent, collection, documents, result, options, userId) {
+    // When carriage upgrades are edited or toggled, immediately recompute stats
+    if (parent === this && collection === this.items && this.type === "carriage") {
+      this.prepareData();
+      this.sheet?.render(false);
+    }
+    super._onUpdateDescendantDocuments(
+      parent,
+      collection,
+      documents,
+      result,
+      options,
+      userId
+    );
+  }
+
+  /** @override */
   _onDeleteDescendantDocuments(parent, collection, documents, result, options, userId) {
     if (parent === this && collection === this.items) {
       for (const document of documents) {
