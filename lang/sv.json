@@ -61,6 +61,7 @@
   "MB.EditAllowedScvmClassesMenuHint": "Edit the allowed classes in the character generator.",
   "MB.EditAllowedScvmClassesMenuButtonLabel": "Edit",
   "MB.Encumbered": "Överbelastad",
+  "MB.Empty": "tom",
   "MB.EquipArmorToAbsorb": "Utrusta rustning för absorbera skador.",
   "MB.EquipAWeaponToAttack": "Utrusta ett vapen för att attackera.",
   "MB.EquipWhere": "Var vill du utrusta den?",
@@ -219,6 +220,7 @@
   "MB.TabPowers": "Krafter",
   "MB.TabTreasures": "Skatter",
   "MB.TabViolence": "Våld",
+  "MB.TabLoadout": "Loadout",
   "MB.Take": "Ta",
   "MB.TargetArmor": "Målets Rustningsvärde",
   "MB.Test": "Test",
@@ -237,5 +239,8 @@
   "MB.WieldAPowerText": "NÄR SG12 eller -t2 TP och inga Krafter i 1 tim.",
   "MB.YouAreHit": "You are Hit",
   "MB.YouHaveNoFeats": "Du har inga Förmågor",
-  "MB.YouHaveNoScrolls": "Du har inga Rullar"
+  "MB.YouHaveNoScrolls": "Du har inga Rullar",
+  "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
+  "MB.CarriageFittings": "Carriage Fittings",
+  "MB.CarriageLocationSides": "Sides"
 }

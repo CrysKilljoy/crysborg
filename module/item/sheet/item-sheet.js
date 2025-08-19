@@ -91,5 +91,17 @@ export class MBItemSheet extends ItemSheet {
         detailsElement[0].open = true;
       }
     });
+
+    if (this.item.type === CONFIG.MB.itemTypes.carriageUpgrade) {
+      const modeSelect = html.find('select[name="system.attack.mode"]');
+      const label = html.find('.attack-formula-label');
+      const updateLabel = () => {
+        const mode = modeSelect.val();
+        const key = mode === 'attack' ? 'MB.Damage' : 'MB.RollFormula';
+        label.text(`${game.i18n.localize(key)}:`);
+      };
+      modeSelect.on('change', updateLabel);
+      updateLabel();
+    }
   }
 }

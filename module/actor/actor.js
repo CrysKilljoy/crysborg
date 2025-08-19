@@ -274,6 +274,8 @@ export class MBActor extends Actor {
       "system.cargoBase": cargo,
       "system.cargo": cargo,
       "system.description": newDescription,
+      img: item.img,
+      "prototypeToken.texture.src": item.img,
     });
     this.prepareData();
     this.sheet?.render(false);

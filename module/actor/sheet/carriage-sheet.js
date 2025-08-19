@@ -1,7 +1,7 @@
 import MBActorSheet from "./actor-sheet.js";
 import { byName, showRollResultCard } from "../../utils.js";
 import { testCustomAbility } from "../test-abilities.js";
-import { trackCarryingCapacity } from "../../settings.js";
+import { trackAmmo, trackCarryingCapacity } from "../../settings.js";
 import { showDice } from "../../dice.js";
 import { attack } from "../attack.js";
 import { defend } from "../defend.js";
@@ -60,6 +60,11 @@ export class MBCarriageSheet extends MBActorSheet {
           item.type !== CONFIG.MB.itemTypes.carriageUpgrade || !item.system.equipped
       )
       .sort(byName);
+
+    data.system.ammo = data.items
+      .filter((item) => item.type === CONFIG.MB.itemTypes.ammo)
+      .sort(byName);
+    data.system.trackAmmo = trackAmmo();
 
     data.system.draftActors = [];
     const draftIds = (this.actor.system.draft || []).slice(0, 2);
@@ -196,8 +201,10 @@ export class MBCarriageSheet extends MBActorSheet {
             name: item.name,
             type: "weapon",
             system: {
-              damageDie: item.system.ram || "0",
+              damageDie: item.system.attack.formula || "0",
               weaponType: "melee",
+              usesAmmo: item.system.usesAmmo,
+              ammoId: item.system.ammoId,
             },
           },
           { parent: this.actor }

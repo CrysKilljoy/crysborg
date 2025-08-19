@@ -57,7 +57,7 @@
         "value": 0
       },
       "description": "",
-      "price": 0
+      "price": ""
     },
     "creature": {
       "templates": ["common"],
@@ -90,7 +90,7 @@
       "armorBase": "0",
       "cargo": 0,
       "cargoBase": 0,
-      "cost": 0,
+      "cost": "",
       "draft": []
     },
     "misery-tracker": {
@@ -143,7 +143,7 @@
         "carryWeight": 1,
         "equipped": false,
         "carried": true,
-        "price": 0,
+        "price": "",
         "quantity": 1,
         "drModifiers": {
           "strength": 0,
@@ -232,7 +232,7 @@
       "stability": "0",
       "armor": "0",
       "cargo": 0,
-      "cost": 0
+      "cost": ""
     },
     "carriage-upgrade": {
       "templates": ["baseEquipment"],
@@ -244,9 +244,9 @@
       "stability": 0,
       "armor": "0",
       "cargo": 0,
-      "cost": 0,
       "quantity": 1,
       "consumable": false,
+      "usesAmmo": false,
       "attack": {
         "mode": "none",
         "label": "",

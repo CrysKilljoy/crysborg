@@ -64,6 +64,7 @@
   "MB.EditAllowedScvmClassesMenuHint": "Edita las clases permitidas en el generador de PJ.",
   "MB.EditAllowedScvmClassesMenuButtonLabel": "Editar",
   "MB.Encumbered": "Cifrado??",
+  "MB.Empty": "vacío",
   "MB.EquipArmorToAbsorb": "Equipa armadura para absorber el daño.",
   "MB.EquipAWeaponToAttack": "Equipa un arma para atacar.",
   "MB.Equipment": "Equipamiento",
@@ -240,6 +241,7 @@
   "MB.TabPowers": "Especial",
   "MB.TabTreasures": "Equipamiento",
   "MB.TabViolence": "Violencia",
+  "MB.TabLoadout": "Loadout",
   "MB.Take": "Toma",
   "MB.TargetArmor": "Objetivo de Armadura",
   "MB.Test": "Prueba",
@@ -261,5 +263,8 @@
   "MB.WieldAPowerText": "PRE+d4 veces al día. PRE CD12 para equipar o -d2 HP y sin poderes por 1 hr.",
   "MB.YouAreHit": "Eres golpeado",
   "MB.YouHaveNoFeats": "No tienes rasgos",
-  "MB.YouHaveNoScrolls": "No tienes pergaminos"
+  "MB.YouHaveNoScrolls": "No tienes pergaminos",
+  "MB.ItemTypeCarriageUpgrade": "Carriage Fitting",
+  "MB.CarriageFittings": "Carriage Fittings",
+  "MB.CarriageLocationSides": "Sides"
 }
