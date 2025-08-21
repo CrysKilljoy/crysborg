@@ -4,7 +4,7 @@
     <div class="form-group">
       <label>{{ localize "MB.Description" }}:</label>
       <textarea name="system.description" rows="4">{{data.system.description}}</textarea>
-      {{#if @root.user.isGM}}
+      {{#if @root.isGM}}
       <div class="form-group gm-description">
         <label>{{ localize "MB.GMDescription" }}</label>
         <textarea name="flags.crysborg.gmdescription" rows="4">{{flags.crysborg.gmdescription}}</textarea>

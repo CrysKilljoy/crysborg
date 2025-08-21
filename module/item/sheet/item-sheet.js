@@ -30,6 +30,7 @@ export class MBItemSheet extends ItemSheet {
   /** @override */
   async getData(options) {
     const superData = await super.getData(options);
+    superData.isGM = game.user.isGM;
     const itemData = superData.data;
 
     // Add the item's type to item as a lower-case string
