@@ -24,7 +24,7 @@
         {{#if @root.isGM}}
         <div class="form-group gm-description">
           <label>{{ localize "MB.GMDescription" }}</label>
-          <textarea name="flags.crysborg.gmdescription" rows="4">{{flags.crysborg.gmdescription}}</textarea>
+          {{editor flags.crysborg.gmdescription target="flags.crysborg.gmdescription" button=true owner=owner editable=true engine="prosemirror"}}
         </div>
         {{/if}}
       </div>
