@@ -416,6 +416,21 @@
   flex: 1;
 }
 
+.crysborg.sheet.actor .sheet-body .gm-description,
+.crysborg.sheet.item .sheet-body .gm-description {
+  flex-direction: column;
+  align-items: stretch;
+}
+.crysborg.sheet.actor .sheet-body .gm-description label,
+.crysborg.sheet.item .sheet-body .gm-description label {
+  text-align: left;
+  margin: 0 0 4px;
+}
+.crysborg.sheet.actor .sheet-body .gm-description textarea,
+.crysborg.sheet.item .sheet-body .gm-description textarea {
+  width: 100%;
+}
+
 .crysborg.sheet.actor .sheet-button {
   background-color: var(--foreground-color);
   border: none;
