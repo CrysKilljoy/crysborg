@@ -150,16 +150,18 @@
         <label>{{ localize "MB.Rolls" }}:</label>
         <textarea name="system.startingRolls" rows="4">{{data.system.startingRolls}}</textarea>
       </div>
+      {{#if @root.isGM}}
         <div class="form-group">
             <label>{{localize "MB.Source"}}</label>
-            <input 
-              type="text" 
-              name="system.systemSource" 
-              value="{{data.system.systemSource}}" 
-              placeholder="Add System Source" 
+            <input
+              type="text"
+              name="system.systemSource"
+              value="{{data.system.systemSource}}"
+              placeholder="Add System Source"
               data-dtype="String"
             />
-      </div>
+        </div>
+      {{/if}}
     </div>
   </section>
 </form>

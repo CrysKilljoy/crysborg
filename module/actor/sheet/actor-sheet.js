@@ -67,7 +67,8 @@ export default class MBActorSheet extends ActorSheet {
   /** @override */
   async getData() {
     const superData = await super.getData();
-    
+    superData.isGM = game.user.isGM;
+
     // Ensure flags data is available to the template
     superData.flags = superData.data.flags || {};
     superData.flags.crysborg = superData.flags.crysborg || {};

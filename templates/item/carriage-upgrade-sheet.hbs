@@ -13,7 +13,9 @@
         </select>
       </div>
       <div class="form-group"><label>{{ localize "MB.Quantity" }}:</label><input type="number" name="system.quantity" value="{{data.system.quantity}}" data-dtype="Number" /></div>
-      <div class="form-group"><label>{{ localize "MB.ItemPrice" }}:</label><input type="text" name="system.price" value="{{data.system.price}}" data-dtype="String" /></div>
+      {{#if @root.isGM}}
+        <div class="form-group"><label>{{ localize "MB.ItemPrice" }}:</label><input type="text" name="system.price" value="{{data.system.price}}" data-dtype="String" /></div>
+      {{/if}}
       <div class="form-group"><label>{{ localize "MB.CarryWeight" }}:</label><input type="number" name="system.carryWeight" value="{{data.system.carryWeight}}" data-dtype="Number" /></div>
       <div class="form-group"><label>{{ localize "MB.Consumable" }}:</label><input type="checkbox" name="system.consumable" {{checked data.system.consumable}} data-dtype="Boolean" /></div>
       <div class="form-group"><label>{{ localize "MB.ItemUsesAmmo" }}:</label><input type="checkbox" name="system.usesAmmo" {{checked data.system.usesAmmo}} data-dtype="Boolean" /></div>

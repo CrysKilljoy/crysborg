@@ -29,10 +29,12 @@
       <label>Cargo Capacity:</label>
       <input type="text" name="system.cargo" value="{{data.system.cargo}}" data-dtype="Number" />
     </div>
-    <div class="form-group">
-      <label>Cost:</label>
-      <input type="text" name="system.cost" value="{{data.system.cost}}" data-dtype="String" />
-    </div>
+    {{#if @root.isGM}}
+      <div class="form-group">
+        <label>Cost:</label>
+        <input type="text" name="system.cost" value="{{data.system.cost}}" data-dtype="String" />
+      </div>
+    {{/if}}
   </section>
 </form>
 
