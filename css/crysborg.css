@@ -430,7 +430,9 @@
 .crysborg.sheet.item .sheet-body .gm-description .editor {
   width: 100%;
   min-height: 120px !important;
-  height: 120px;
+  height: auto;
+  resize: vertical;
+  overflow-y: auto;
 }
 
 .crysborg.sheet.actor .sheet-button {
