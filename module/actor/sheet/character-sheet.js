@@ -28,7 +28,7 @@ export class MBCharacterSheet extends MBActorSheet {
       classes: ["crysborg", "sheet", "actor", "character"],
       template: "systems/crysborg/templates/actor/character-sheet.hbs",
       width: 750,
-      height: 690,
+      height: 800,
       tabs: [
         {
           navSelector: ".sheet-tabs",
