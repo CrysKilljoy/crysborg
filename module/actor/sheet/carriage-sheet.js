@@ -130,7 +130,8 @@ export class MBCarriageSheet extends MBActorSheet {
     const newVal = Math.min(current + 1, max);
     this.actor.update({ "system.hp.value": newVal });
     $(event.target)
-      .siblings('input[name="system.hp.value"]')
+      .closest(".structure-input-group")
+      .find('input[name="system.hp.value"]')
       .val(newVal);
   }
 
@@ -140,7 +141,8 @@ export class MBCarriageSheet extends MBActorSheet {
     const newVal = Math.max(current - 1, 0);
     this.actor.update({ "system.hp.value": newVal });
     $(event.target)
-      .siblings('input[name="system.hp.value"]')
+      .closest(".structure-input-group")
+      .find('input[name="system.hp.value"]')
       .val(newVal);
   }
 

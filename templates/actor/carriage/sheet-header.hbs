@@ -15,9 +15,11 @@
       <div class="hp-entries">
         <span class="stat-label">{{ localize "MB.Structure" }}:</span>
         <div class="structure-input-group omens-input-group">
-          <button type="button" class="structure-decrement omens-decrement">-</button>
+          <div class="structure-controls">
+            <button type="button" class="structure-increment omens-increment">+</button>
+            <button type="button" class="structure-decrement omens-decrement">-</button>
+          </div>
           <input class="stat-input" name="system.hp.value" type="number" value="{{data.system.hp.value}}" data-dtype="Number" />
-          <button type="button" class="structure-increment omens-increment">+</button>
         </div>
         /
         <input class="stat-input" name="system.hp.max" type="number" value="{{data.system.hp.max}}" data-dtype="Number" />

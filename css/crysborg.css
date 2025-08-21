@@ -801,6 +801,24 @@
 .omens-increment:active {
   transform: scale(0.95);
 }
+
+.structure-input-group {
+  align-items: stretch;
+}
+
+.structure-input-group .structure-controls {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.structure-input-group .structure-controls button {
+  width: 16px;
+  height: auto;
+  font-size: 10px;
+  line-height: 10px;
+  flex: 1;
+}
 .crysborg.sheet.actor.character .sheet-header .omen-rule {
   flex: 0 0 90px;
   margin-left: 10px;
