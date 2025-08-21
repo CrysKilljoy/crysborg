@@ -802,17 +802,21 @@
   transform: scale(0.95);
 }
 
-.structure-input-group {
+.structure-input-group,
+.hp-input-group {
+  display: inline-flex;
   align-items: stretch;
 }
 
-.structure-input-group .structure-controls {
+.structure-input-group .structure-controls,
+.hp-input-group .hp-controls {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.structure-input-group .structure-controls button {
+.structure-input-group .structure-controls button,
+.hp-input-group .hp-controls button {
   width: 16px;
   height: auto;
   font-size: 10px;

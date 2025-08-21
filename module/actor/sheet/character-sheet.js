@@ -275,25 +275,17 @@ export class MBCharacterSheet extends MBActorSheet {
 
   _onOmensIncrement(event) {
     event.preventDefault();
-    console.log("Increment button clicked");
     const currentValue = this.actor.system.omens.value || 0;
-    const maxValue = this.actor.system.omens.max || 0;
-    // Only limit to max if max is greater than 0 and less than current + 1
-    const newValue = maxValue > 0 ? Math.min(currentValue + 1, maxValue) : currentValue + 1;
-    console.log(`Increment: ${currentValue} + 1 = ${newValue} (max: ${maxValue})`);
+    const newValue = currentValue + 1;
     this.actor.update({ "system.omens.value": newValue });
-    // Force the input field to update
     $(event.target).siblings('input[name="system.omens.value"]').val(newValue);
   }
 
   _onOmensDecrement(event) {
     event.preventDefault();
-    console.log("Decrement button clicked");
     const currentValue = this.actor.system.omens.value || 0;
     const newValue = Math.max(currentValue - 1, 0);
-    console.log(`Decrement: ${currentValue} - 1 = ${newValue}`);
     this.actor.update({ "system.omens.value": newValue });
-    // Force the input field to update
     $(event.target).siblings('input[name="system.omens.value"]').val(newValue);
   }
 
