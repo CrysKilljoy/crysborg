@@ -108,7 +108,7 @@
         </h4>
         <div class="item-buttons">
           <div class="armor-tiers">
-            {{#if (and (eq armor.system.tier.value 0) armor.system.tierNote)}}
+            {{#if (and (eq armor.system.tier.max 0) armor.system.tierNote)}}
               {{!-- Show only tier note when tier is 0 and note exists --}}
               <div class="armor-tier-note">{{armor.system.tierNote}}</div>
             {{else}}

@@ -6,22 +6,8 @@
     name="system.price"
     value="{{data.system.price}}"
     placeholder="2"
-    data-dtype="Number"
+    data-dtype="String"
   />
-</div>
-
-{{!-- Tags --}}
-<div class="form-group">
-  <label>{{ localize "MB.Tags" }}:</label>
-  <div class="tag-input-wrapper">
-    <input
-      type="text"
-      name="flags.crysborg.tags"
-      value="{{flags.crysborg.tags}}"
-      placeholder="{{ localize 'MB.TagsPlaceholder' }}"
-    />
-    <div class="tag-dropdown"></div>
-  </div>
 </div>
 
 {{!-- Carry weight --}}
@@ -47,3 +33,21 @@
     data-dtype="Number"
   />
 </div>
+
+{{> systems/crysborg/templates/item/common/dr-modifier-fields.hbs }}
+
+{{!-- Tags system disabled --}}
+{{!--
+<div class="form-group">
+  <label>{{ localize "MB.Tags" }}:</label>
+  <div class="tag-input-wrapper">
+    <input
+      type="text"
+      name="flags.crysborg.tags"
+      value="{{flags.crysborg.tags}}"
+      placeholder="{{ localize 'MB.TagsPlaceholder' }}"
+    />
+    <div class="tag-dropdown"></div>
+  </div>
+</div>
+--}}

@@ -32,13 +32,19 @@
     <div class="hitpoints-row">
       <div class="hp-entries">
         <span class="stat-label">{{ localize "MB.HP" }}:</span>
-        <input
-          class="stat-input"
-          name="system.hp.value"
-          type="number"
-          value="{{data.system.hp.value}}"
-          data-dtype="Number"
-        />
+          <div class="hp-input-group omens-input-group">
+            <div class="hp-controls">
+              <button type="button" class="hp-increment">+</button>
+              <button type="button" class="hp-decrement">-</button>
+            </div>
+            <input
+              class="stat-input"
+              name="system.hp.value"
+              type="number"
+              value="{{data.system.hp.value}}"
+              data-dtype="Number"
+            />
+        </div>
         /
         <input
           class="stat-input"
@@ -50,17 +56,21 @@
       </div>
       <div class="omens-block">
         <span
-          class="stat-label omens-label"
+          class="stat-label omens-label rollable"
           title="{{ localize 'MB.OmensHelpText' }}"
           >{{ localize "MB.Omens" }}:</span
         >
-        <input
-          class="stat-input"
-          name="system.omens.value"
-          type="number"
-          value="{{data.system.omens.value}}"
-          data-dtype="Number"
-        />
+        <div class="omens-input-group">
+          <button type="button" class="omens-decrement" title="{{ localize 'MB.DecrementOmens' }}">-</button>
+          <input
+            class="stat-input"
+            name="system.omens.value"
+            type="number"
+            value="{{data.system.omens.value}}"
+            data-dtype="Number"
+          />
+          <button type="button" class="omens-increment" title="{{ localize 'MB.IncrementOmens' }}">+</button>
+        </div>
       </div>    
     </div>
     <div class="hitpoints-row">

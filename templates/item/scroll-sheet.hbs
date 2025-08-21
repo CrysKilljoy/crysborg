@@ -7,8 +7,6 @@
     
     {{!-- Details Tab --}}
     <div class="tab" data-group="primary" data-tab="details">
-      {{> systems/crysborg/templates/item/common/base-fields.hbs }} 
-
       {{!-- Scroll type --}}
       <div class="form-group">
         <label>{{ localize "MB.ItemScrollType" }}:</label>
@@ -19,6 +17,9 @@
           {{/each}} {{/select}}
         </select>
       </div>
+
+      {{!-- Base Fields (moved to bottom) --}}
+      {{> systems/crysborg/templates/item/common/base-fields.hbs }} 
     </div>
   </section>
 </form>

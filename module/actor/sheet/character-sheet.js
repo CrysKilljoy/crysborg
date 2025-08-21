@@ -14,7 +14,7 @@ import {
   testStrength,
   testToughness,
 } from "../test-abilities.js";
-import { rollOmens } from "../omens.js";
+import { rollOmens, testOmens } from "../omens.js";
 import { wieldPower } from "../powers.js";
 import { upperCaseFirst } from "../../utils.js";
 
@@ -28,7 +28,7 @@ export class MBCharacterSheet extends MBActorSheet {
       classes: ["crysborg", "sheet", "actor", "character"],
       template: "systems/crysborg/templates/actor/character-sheet.hbs",
       width: 750,
-      height: 690,
+      height: 800,
       tabs: [
         {
           navSelector: ".sheet-tabs",
@@ -196,8 +196,14 @@ export class MBCharacterSheet extends MBActorSheet {
 
     html.find(".reroll-button").click(this._onReroll.bind(this));
     html
-      .find(".omens-row span.rollable")
+      .find(".omens-label.rollable")
       .on("click", this._onOmensRoll.bind(this));
+    html
+      .find("button.omens-increment")
+      .on("click", this._onOmensIncrement.bind(this));
+    html
+      .find("button.omens-decrement")
+      .on("click", this._onOmensDecrement.bind(this));
     html.find(".get-better-button").on("click", this._onGetBetter.bind(this));
     html.find(".rest-button").on("click", this._onRest.bind(this));
     // powers tab
@@ -205,6 +211,25 @@ export class MBCharacterSheet extends MBActorSheet {
     html
       .find(".wield-power-button")
       .on("click", this._onWieldPowerRoll.bind(this));
+
+    // Save scroll position before actions that re-render
+    const saveScroll = () => {
+      const tab = this.element.find('.equipment-tab')[0];
+      this._equipmentScrollTop = tab ? tab.scrollTop : 0;
+    };
+    html.find('.item-qty-plus, .item-qty-minus, .item-toggle-equipped').on('click', saveScroll);
+  }
+
+  /** @override */
+  async render(force=false, options={}) {
+    const prevScroll = this._equipmentScrollTop;
+    await super.render(force, options);
+    if (prevScroll !== undefined) {
+      requestAnimationFrame(() => {
+        const tab = this.element.find('.equipment-tab')[0];
+        if (tab) tab.scrollTop = prevScroll;
+      });
+    }
   }
 
   _onDeathCheckRoll(event) {
@@ -245,7 +270,23 @@ export class MBCharacterSheet extends MBActorSheet {
 
   _onOmensRoll(event) {
     event.preventDefault();
-    rollOmens(this.actor);
+    testOmens(this.actor);
+  }
+
+  _onOmensIncrement(event) {
+    event.preventDefault();
+    const currentValue = this.actor.system.omens.value || 0;
+    const newValue = currentValue + 1;
+    this.actor.update({ "system.omens.value": newValue });
+    $(event.target).siblings('input[name="system.omens.value"]').val(newValue);
+  }
+
+  _onOmensDecrement(event) {
+    event.preventDefault();
+    const currentValue = this.actor.system.omens.value || 0;
+    const newValue = Math.max(currentValue - 1, 0);
+    this.actor.update({ "system.omens.value": newValue });
+    $(event.target).siblings('input[name="system.omens.value"]').val(newValue);
   }
 
   _onBroken(event) {

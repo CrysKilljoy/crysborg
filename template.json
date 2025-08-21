@@ -5,7 +5,8 @@
       "container",
       "creature",
       "follower",
-      "misery-tracker"
+      "misery-tracker",
+      "carriage"
     ],
     "templates": {
       "common": {
@@ -56,7 +57,7 @@
         "value": 0
       },
       "description": "",
-      "price": 0
+      "price": ""
     },
     "creature": {
       "templates": ["common"],
@@ -73,7 +74,24 @@
       "silver": 0,
       "speciality": "",
       "trait": "",
-      "value": ""
+      "value": "",
+      "carriageSpeed": 0
+    },
+    "carriage": {
+      "abilities": {
+        "speed": { "value": 0, "base": 0 },
+        "stability": { "value": 100, "base": 100 }
+      },
+      "description": "",
+      "hp": { "max": 1, "value": 1, "base": 1 },
+      "ram": "0",
+      "ramBase": "0",
+      "armor": "0",
+      "armorBase": "0",
+      "cargo": 0,
+      "cargoBase": 0,
+      "cost": "",
+      "draft": []
     },
     "misery-tracker": {
       "miseryDie": "1d20",
@@ -114,7 +132,9 @@
       "misc",
       "scroll",
       "shield",
-      "weapon"
+      "weapon",
+      "carriage-class",
+      "carriage-upgrade"
     ],
     "templates": {
       "baseEquipment": {
@@ -123,8 +143,16 @@
         "carryWeight": 1,
         "equipped": false,
         "carried": true,
-        "price": 0,
-        "quantity": 1
+        "price": "",
+        "quantity": 1,
+        "drModifiers": {
+          "strength": 0,
+          "agility": 0,
+          "toughness": 0,
+          "presence": 0,
+          "attack": 0,
+          "defense": 0
+        }
       }
     },
     "ammo": {
@@ -166,7 +194,15 @@
       "description": "",
       "rollFormula": "",
       "rollMacro": "",
-      "rollLabel": ""
+      "rollLabel": "",
+      "drModifiers": {
+        "strength": 0,
+        "agility": 0,
+        "toughness": 0,
+        "presence": 0,
+        "attack": 0,
+        "defense": 0
+      }
     },
 
     "misc": {
@@ -187,6 +223,36 @@
       "fumbleOn": 1,
       "usesAmmo": false,
       "weaponType": "melee"
+    },
+    "carriage-class": {
+      "description": "",
+      "speed": "0",
+      "ram": "0",
+      "structure": "0",
+      "stability": "0",
+      "armor": "0",
+      "cargo": 0,
+      "cost": ""
+    },
+    "carriage-upgrade": {
+      "templates": ["baseEquipment"],
+      "description": "",
+      "location": "front",
+      "speed": 0,
+      "ram": "0",
+      "structure": 0,
+      "stability": 0,
+      "armor": "0",
+      "cargo": 0,
+      "quantity": 1,
+      "consumable": false,
+      "usesAmmo": false,
+      "attack": {
+        "mode": "none",
+        "label": "",
+        "formula": "",
+        "chat": ""
+      }
     }
   }
 }

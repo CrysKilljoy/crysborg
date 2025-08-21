@@ -21,6 +21,12 @@
       <div class="form-group">
         <label>{{ localize "MB.Description" }}:</label>
         <textarea name="system.description" rows="8">{{data.system.description}}</textarea>
+        {{#if @root.isGM}}
+        <div class="form-group gm-description">
+          <label>{{ localize "MB.GMDescription" }}</label>
+          {{editor flags.crysborg.gmdescription target="flags.crysborg.gmdescription" button=true owner=owner editable=true engine="prosemirror"}}
+        </div>
+        {{/if}}
       </div>
 
       <br />

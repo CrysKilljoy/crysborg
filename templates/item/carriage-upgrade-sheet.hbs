@@ -1,0 +1,44 @@
+<form class="flexcol {{cssClass}}" autocomplete="off">
+  {{> systems/crysborg/templates/item/common/sheet-header.hbs }}
+  <section class="sheet-body">
+    <div class="tab">
+      <div class="form-group">
+        <label>{{ localize "MB.Description" }}:</label>
+        <textarea name="system.description" rows="4">{{data.system.description}}</textarea>
+        {{#if @root.isGM}}
+        <div class="form-group gm-description">
+          <label>{{ localize "MB.GMDescription" }}</label>
+          {{editor flags.crysborg.gmdescription target="flags.crysborg.gmdescription" button=true owner=owner editable=true engine="prosemirror"}}
+        </div>
+        {{/if}}
+      </div>
+      <div class="form-group">
+        <label>Location:</label>
+        <select name="system.location" data-dtype="String">
+          {{selectOptions config.carriageLocations selected=data.system.location localize=true}}
+        </select>
+      </div>
+      <div class="form-group"><label>{{ localize "MB.Quantity" }}:</label><input type="number" name="system.quantity" value="{{data.system.quantity}}" data-dtype="Number" /></div>
+      <div class="form-group"><label>{{ localize "MB.ItemPrice" }}:</label><input type="text" name="system.price" value="{{data.system.price}}" data-dtype="String" /></div>
+      <div class="form-group"><label>{{ localize "MB.CarryWeight" }}:</label><input type="number" name="system.carryWeight" value="{{data.system.carryWeight}}" data-dtype="Number" /></div>
+      <div class="form-group"><label>{{ localize "MB.Consumable" }}:</label><input type="checkbox" name="system.consumable" {{checked data.system.consumable}} data-dtype="Boolean" /></div>
+      <div class="form-group"><label>{{ localize "MB.ItemUsesAmmo" }}:</label><input type="checkbox" name="system.usesAmmo" {{checked data.system.usesAmmo}} data-dtype="Boolean" /></div>
+      <div class="form-group">
+        <label>{{ localize "MB.AttackButton" }}:</label>
+        <select name="system.attack.mode" data-dtype="String">
+          {{selectOptions config.carriageAttackModes selected=data.system.attack.mode localize=true}}
+        </select>
+      </div>
+      <div class="form-group"><label>{{ localize "MB.ButtonLabel" }}:</label><input type="text" name="system.attack.label" value="{{data.system.attack.label}}" data-dtype="String" /></div>
+      <div class="form-group"><label class="attack-formula-label">{{#ifEq data.system.attack.mode 'attack'}}{{ localize "MB.Damage" }}{{else}}{{ localize "MB.RollFormula" }}{{/ifEq}}:</label><input type="text" name="system.attack.formula" value="{{data.system.attack.formula}}" data-dtype="String" /></div>
+      <div class="form-group"><label>{{ localize "MB.ChatMessage" }}:</label><input type="text" name="system.attack.chat" value="{{data.system.attack.chat}}" data-dtype="String" /></div>
+      <div class="form-group"><label>Speed Mod:</label><input type="number" name="system.speed" value="{{ifPrint data.system.speed data.system.speed}}" data-dtype="Number" /></div>
+      <div class="form-group"><label>Ram Mod:</label><input type="text" name="system.ram" value="{{#ifNe data.system.ram '0'}}{{data.system.ram}}{{/ifNe}}" data-dtype="String" /></div>
+      <div class="form-group"><label>Structure Mod:</label><input type="number" name="system.structure" value="{{ifPrint data.system.structure data.system.structure}}" data-dtype="Number" /></div>
+      <div class="form-group"><label>Stability Mod:</label><input type="number" name="system.stability" value="{{ifPrint data.system.stability data.system.stability}}" data-dtype="Number" /></div>
+      <div class="form-group"><label>Armor Mod:</label><input type="text" name="system.armor" value="{{#ifNe data.system.armor '0'}}{{data.system.armor}}{{/ifNe}}" data-dtype="String" /></div>
+      <div class="form-group"><label>Cargo Mod:</label><input type="number" name="system.cargo" value="{{ifPrint data.system.cargo data.system.cargo}}" data-dtype="Number" /></div>
+    </div>
+  </section>
+</form>
+

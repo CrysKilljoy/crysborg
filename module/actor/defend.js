@@ -2,6 +2,47 @@ import { addShowDicePromise, diceSound, showDice } from "../dice.js";
 import { hitAutomation } from "../settings.js";
 import { showRollResultCard } from "../utils.js";
 
+function computeDefendDrModifier(actor) {
+  let modifier = 0;
+  const drModifiers = [];
+  const items = [];
+  for (const item of actor.items) {
+    const active = item.system?.equipped ?? item.type === "feat";
+    if (!active) continue;
+    const mods = item.system?.drModifiers || {};
+    const candidates = [];
+    if (mods.defense) candidates.push(parseInt(mods.defense));
+    if (mods.agility) candidates.push(parseInt(mods.agility));
+    if (candidates.length) {
+      const value = candidates.reduce((a, b) => (Math.abs(b) > Math.abs(a) ? b : a));
+      modifier += value;
+      drModifiers.push(
+        `${item.name}: ${game.i18n.localize("MB.DR")} ${value >= 0 ? "+" : ""}${value}`
+      );
+      items.push(item);
+    }
+  }
+  const armor = actor.equippedArmor();
+  if (armor) {
+    const maxTier = parseInt(armor.system.tier.max);
+    const defenseModifier = CONFIG.MB.armorTiers[maxTier].defenseModifier;
+    if (defenseModifier) {
+      modifier += defenseModifier;
+      drModifiers.push(
+        `${armor.name}: ${game.i18n.localize("MB.DR")} +${defenseModifier}`
+      );
+      items.push(armor);
+    }
+  }
+  if (actor.isEncumbered()) {
+    modifier += 2;
+    drModifiers.push(
+      `${game.i18n.localize("MB.Encumbered")}: ${game.i18n.localize("MB.DR")} +2`
+    );
+  }
+  return { modifier, drModifiers, items };
+}
+
 /**
  * Defend!
  */
@@ -29,29 +70,12 @@ async function automatedDefend(actor) {
     incomingAttack = "1d4"; // default
   }
 
-  const armor = actor.equippedArmor();
-  const drModifiers = [];
-  if (armor) {
-    // armor defense adjustment is based on its max tier, not current
-    // TODO: maxTier is getting stored as a string
-    const maxTier = parseInt(armor.system.tier.max);
-    const defenseModifier = CONFIG.MB.armorTiers[maxTier].defenseModifier;
-    if (defenseModifier) {
-      drModifiers.push(
-        `${armor.name}: ${game.i18n.localize("MB.DR")} +${defenseModifier}`
-      );
-    }
-  }
-  if (actor.isEncumbered()) {
-    drModifiers.push(
-      `${game.i18n.localize("MB.Encumbered")}: ${game.i18n.localize(
-        "MB.DR"
-      )} +2`
-    );
-  }
+  const { modifier, drModifiers } = computeDefendDrModifier(actor);
+  const modifiedDR = parseInt(defendDR) + modifier;
 
   const dialogData = {
     defendDR,
+    modifiedDR,
     drModifiers,
     incomingAttack,
   };
@@ -75,7 +99,8 @@ async function automatedDefend(actor) {
       render: (html) => {
         html
           .find("input[name='defensebasedr']")
-          .on("change", onDefenseBaseDRChange.bind(actor));
+          .data("drModifier", modifier)
+          .on("change", onDefenseBaseDRChange);
         html.find("input[name='defensebasedr']").trigger("change");
       },
       close: () => resolve(null),
@@ -84,26 +109,7 @@ async function automatedDefend(actor) {
 };
 
 async function unautomatedDefend(actor) {
-  const armor = actor.equippedArmor();
-  const drModifiers = [];
-  if (armor) {
-    // armor defense adjustment is based on its max tier, not current
-    // TODO: maxTier is getting stored as a string
-    const maxTier = parseInt(armor.system.tier.max);
-    const defenseModifier = CONFIG.MB.armorTiers[maxTier].defenseModifier;
-    if (defenseModifier) {
-      drModifiers.push(
-        `${armor.name}: ${game.i18n.localize("MB.DR")} +${defenseModifier}`
-      );
-    }
-  }
-  if (actor.isEncumbered()) {
-    drModifiers.push(
-      `${game.i18n.localize("MB.Encumbered")}: ${game.i18n.localize(
-        "MB.DR"
-      )} +2`
-    );
-  }
+  const { drModifiers, items } = computeDefendDrModifier(actor);
   const defendRoll = new Roll(
     "d20+@abilities.agility.value",
     actor.getRollData()
@@ -113,6 +119,7 @@ async function unautomatedDefend(actor) {
   const data = {
     cardTitle: game.i18n.localize("MB.Defend"),
     drModifiers,
+    items,
     rollResults: [
       {
         rollTitle: `1d20 + ${game.i18n.localize("MB.AbilityAgilityAbbrev")}`,
@@ -128,21 +135,8 @@ async function unautomatedDefend(actor) {
 function onDefenseBaseDRChange(event) {
   event.preventDefault();
   const baseInput = $(event.currentTarget);
-  let drModifier = 0;
-  const armor = this.equippedArmor();
-  if (armor) {
-    // TODO: maxTier is getting stored as a string
-    const maxTier = parseInt(armor.system.tier.max);
-    const defenseModifier = CONFIG.MB.armorTiers[maxTier].defenseModifier;
-    if (defenseModifier) {
-      drModifier += defenseModifier;
-    }
-  }
-  if (this.isEncumbered()) {
-    drModifier += 2;
-  }
+  const drModifier = parseInt(baseInput.data("drModifier")) || 0;
   const modifiedDr = parseInt(baseInput[0].value) + drModifier;
-  // TODO: actor is a fragile way to find the other input field
   const modifiedInput = baseInput
     .parent()
     .parent()
@@ -176,11 +170,14 @@ async function defendDialogCallback(actor, html) {
  */
 async function rollDefend(actor, defendDR, incomingAttack) {
   const rollData = actor.getRollData();
-  const armor = actor.equippedArmor();
-  const shield = actor.equippedShield();
+  const isCarriage = actor.type === "carriage";
+  const armor = isCarriage ? null : actor.equippedArmor();
+  const shield = isCarriage ? null : actor.equippedShield();
+  const { drModifiers, items: modItems } = computeDefendDrModifier(actor);
 
   // roll 1: defend
-  const defendRoll = new Roll("d20+@abilities.agility.value", rollData);
+  const defendFormula = isCarriage ? "d20" : "d20+@abilities.agility.value";
+  const defendRoll = new Roll(defendFormula, rollData);
   await defendRoll.evaluate();
   await showDice(defendRoll);
 
@@ -188,7 +185,7 @@ async function rollDefend(actor, defendDR, incomingAttack) {
   const isFumble = d20Result === 1;
   const isCrit = d20Result === 20;
 
-  const items = [];
+  const items = [...modItems];
   let damageRoll = null;
   let armorRoll = null;
   let defendOutcome = null;
@@ -220,17 +217,21 @@ async function rollDefend(actor, defendDR, incomingAttack) {
     let damage = damageRoll.total;
 
     // roll 3: damage reduction from equipped armor and shield
-    let damageReductionDie = "";
+  let damageReductionDie = "";
+  if (actor.type === "carriage") {
+    damageReductionDie = actor.system.armor || "";
+  } else {
     if (armor) {
       damageReductionDie =
         CONFIG.MB.armorTiers[armor.system.tier.value].damageReductionDie;
-      items.push(armor);
+      if (!items.includes(armor)) items.push(armor);
     }
     if (shield) {
       damageReductionDie += "+1";
-      items.push(shield);
+      if (!items.includes(shield)) items.push(shield);
     }
-    if (damageReductionDie) {
+  }
+    if (damageReductionDie && damageReductionDie !== "0") {
       armorRoll = new Roll("@die", { die: damageReductionDie });
       await armorRoll.evaluate();
       addShowDicePromise(dicePromises, armorRoll);
@@ -249,9 +250,12 @@ async function rollDefend(actor, defendDR, incomingAttack) {
     armorRoll,
     damageRoll,
     defendDR,
-    defendFormula: `1d20 + ${game.i18n.localize("MB.AbilityAgilityAbbrev")}`,
+    defendFormula: isCarriage
+      ? "1d20"
+      : `1d20 + ${game.i18n.localize("MB.AbilityAgilityAbbrev")}`,
     defendOutcome,
     defendRoll,
+    drModifiers,
     items,
     takeDamage,
   };

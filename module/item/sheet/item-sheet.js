@@ -1,6 +1,6 @@
 import { MB } from "../../config.js";
 import { findWeaponTables } from "../../scvm/scvmfactory.js";
-import { TagManager } from "../../utils/tag-manager.js";
+// import { TagManager } from "../../utils/tag-manager.js";
 
 /*
  * @extends {ItemSheet}
@@ -30,6 +30,7 @@ export class MBItemSheet extends ItemSheet {
   /** @override */
   async getData(options) {
     const superData = await super.getData(options);
+    superData.isGM = game.user.isGM;
     const itemData = superData.data;
 
     // Add the item's type to item as a lower-case string
@@ -43,10 +44,11 @@ export class MBItemSheet extends ItemSheet {
     // Initialize flags if needed
     superData.flags = superData.data.flags || {};
     superData.flags.crysborg = superData.flags.crysborg || {};
-    superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
+    // superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
+    superData.flags.crysborg.gmdescription = superData.flags.crysborg.gmdescription || "";
 
     // Get available tags
-    this.availableTags = await TagManager.getAllTags();
+    // this.availableTags = await TagManager.getAllTags();
 
     // Enrich HTML description
     if (itemData.system?.description) {
@@ -82,6 +84,26 @@ export class MBItemSheet extends ItemSheet {
     }
 
     // Initialize tag input
-    TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
+    // TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
+
+    // Keep DR modifiers section open when values change
+    html.find('details.dr-modifiers input').on('change', (event) => {
+      const detailsElement = $(event.target).closest('details.dr-modifiers');
+      if (!detailsElement[0].open) {
+        detailsElement[0].open = true;
+      }
+    });
+
+    if (this.item.type === CONFIG.MB.itemTypes.carriageUpgrade) {
+      const modeSelect = html.find('select[name="system.attack.mode"]');
+      const label = html.find('.attack-formula-label');
+      const updateLabel = () => {
+        const mode = modeSelect.val();
+        const key = mode === 'attack' ? 'MB.Damage' : 'MB.RollFormula';
+        label.text(`${game.i18n.localize(key)}:`);
+      };
+      modeSelect.on('change', updateLabel);
+      updateLabel();
+    }
   }
 }

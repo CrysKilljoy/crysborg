@@ -7,7 +7,7 @@ import {
 import { checkMorale } from "../morale.js";
 import { checkReaction } from "../reaction.js";
 import { trackAmmo, trackCarryingCapacity } from "../../settings.js";
-import { TagManager } from "../../utils/tag-manager.js";
+// import { TagManager } from "../../utils/tag-manager.js";
 
 /**
  * @extends {ActorSheet}
@@ -25,7 +25,7 @@ export default class MBActorSheet extends ActorSheet {
     html.find(".feat-create").on("click", this._onFeatCreate.bind(this));
 
     // Initialize tag input
-    TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
+    // TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
 
     // Update Inventory Item
     html.find(".item-edit").click((ev) => {
@@ -60,19 +60,23 @@ export default class MBActorSheet extends ActorSheet {
     html.find("select.ammo-select").on("change", this._onAmmoSelect.bind(this));
     html.find("button.morale").on("click", this._onMoraleRoll.bind(this));
     html.find("button.reaction").on("click", this._onReactionRoll.bind(this));
+    html.find("button.hp-increment").on("click", this._onHPIncrement.bind(this));
+    html.find("button.hp-decrement").on("click", this._onHPDecrement.bind(this));
   }
 
   /** @override */
   async getData() {
     const superData = await super.getData();
+    superData.isGM = game.user.isGM;
     
     // Ensure flags data is available to the template
     superData.flags = superData.data.flags || {};
     superData.flags.crysborg = superData.flags.crysborg || {};
-    superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
-    
+    // superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
+    superData.flags.crysborg.gmdescription = superData.flags.crysborg.gmdescription || "";
+
     // Get available tags
-    this.availableTags = await TagManager.getAllTags();
+    // this.availableTags = await TagManager.getAllTags();
     
     // Enrich HTML description
     if (superData.data.system.description) {
@@ -419,6 +423,29 @@ export default class MBActorSheet extends ActorSheet {
   _onReactionRoll(event) {
     event.preventDefault();
     checkReaction(this.actor);
+  }
+
+  _onHPIncrement(event) {
+    event.preventDefault();
+    const input = $(event.target)
+      .closest(".hp-input-group")
+      .find('input[name="system.hp.value"]');
+    const current = Number(input.val()) || 0;
+    const max = this.actor.system.hp?.max || 0;
+    const newVal = Math.min(current + 1, max);
+    this.actor.update({ "system.hp.value": newVal });
+    input.val(newVal);
+  }
+
+  _onHPDecrement(event) {
+    event.preventDefault();
+    const input = $(event.target)
+      .closest(".hp-input-group")
+      .find('input[name="system.hp.value"]');
+    const current = Number(input.val()) || 0;
+    const newVal = Math.max(current - 1, 0);
+    this.actor.update({ "system.hp.value": newVal });
+    input.val(newVal);
   }
 }
 

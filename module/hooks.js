@@ -22,6 +22,29 @@ export function registerHooks() {
     html.find(".rollable").off("click");
     html.find(".create-scvm").off("click");
   });
+
+  // Registriere einen Hook beim Modul-Initialisieren
+  Hooks.once("init", () => {
+    Hooks.on("documentSheetRegistrarInit", (documentTypes) => {
+      // Prüfe aktivierte Module nach eigenen ActorSheets
+      for ( const mgm of game.modules ) {
+        if (!mgm.active) continue;
+        const sheets = mgm.api?.actorSheets;
+        if (!sheets) continue;
+        for ( const sheetInfo of sheets ) {
+          Actors.registerSheet(
+            mgm.id,
+            sheetInfo.cls,
+            {
+              types: sheetInfo.types,
+              makeDefault: sheetInfo.makeDefault || false,
+              label: sheetInfo.label
+            }
+          );
+        }
+      }
+    });
+  });
 };
 
 function applyFontsAndColors() {
