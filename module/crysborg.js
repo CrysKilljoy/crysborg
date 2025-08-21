@@ -21,13 +21,12 @@ import { registerMacros } from "./macros.js";
 import { registerSystemSettings } from "./settings.js";
 import { dumpUuids } from "./exporter.js";
 import { drawFromTable } from "./packutils.js";
-import { TagManager } from "./utils/tag-manager.js";
-import { getAvailableActorTypes } from "./actor/actor.js";
+// import { TagManager } from "./utils/tag-manager.js";
 
 Hooks.once("init", async function () {
   console.log("Initializing CRYS BORG system");
   game.crysborg = {
-    TagManager, // Export TagManager for system-wide access
+    // TagManager, // Export TagManager for system-wide access
   };
   CONFIG.MB = MB;
   registerSystemSettings();

@@ -7,7 +7,7 @@ import {
 import { checkMorale } from "../morale.js";
 import { checkReaction } from "../reaction.js";
 import { trackAmmo, trackCarryingCapacity } from "../../settings.js";
-import { TagManager } from "../../utils/tag-manager.js";
+// import { TagManager } from "../../utils/tag-manager.js";
 
 /**
  * @extends {ActorSheet}
@@ -25,7 +25,7 @@ export default class MBActorSheet extends ActorSheet {
     html.find(".feat-create").on("click", this._onFeatCreate.bind(this));
 
     // Initialize tag input
-    TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
+    // TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
 
     // Update Inventory Item
     html.find(".item-edit").click((ev) => {
@@ -71,10 +71,11 @@ export default class MBActorSheet extends ActorSheet {
     // Ensure flags data is available to the template
     superData.flags = superData.data.flags || {};
     superData.flags.crysborg = superData.flags.crysborg || {};
-    superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
-    
+    // superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
+    superData.flags.crysborg.gmdescription = superData.flags.crysborg.gmdescription || "";
+
     // Get available tags
-    this.availableTags = await TagManager.getAllTags();
+    // this.availableTags = await TagManager.getAllTags();
     
     // Enrich HTML description
     if (superData.data.system.description) {

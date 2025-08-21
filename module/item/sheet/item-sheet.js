@@ -1,6 +1,6 @@
 import { MB } from "../../config.js";
 import { findWeaponTables } from "../../scvm/scvmfactory.js";
-import { TagManager } from "../../utils/tag-manager.js";
+// import { TagManager } from "../../utils/tag-manager.js";
 
 /*
  * @extends {ItemSheet}
@@ -43,10 +43,11 @@ export class MBItemSheet extends ItemSheet {
     // Initialize flags if needed
     superData.flags = superData.data.flags || {};
     superData.flags.crysborg = superData.flags.crysborg || {};
-    superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
+    // superData.flags.crysborg.tags = superData.flags.crysborg.tags || "";
+    superData.flags.crysborg.gmdescription = superData.flags.crysborg.gmdescription || "";
 
     // Get available tags
-    this.availableTags = await TagManager.getAllTags();
+    // this.availableTags = await TagManager.getAllTags();
 
     // Enrich HTML description
     if (itemData.system?.description) {
@@ -82,7 +83,7 @@ export class MBItemSheet extends ItemSheet {
     }
 
     // Initialize tag input
-    TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
+    // TagManager.initializeTagInput(html, 'input[name="flags.crysborg.tags"]', this.availableTags);
 
     // Keep DR modifiers section open when values change
     html.find('details.dr-modifiers input').on('change', (event) => {

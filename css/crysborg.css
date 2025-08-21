@@ -2817,6 +2817,7 @@ option, optgroup {
   background: var(--background-color);
 }
 
+/* Tag system styles disabled
 .tag-input-wrapper {
   position: relative;
 }
@@ -2852,6 +2853,7 @@ option, optgroup {
   background: var(--highlight-background-color);
   color: var(--highlight-foreground-color);
 }
+*/
 remove the white borders between the abilities,
 /* ================== COLLAPSIBLE SECTIONS =================== */
 details.dr-modifiers {
