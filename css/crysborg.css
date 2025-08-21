@@ -416,24 +416,29 @@
   flex: 1;
 }
 
+/* GM-only notes wrapper stacks its label above the editor and leaves
+   extra space below so the resize handle is usable at the window edge. */
 .crysborg.sheet.actor .sheet-body .gm-description,
 .crysborg.sheet.item .sheet-body .gm-description {
   flex-direction: column;
   align-items: stretch;
+  margin-bottom: 24px;
 }
 .crysborg.sheet.actor .sheet-body .gm-description label,
 .crysborg.sheet.item .sheet-body .gm-description label {
   text-align: left;
   margin: 0 0 4px;
 }
+/* GM-only notes editor starts at 120px tall, can grow up to 350px and
+   scrolls internally once that limit is reached. */
 .crysborg.sheet.actor .sheet-body .gm-description .editor,
 .crysborg.sheet.item .sheet-body .gm-description .editor {
   width: 100%;
   min-height: 120px !important;
-  height: auto;
+  height: 120px;
+  max-height: 350px;
   resize: vertical;
   overflow-y: auto;
-  margin-bottom: 8px;
 }
 
 .crysborg.sheet.actor .sheet-button {
