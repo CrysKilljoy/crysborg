@@ -812,16 +812,25 @@
 .hp-input-group .hp-controls {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .structure-input-group .structure-controls button,
 .hp-input-group .hp-controls button {
   width: 16px;
-  height: auto;
   font-size: 10px;
   line-height: 10px;
   flex: 1;
+  background: var(--background-color);
+  border: 1px solid var(--foreground-color);
+  color: var(--foreground-color);
+  cursor: pointer;
+}
+
+.structure-input-group .structure-controls button:hover,
+.hp-input-group .hp-controls button:hover {
+  color: var(--highlight-color);
+  border-color: var(--highlight-color);
+  background: var(--foreground-color);
 }
 .crysborg.sheet.actor.character .sheet-header .omen-rule {
   flex: 0 0 90px;

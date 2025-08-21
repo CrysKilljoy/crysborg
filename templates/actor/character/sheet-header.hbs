@@ -32,18 +32,18 @@
     <div class="hitpoints-row">
       <div class="hp-entries">
         <span class="stat-label">{{ localize "MB.HP" }}:</span>
-        <div class="hp-input-group omens-input-group">
-          <div class="hp-controls">
-            <button type="button" class="hp-increment omens-increment">+</button>
-            <button type="button" class="hp-decrement omens-decrement">-</button>
-          </div>
-          <input
-            class="stat-input"
-            name="system.hp.value"
-            type="number"
-            value="{{data.system.hp.value}}"
-            data-dtype="Number"
-          />
+          <div class="hp-input-group omens-input-group">
+            <div class="hp-controls">
+              <button type="button" class="hp-increment">+</button>
+              <button type="button" class="hp-decrement">-</button>
+            </div>
+            <input
+              class="stat-input"
+              name="system.hp.value"
+              type="number"
+              value="{{data.system.hp.value}}"
+              data-dtype="Number"
+            />
         </div>
         /
         <input
