@@ -409,6 +409,8 @@ MB.scvmFactory = {
     "Compendium.crysborg.crys-borg-items.Item.ac1czxIr7jiLmK4s",
     // Tormented Toymaker
     "Compendium.crysborg.crys-borg-items.Item.IO8MTmjYrlboDsSY",
+    // Damned Lamb
+    "Compendium.crysborg.crys-borg-items.Item.5Az5pNaXF8Gu2O2Q",
   ],
 };
 
