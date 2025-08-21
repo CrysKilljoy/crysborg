@@ -9,10 +9,31 @@ export class MBActor extends Actor {
   /** @override */
   async _preUpdate(changed, options, user) {
     await super._preUpdate(changed, options, user);
-    
+
     // Check if HP is being set to 0 or below - only for character actors
     if (changed.system?.hp?.value <= 0 && this.type === "character") {
       await HPZeroDialog.create(this);
+    }
+
+    if (this.type === "carriage" && changed.system) {
+      const sys = changed.system;
+      if (sys.hp?.max !== undefined) {
+        foundry.utils.setProperty(changed, "system.hp.base", sys.hp.max);
+      }
+      if (sys.abilities?.speed?.value !== undefined) {
+        foundry.utils.setProperty(
+          changed,
+          "system.abilities.speed.base",
+          sys.abilities.speed.value
+        );
+      }
+      if (sys.abilities?.stability?.value !== undefined) {
+        foundry.utils.setProperty(
+          changed,
+          "system.abilities.stability.base",
+          sys.abilities.stability.value
+        );
+      }
     }
   }
 
@@ -129,13 +150,19 @@ export class MBActor extends Actor {
       this.system.hp.base ??= Number(this.system.hp.max) || 0;
 
       // Start from base values to avoid cumulative modifiers
-      let speed = Number(this.system.abilities.speed.base) || 0;
-      let stability = Number(this.system.abilities.stability.base) || 0;
+      let speed = Number(
+        this.system.abilities.speed.base ?? this.system.abilities.speed.value
+      ) || 0;
+      let stability = Number(
+        this.system.abilities.stability.base ??
+          this.system.abilities.stability.value
+      ) || 0;
       let ram = this.system.ramBase || "0";
       let armor = this.system.armorBase || "0";
       let cargo = Number(this.system.cargoBase) || 0;
       let structureMax = Number(this.system.hp.base) || 0;
-      let structureVal = Number(this.system.hp.base) || 0;
+      let structureVal =
+        Number(this.system.hp.value ?? this.system.hp.base) || 0;
 
       this.system.abilities.speed.value = speed;
       this.system.abilities.stability.value = stability;

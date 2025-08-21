@@ -112,8 +112,36 @@ export class MBCarriageSheet extends MBActorSheet {
       }, 0);
     });
 
+    html
+      .find("button.structure-increment")
+      .on("click", this._onStructureIncrement.bind(this));
+    html
+      .find("button.structure-decrement")
+      .on("click", this._onStructureDecrement.bind(this));
+
     html.find(".follower-open").on("click", this._onOpenFollower.bind(this));
     html.find(".follower-remove").on("click", this._onRemoveFollower.bind(this));
+  }
+
+  _onStructureIncrement(event) {
+    event.preventDefault();
+    const current = this.actor.system.hp.value || 0;
+    const max = this.actor.system.hp.max || 0;
+    const newVal = Math.min(current + 1, max);
+    this.actor.update({ "system.hp.value": newVal });
+    $(event.target)
+      .siblings('input[name="system.hp.value"]')
+      .val(newVal);
+  }
+
+  _onStructureDecrement(event) {
+    event.preventDefault();
+    const current = this.actor.system.hp.value || 0;
+    const newVal = Math.max(current - 1, 0);
+    this.actor.update({ "system.hp.value": newVal });
+    $(event.target)
+      .siblings('input[name="system.hp.value"]')
+      .val(newVal);
   }
 
   _onSpeedRoll(event) {
