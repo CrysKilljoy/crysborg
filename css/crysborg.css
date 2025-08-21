@@ -429,7 +429,8 @@
 .crysborg.sheet.actor .sheet-body .gm-description .editor,
 .crysborg.sheet.item .sheet-body .gm-description .editor {
   width: 100%;
-  height: 100px !important;
+  min-height: 120px !important;
+  height: 120px;
 }
 
 .crysborg.sheet.actor .sheet-button {
