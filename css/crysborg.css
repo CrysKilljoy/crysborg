@@ -434,8 +434,8 @@
 .crysborg.sheet.actor .sheet-body .gm-description .editor,
 .crysborg.sheet.item .sheet-body .gm-description .editor {
   width: 100%;
-  min-height: 120px !important;
-  height: 120px;
+  min-height: 250px !important;
+  height: 250px;
   max-height: 350px;
   resize: vertical;
   overflow-y: auto;
