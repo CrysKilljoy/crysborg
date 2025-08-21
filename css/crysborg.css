@@ -433,6 +433,7 @@
   height: auto;
   resize: vertical;
   overflow-y: auto;
+  margin-bottom: 8px;
 }
 
 .crysborg.sheet.actor .sheet-button {
