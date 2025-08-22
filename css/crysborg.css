@@ -436,7 +436,6 @@
   width: 100%;
   min-height: 250px !important;
   height: 250px;
-  max-height: 350px;
   resize: vertical;
   overflow-y: auto;
 }
@@ -828,19 +827,26 @@
 }
 
 .structure-input-group,
-.hp-input-group {
+.hp-input-group,
+.powers-input-group,
+.silver-input-group {
   display: inline-flex;
-  align-items: stretch;
+  align-items: center;
+  vertical-align: middle;
 }
 
 .structure-input-group .structure-controls,
-.hp-input-group .hp-controls {
+.hp-input-group .hp-controls,
+.powers-input-group .powers-controls,
+.silver-input-group .silver-controls {
   display: flex;
   flex-direction: column;
 }
 
 .structure-input-group .structure-controls button,
-.hp-input-group .hp-controls button {
+.hp-input-group .hp-controls button,
+.powers-input-group .powers-controls button,
+.silver-input-group .silver-controls button {
   width: 16px;
   font-size: 10px;
   line-height: 10px;
@@ -849,10 +855,15 @@
   border: 1px solid var(--foreground-color);
   color: var(--foreground-color);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .structure-input-group .structure-controls button:hover,
-.hp-input-group .hp-controls button:hover {
+.hp-input-group .hp-controls button:hover,
+.powers-input-group .powers-controls button:hover,
+.silver-input-group .silver-controls button:hover {
   color: var(--highlight-color);
   border-color: var(--highlight-color);
   background: var(--foreground-color);

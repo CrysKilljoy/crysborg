@@ -62,6 +62,10 @@ export default class MBActorSheet extends ActorSheet {
     html.find("button.reaction").on("click", this._onReactionRoll.bind(this));
     html.find("button.hp-increment").on("click", this._onHPIncrement.bind(this));
     html.find("button.hp-decrement").on("click", this._onHPDecrement.bind(this));
+    html.find("button.power-increment").on("click", this._onPowerIncrement.bind(this));
+    html.find("button.power-decrement").on("click", this._onPowerDecrement.bind(this));
+    html.find("button.silver-increment").on("click", this._onSilverIncrement.bind(this));
+    html.find("button.silver-decrement").on("click", this._onSilverDecrement.bind(this));
   }
 
   /** @override */
@@ -445,6 +449,51 @@ export default class MBActorSheet extends ActorSheet {
     const current = Number(input.val()) || 0;
     const newVal = Math.max(current - 1, 0);
     this.actor.update({ "system.hp.value": newVal });
+    input.val(newVal);
+  }
+
+  _onPowerIncrement(event) {
+    event.preventDefault();
+    const input = $(event.target)
+      .closest(".powers-input-group")
+      .find('input[name="system.powerUses.value"]');
+    const current = Number(input.val()) || 0;
+    const max = this.actor.system.powerUses?.max || 0;
+    const newVal = max ? Math.min(current + 1, max) : current + 1;
+    this.actor.update({ "system.powerUses.value": newVal });
+    input.val(newVal);
+  }
+
+  _onPowerDecrement(event) {
+    event.preventDefault();
+    const input = $(event.target)
+      .closest(".powers-input-group")
+      .find('input[name="system.powerUses.value"]');
+    const current = Number(input.val()) || 0;
+    const newVal = Math.max(current - 1, 0);
+    this.actor.update({ "system.powerUses.value": newVal });
+    input.val(newVal);
+  }
+
+  _onSilverIncrement(event) {
+    event.preventDefault();
+    const input = $(event.target)
+      .closest(".silver-input-group")
+      .find('input[name="system.silver"]');
+    const current = Number(input.val()) || 0;
+    const newVal = current + 1;
+    this.actor.update({ "system.silver": newVal });
+    input.val(newVal);
+  }
+
+  _onSilverDecrement(event) {
+    event.preventDefault();
+    const input = $(event.target)
+      .closest(".silver-input-group")
+      .find('input[name="system.silver"]');
+    const current = Number(input.val()) || 0;
+    const newVal = Math.max(current - 1, 0);
+    this.actor.update({ "system.silver": newVal });
     input.val(newVal);
   }
 }

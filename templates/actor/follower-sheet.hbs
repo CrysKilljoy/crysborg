@@ -100,13 +100,19 @@
           <span class="stat-label silver-label"
             >{{ localize "MB.Silver" }}:</span
           >
-          <input
-            class="stat-input silver-input"
-            name="system.silver"
-            type="number"
-            value="{{data.system.silver}}"
-            data-dtype="Number"
-          />
+          <div class="silver-input-group">
+            <div class="silver-controls">
+              <button type="button" class="silver-increment">+</button>
+              <button type="button" class="silver-decrement">-</button>
+            </div>
+            <input
+              class="stat-input silver-input"
+              name="system.silver"
+              type="number"
+              value="{{data.system.silver}}"
+              data-dtype="Number"
+            />
+          </div>
         </div>
       </div>
       <ol class="items-list equipment-list">
