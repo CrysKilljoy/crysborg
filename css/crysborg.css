@@ -230,8 +230,15 @@
 }
 .crysborg .editor,
 .crysborg .editor-content {
-  height: 100%;
+  height: auto;
+  max-height: 100%;
   padding-top: 10px;
+}
+
+.crysborg.sheet.actor .editor .editor-content,
+.crysborg.sheet.item .editor .editor-content {
+  overflow-y: auto;
+  resize: vertical;
 }
 .crysborg .button {
   background: var(--foreground-color);
