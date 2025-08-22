@@ -437,8 +437,8 @@
 
 .crysborg.sheet.actor .sheet-body .gm-description .editor .editor-content,
 .crysborg.sheet.item .sheet-body .gm-description .editor .editor-content {
-  min-height: 250px;
-  height: 250px;
+  min-height: 125px;
+  height: 125px;
   resize: vertical;
   overflow-y: auto;
 }
@@ -807,6 +807,10 @@
 .omens-input-group {
   display: inline-flex;
   align-items: center;
+  vertical-align: middle;
+}
+
+.hp-entries > input.stat-input {
   vertical-align: middle;
 }
 
