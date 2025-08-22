@@ -278,7 +278,10 @@ export class MBCharacterSheet extends MBActorSheet {
     const currentValue = this.actor.system.omens.value || 0;
     const newValue = currentValue + 1;
     this.actor.update({ "system.omens.value": newValue });
-    $(event.target).siblings('input[name="system.omens.value"]').val(newValue);
+    $(event.currentTarget)
+      .closest('.omens-input-group')
+      .find('input[name="system.omens.value"]')
+      .val(newValue);
   }
 
   _onOmensDecrement(event) {
@@ -286,7 +289,10 @@ export class MBCharacterSheet extends MBActorSheet {
     const currentValue = this.actor.system.omens.value || 0;
     const newValue = Math.max(currentValue - 1, 0);
     this.actor.update({ "system.omens.value": newValue });
-    $(event.target).siblings('input[name="system.omens.value"]').val(newValue);
+    $(event.currentTarget)
+      .closest('.omens-input-group')
+      .find('input[name="system.omens.value"]')
+      .val(newValue);
   }
 
   _onBroken(event) {

@@ -429,12 +429,15 @@
   text-align: left;
   margin: 0 0 4px;
 }
-/* GM-only notes editor starts at 120px tall, can grow up to 350px and
-   scrolls internally once that limit is reached. */
+/* Make GM-only notes editor resizable */
 .crysborg.sheet.actor .sheet-body .gm-description .editor,
 .crysborg.sheet.item .sheet-body .gm-description .editor {
   width: 100%;
-  min-height: 250px !important;
+}
+
+.crysborg.sheet.actor .sheet-body .gm-description .editor .editor-content,
+.crysborg.sheet.item .sheet-body .gm-description .editor .editor-content {
+  min-height: 250px;
   height: 250px;
   resize: vertical;
   overflow-y: auto;
@@ -797,39 +800,11 @@
   flex: 1;
 }
 
-.omens-decrement,
-.omens-increment {
-  background: var(--background-color);
-  border: 1px solid var(--foreground-color);
-  color: var(--foreground-color);
-  width: 20px;
-  height: 20px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-}
-
-.omens-decrement:hover,
-.omens-increment:hover {
-  background: var(--foreground-color);
-  color: var(--background-color);
-  text-shadow: 0 0 5px var(--highlight-background-color);
-}
-
-.omens-decrement:active,
-.omens-increment:active {
-  transform: scale(0.95);
-}
-
 .structure-input-group,
 .hp-input-group,
 .powers-input-group,
-.silver-input-group {
+.silver-input-group,
+.omens-input-group {
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
@@ -838,7 +813,8 @@
 .structure-input-group .structure-controls,
 .hp-input-group .hp-controls,
 .powers-input-group .powers-controls,
-.silver-input-group .silver-controls {
+.silver-input-group .silver-controls,
+.omens-input-group .omens-controls {
   display: flex;
   flex-direction: column;
 }
@@ -846,7 +822,8 @@
 .structure-input-group .structure-controls button,
 .hp-input-group .hp-controls button,
 .powers-input-group .powers-controls button,
-.silver-input-group .silver-controls button {
+.silver-input-group .silver-controls button,
+.omens-input-group .omens-controls button {
   width: 16px;
   font-size: 10px;
   line-height: 10px;
@@ -863,7 +840,8 @@
 .structure-input-group .structure-controls button:hover,
 .hp-input-group .hp-controls button:hover,
 .powers-input-group .powers-controls button:hover,
-.silver-input-group .silver-controls button:hover {
+.silver-input-group .silver-controls button:hover,
+.omens-input-group .omens-controls button:hover {
   color: var(--highlight-color);
   border-color: var(--highlight-color);
   background: var(--foreground-color);
