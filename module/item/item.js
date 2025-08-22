@@ -17,11 +17,17 @@ export class MBItem extends Item {
 
   /** @override */
   prepareActorItemDerivedData(actor) {
-    if (
-      actor.type === "character" ||
-      actor.type === "follower" ||
-      actor.type === "carriage"
-    ) {
+    if (actor.type === "carriage") {
+      // Carriages can only equip carriage fittings
+      this.system.equippable =
+        this.type === CONFIG.MB.itemTypes.carriageUpgrade;
+      this.system.droppable =
+        CONFIG.MB.droppableItemTypes.includes(this.type) &&
+        this.system.carryWeight !== 0;
+      this.system.canPlusMinus = CONFIG.MB.plusMinusItemTypes.includes(
+        this.type
+      );
+    } else if (actor.type === "character" || actor.type === "follower") {
       this.system.equippable = CONFIG.MB.equippableItemTypes.includes(
         this.type
       );
@@ -174,6 +180,10 @@ export class MBItem extends Item {
 
   _getTotalCarryWeight(actor) {
     if (this.isContainer) {
+      // Containers loaded on a carriage do not include the weight of their contents
+      if (actor?.type === "carriage") {
+        return this.carryWeight;
+      }
       return (
         this.items.reduce((weight, itemId) => {
           const item = actor.items.get(itemId);

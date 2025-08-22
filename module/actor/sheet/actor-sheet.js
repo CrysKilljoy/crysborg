@@ -338,6 +338,24 @@ export default class MBActorSheet extends ActorSheet {
     if (target) {
       await this._handleDropOnItemContainer(item, target);
     }
+
+    if (this.actor.type === "carriage" && item.system?.canPlusMinus) {
+      const containerId = item.container ? item.container.id : null;
+      const stack = this.actor.items.find(
+        (i) =>
+          i.id !== item.id &&
+          i.type === item.type &&
+          i.name === item.name &&
+          i.system?.canPlusMinus &&
+          (i.container ? i.container.id : null) === containerId
+      );
+      if (stack) {
+        const qty = stack.system.quantity || 1;
+        const addQty = item.system.quantity || 1;
+        await stack.update({ "system.quantity": qty + addQty });
+        await item.delete();
+      }
+    }
   }
 
   /** @override */

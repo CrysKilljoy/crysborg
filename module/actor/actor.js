@@ -201,7 +201,11 @@ export class MBActor extends Actor {
         }
       }
 
-      const draftIds = Array.from(new Set(this.system.draft || []));
+      let draftIds = Array.from(new Set(this.system.draft || []));
+      draftIds = draftIds.filter((id) => game.actors?.has(id));
+      if (draftIds.length !== (this.system.draft || []).length) {
+        this.updateSource({ "system.draft": draftIds });
+      }
       for (const id of draftIds) {
         const follower = game.actors?.get(id);
         if (follower) {
@@ -344,6 +348,10 @@ export class MBActor extends Actor {
     return this._firstEquipped("shield");
   }
   async equipItem(item) {
+    if (this.type === "carriage" && item.type !== CONFIG.MB.itemTypes.carriageUpgrade) {
+      // Carriages may only equip carriage fittings
+      return;
+    }
     // Only unequip other shields when equipping a shield (allow multiple armor pieces)
     if (item.type === CONFIG.MB.itemTypes.shield) {
       for (const otherItem of this.items) {
