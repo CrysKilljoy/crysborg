@@ -10,21 +10,24 @@ export async function useFeat(actor, itemId) {
   if (item.system.rollMacro) {
     let executed = false;
     if (item.system.rollMacro.includes(",")) {
-      // assume it's a CSV string for {pack},{macro name}
-      const [packName, macroName] = item.system.rollMacro.split(",");
+      // assume it's a CSV string for {pack},{document name}
+      const [packName, docName] = item.system.rollMacro.split(",");
       const pack = game.packs.get(packName);
       if (pack) {
         const content = await pack.getDocuments();
-        const macro = content.find((i) => i.name === macroName);
-        if (macro) {
-          macro.execute();
+        const doc = content.find((i) => i.name === docName);
+        if (doc instanceof Macro) {
+          doc.execute();
+          executed = true;
+        } else if (doc instanceof RollTable) {
+          await doc.draw({ displayChat: true });
           executed = true;
         }
       }
       if (!executed) {
-        const draw = await drawFromTable(packName, macroName, null, true);
+        const draw = await drawFromTable(packName, docName, null, true);
         if (!draw) {
-          console.log(`Could not find macro or table ${macroName} in pack ${packName}.`);
+          console.log(`Could not find macro or table ${docName} in pack ${packName}.`);
         }
       }
     } else {
