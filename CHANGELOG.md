@@ -1,6 +1,7 @@
 # 4.0.1
 
 - Fix defend for async getData().
+- Keep armor tier selection synced between character and item sheets.
 
 # 4.0.0
 
