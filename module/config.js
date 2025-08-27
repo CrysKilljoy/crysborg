@@ -280,8 +280,7 @@ MB.scrollTypes = {
     tablet: "MB.ScrollTypeTablet",
     unclean: "MB.ScrollTypeUnclean",
     chaotic: "MB.ScrollTypeChaotic",
-    GreenWrap: "MB.ScrollTypeGreenWrap",
-    RedWrap: "MB.ScrollTypeRedWrap"
+    svmp: "MB.ScrollTypeSvmp",
 };
 
 MB.weaponTypes = {
@@ -411,6 +410,10 @@ MB.scvmFactory = {
     "Compendium.crysborg.crys-borg-items.Item.IO8MTmjYrlboDsSY",
     // Damned Lamb
     "Compendium.crysborg.crys-borg-items.Item.5Az5pNaXF8Gu2O2Q",
+    // Svmp Cult Renegade
+    "Compendium.crysborg.crys-borg-items.Item.Z2kEE6nU7443A3qd",
+    // Fume Inflated Gutripper
+    "Compendium.crysborg.crys-borg-items.Item.6wRp0SCtA7ZkI6SO"
   ],
 };
 

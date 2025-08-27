@@ -250,6 +250,7 @@
   "MB.ScrollTypeTablet": "Tablet of Ochre Obscurity",
   "MB.ScrollTypeUnclean": "Unclean Scroll",
   "MB.ScrollTypeChaotic": "Chaotic Scroll",
+  "MB.ScrollTypeSvmp": "Svmp Scroll",
   "MB.ScvmfactoryChooseFromClasses": "Choose your Class",
   "MB.ScvmfactoryMakeScvm": "Make Scvm",
   "MB.ScvmfactoryToggleAll": "Toggle All",
@@ -396,5 +397,7 @@
   "MB.THEBellfounderDescr": "You forged bells in silence until one sang the world's true ending—now you carry its echo, reshaping fate with each toll, even as it reshapes you.",
   "MB.TheSharpCardDescr": "You dodged death in the mud for debt in the shadows—trained by a guild of secrets, bound by contract and coin, every move now costs more than blood.",
   "MB.TormentedToymakerDescr": "Grief splintered your mind and your craft—now your toys twitch with cursed life, spreading sorrow and slaughter with every wind-up and whir.",
-  "MB.DamnedLambDescr": "A butchered soul returned, crowned in mock divinity. Your execution failed, but vengeance bleeds through you. Each kill feeds the crown, each sermon a bleating curse upon the Dying Lands." 
+  "MB.DamnedLambDescr": "A butchered soul returned, crowned in mock divinity. Your execution failed, but vengeance bleeds through you. Each kill feeds the crown, each sermon a bleating curse upon the Dying Lands.", 
+  "MB.SvmpCultRenegadeDescr": "Once a member of a cult, now a lone cultist. Your former brotherhood were too soft, and you have met the true God of the Svmp",
+  "MB.FumeInflatedGutripperDescr": "Too long in the SVMP, you are flesh, fat and tumor in motion. Violence is your legacy, yet something inside hungers for more."
 }
