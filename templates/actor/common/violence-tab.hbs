@@ -39,14 +39,12 @@
                     data-dtype="Number"
                     data-item-id="{{item._id}}"
                   >
-                    {{#select item.system.ammoId}}
-                      <option value="">{{localize 'MB.ItemTypeAmmo'}}</option>
-                      {{#each ../data.system.ammo as |ammo ammoId|}}
-                        <option value="{{ammo._id}}">
-                          {{ammo.name}} ({{ammo.system.quantity}})
-                        </option>
-                      {{/each}} 
-                    {{/select}}
+                    <option value="" {{#unless item.system.ammoId}}selected{{/unless}}>{{localize 'MB.ItemTypeAmmo'}}</option>
+                    {{#each ../data.system.ammo as |ammo ammoId|}}
+                      <option value="{{ammo._id}}" {{#if (eq ../../item.system.ammoId ammo._id)}}selected{{/if}}>
+                        {{ammo.name}} ({{ammo.system.quantity}})
+                      </option>
+                    {{/each}}
                   </select>
                 </div>
               {{/if}} 

@@ -76,6 +76,13 @@ This is an implementation of the CRYS BORG rules, with limited adaptations to ma
   - It's up to you to manually roll an Arcane Catastrophe when you fumble.
 - It's up to you to prohibit using powers when wielding zwiehand weapons or medium/heavy armor.
 
+## Feats
+
+- Feats can include a **Roll Macro** field. This can be either the name of a macro or a roll-table reference.
+  - To draw from a roll table in a compendium, use the format `packName,tableName`.
+  - A world roll table can be referenced by its name alone.
+  - These roll macros are valid for dragging the feat to the hotbar.
+
 ## Creatures
 
 - Creatures can be dragged out from the _Creatures_ compendium folder.

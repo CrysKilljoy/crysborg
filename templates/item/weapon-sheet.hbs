@@ -11,11 +11,9 @@
       <div class="form-group">
         <label>{{ localize "MB.ItemWeaponType" }}:</label>
         <select name="system.weaponType">
-          {{#select data.system.weaponType}} 
-            {{#each config.weaponTypes as |name type|}}
-              <option value="{{type}}">{{localize name}}</option>
-            {{/each}} 
-          {{/select}}
+          {{#each config.weaponTypes as |name type|}}
+            <option value="{{type}}" {{#if (eq ../data.system.weaponType type)}}selected{{/if}}>{{localize name}}</option>
+          {{/each}}
         </select>
       </div>
 
@@ -35,11 +33,9 @@
       <div class="form-group">
         <label>{{ localize "MB.ItemHanded" }}:</label>
         <select name="system.handed">
-          {{#select data.system.handed}} 
-            {{#each config.handed as |name value|}}
-               <option value="{{value}}">{{localize name}}</option>
-             {{/each}}
-          {{/select}}
+          {{#each config.handed as |name value|}}
+            <option value="{{value}}" {{#if (eq ../data.system.handed value)}}selected{{/if}}>{{localize name}}</option>
+          {{/each}}
         </select>
       </div>
 

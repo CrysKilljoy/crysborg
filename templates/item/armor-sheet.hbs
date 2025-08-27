@@ -11,13 +11,11 @@
       <div class="form-group">
         <label>{{ localize "MB.ArmorCurrentTier" }}:</label>
         <select name="system.tier.value" data-dtype="Number">
-          {{#select data.system.tier.value}}
-            {{#each config.armorTiers as |tierObj tierNum|}}
-              <option value="{{tierNum}}">
-                {{tierNum}} ({{localize tierObj.key}})
-              </option>
-            {{/each}}
-          {{/select}}
+          {{#each config.armorTiers as |tierObj tierNum|}}
+            <option value="{{tierNum}}" {{#if (eq ../data.system.tier.value tierNum)}}selected{{/if}}>
+              {{tierNum}} ({{localize tierObj.key}})
+            </option>
+          {{/each}}
         </select>
       </div>
 
@@ -25,13 +23,11 @@
       <div class="form-group">
         <label>{{ localize "MB.ArmorMaxTier" }}:</label>
         <select name="system.tier.max" data-dtype="Number">
-          {{#select data.system.tier.max}} 
-            {{#each config.armorTiers as |tierObj tierNum|}}
-              <option value="{{tierNum}}">
-                {{tierNum}} ({{localize tierObj.key}})
-              </option>
-            {{/each}}
-          {{/select}}
+          {{#each config.armorTiers as |tierObj tierNum|}}
+            <option value="{{tierNum}}" {{#if (eq ../data.system.tier.max tierNum)}}selected{{/if}}>
+              {{tierNum}} ({{localize tierObj.key}})
+            </option>
+          {{/each}}
         </select>
       </div>
 

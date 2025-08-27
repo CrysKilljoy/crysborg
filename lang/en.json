@@ -217,6 +217,7 @@
   "MB.PerRest": "Per Rest",
   "MB.RollDamage": "Roll Damage",
   "MB.RollMacro": "Roll Macro",
+  "MB.RollMacroHint": "Macro name or roll-table reference (pack,name)",
   "MB.Powers": "Powers",
   "MB.PowersPerDayText": "PRE+d4 times per day",
   "MB.PowerUsesRemaining": "Powers",

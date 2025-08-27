@@ -38,9 +38,10 @@
           type="text"
           name="system.rollMacro"
           value="{{data.system.rollMacro}}"
-          placeholder=""
+          placeholder="{{localize 'MB.RollMacroHint'}}"
           data-dtype="String"
         />
+        <p class="notes">{{localize 'MB.RollMacroHint'}}</p>
       </div>
 
       {{> systems/crysborg/templates/item/common/dr-modifier-fields.hbs }}

@@ -252,7 +252,7 @@ export class MBActor extends Actor {
     );
   }
 
-  _onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId) {
+  _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
     for (const document of documents) {
       if (document.isContainer) {
         this.deleteEmbeddedDocuments("Item", document.items);
@@ -262,10 +262,11 @@ export class MBActor extends Actor {
       }
     }
 
-    super._onDeleteEmbeddedDocuments(
-      embeddedName,
+    super._onDeleteDescendantDocuments(
+      parent,
+      collection,
       documents,
-      result,
+      ids,
       options,
       userId
     );

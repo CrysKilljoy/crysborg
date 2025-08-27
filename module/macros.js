@@ -45,8 +45,29 @@ export async function createcrysborgMacro(data, slot) {
   ) {
     // we only allow rollable feats
     return ui.notifications.warn(
-      "Macros only supported for feats with roll label and either a formula or macro."
+      "Macros only supported for feats with roll label and either a formula, macro, or roll table."
     );
+  }
+
+  if (item.type === "feat" && item.system.rollMacro && !item.system.rollFormula) {
+    let valid = false;
+    if (item.system.rollMacro.includes(",")) {
+      const [packName, name] = item.system.rollMacro.split(",");
+      const pack = game.packs.get(packName);
+      if (pack) {
+        const content = await pack.getDocuments();
+        valid = content.some((d) => d.name === name);
+      }
+    } else {
+      valid =
+        !!game.macros.find((m) => m.name === item.system.rollMacro) ||
+        !!game.tables.getName(item.system.rollMacro);
+    }
+    if (!valid) {
+      return ui.notifications.warn(
+        `No macro or roll table named ${item.system.rollMacro} found.`
+      );
+    }
   }
 
   // Create the macro command
