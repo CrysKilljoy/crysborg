@@ -264,7 +264,7 @@ export default class MBActorSheet extends ActorSheet {
   /**
    * Handle a click on the armor current tier radio buttons.
    */
-  _onArmorTierRadio(event) {
+  async _onArmorTierRadio(event) {
     event.preventDefault();
     const input = $(event.currentTarget);
     const li = input.parents(".item");
@@ -276,9 +276,14 @@ export default class MBActorSheet extends ActorSheet {
       return;
     }
     
-    const newTier = parseInt(input[0].value);
+    const newTier = parseInt(input[0].value, 10);
     const item = this.actor.items.get(li.data("itemId"));
-    return item.update({ ["system.tier.value"]: newTier });
+    await item.update({ "system.tier.value": newTier });
+
+    // If the item's sheet is open, re-render it so the tier stays in sync
+    if (item.sheet.rendered) {
+      item.sheet.render(false);
+    }
   }
 
   /**
