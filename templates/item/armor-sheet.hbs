@@ -12,7 +12,7 @@
         <label>{{ localize "MB.ArmorCurrentTier" }}:</label>
         <select name="system.tier.value" data-dtype="Number">
           {{#each config.armorTiers as |tierObj tierNum|}}
-            <option value="{{tierNum}}" {{#ifEq ../data.system.tier.max tierNum}}selected{{/ifEq}}>
+            <option value="{{tierNum}}" {{#ifEq ../data.system.tier.value tierNum}}selected{{/ifEq}}>
               {{tierNum}} ({{localize tierObj.key}})
             </option>
           {{/each}}

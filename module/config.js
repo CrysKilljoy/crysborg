@@ -281,6 +281,7 @@ MB.scrollTypes = {
     unclean: "MB.ScrollTypeUnclean",
     chaotic: "MB.ScrollTypeChaotic",
     svmp: "MB.ScrollTypeSvmp",
+    shroom: "MB.ScrollTypeShroom"
 };
 
 MB.weaponTypes = {
@@ -413,7 +414,13 @@ MB.scvmFactory = {
     // Svmp Cult Renegade
     "Compendium.crysborg.crys-borg-items.Item.Z2kEE6nU7443A3qd",
     // Fume Inflated Gutripper
-    "Compendium.crysborg.crys-borg-items.Item.6wRp0SCtA7ZkI6SO"
+    "Compendium.crysborg.crys-borg-items.Item.6wRp0SCtA7ZkI6SO",
+    // Gabalistic Rootworker
+    "Compendium.crysborg.crys-borg-items.Item.qMXVGtAA4dFhLidu",
+    // Resurrected Svmpscum
+    "Compendium.crysborg.crys-borg-items.Item.QQlzaPlaKWpBMmNf",
+    // Mycelial Symbiont
+    "Compendium.crysborg.crys-borg-items.Item.CbFVpN6BRUWLJDAX"
   ],
 };
 
