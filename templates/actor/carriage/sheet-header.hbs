@@ -35,9 +35,19 @@
   <div class="header-gutter-col"></div>
   <div class="header-col3">
     <div class="ability-row" title="{{localize 'MB.AbilitySpeedTooltip'}}">
-      <input class="ability-input" type="text" name="system.abilities.speed.value" value="{{numberFormat data.system.abilities.speed.value decimals=0 sign=false}}" data-dtype="Number" size="3" />
-      <input type="hidden" name="system.abilities.speed.base" value="{{numberFormat data.system.abilities.speed.base decimals=0 sign=false}}" />
+      {{#if flags.crysborg.editCarriageSpeed}}
+        <!-- Edit base speed directly when toggle is on -->
+        <input class="ability-input" type="number" name="system.abilities.speed.base" value="{{numberFormat data.system.abilities.speed.base decimals=0 sign=false}}" data-dtype="Number" size="3" />
+      {{else}}
+        <!-- Show derived speed (read-only); keep base hidden to avoid overwrites -->
+        <input class="ability-input" type="text" value="{{numberFormat data.system.abilities.speed.value decimals=0 sign=false}}" data-dtype="Number" size="3" readonly />
+        <input type="hidden" name="system.abilities.speed.base" value="{{numberFormat data.system.abilities.speed.base decimals=0 sign=false}}" />
+      {{/if}}
       <span class="ability-label rollable speed-roll">{{ localize 'MB.AbilitySpeedAbbrev' }}</span>
+      <label class="speed-edit-toggle" title="Toggle manual base editing" style="margin-left: 6px; cursor: pointer;">
+        <input type="checkbox" name="flags.crysborg.editCarriageSpeed" {{#if flags.crysborg.editCarriageSpeed}}checked{{/if}} />
+        ✎
+      </label>
     </div>
     <div class="ability-row" title="{{localize 'MB.AbilityStabilityTooltip'}}">
       <input class="ability-input stability-value" type="text" name="system.abilities.stability.value" value="{{#if data.system.overloaded}}{{data.system.abilities.stability.overloaded}}{{else}}{{numberFormat data.system.abilities.stability.value decimals=0 sign=false}}{{/if}}" data-dtype="Number" size="3" />
