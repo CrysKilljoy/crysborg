@@ -87,6 +87,12 @@ export class MBCarriageSheet extends MBActorSheet {
       ...armorSources.map((s) => `${s.label}: ${s.value}`),
     ].join("\n");
 
+    const speedSources = this.actor.system.speedSources || [];
+    data.system.speedTooltip = [
+      `${game.i18n.localize("MB.AbilitySpeed")}: ${this.actor.system.abilities.speed.value}`,
+      ...speedSources.map((s) => `${s.label}: ${s.value}`),
+    ].join("\n");
+
     return superData;
   }
 
@@ -97,6 +103,19 @@ export class MBCarriageSheet extends MBActorSheet {
     html.find(".stability-roll").on("click", this._onStabilityRoll.bind(this));
     html.find(".ram-roll").on("click", this._onRamRoll.bind(this));
     html.find(".armor-roll").on("click", this._onDefendRoll.bind(this));
+
+    const speedInput = html.find(".speed-value");
+    speedInput.on("focus", (ev) => {
+      // Show base so editing matches other abilities (base editing)
+      ev.currentTarget.value = this.actor.system.abilities.speed.base ?? 0;
+    });
+    speedInput.on("blur", (ev) => {
+      const input = ev.currentTarget;
+      // Allow form application to update the value before showing derived again
+      setTimeout(() => {
+        input.value = this.actor.system.abilities.speed.value;
+      }, 0);
+    });
 
     const stabilityInput = html.find(".stability-value");
     stabilityInput.on("focus", (ev) => {

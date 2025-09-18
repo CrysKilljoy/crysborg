@@ -149,33 +149,28 @@ export class MBActor extends Actor {
       this.system.cargoBase ??= Number(this.system.cargo ?? 0);
       this.system.hp.base ??= Number(this.system.hp.max) || 0;
 
-      // Start from base values to avoid cumulative modifiers
-      let speed = Number(
-        this.system.abilities.speed.base ?? this.system.abilities.speed.value
-      ) || 0;
+      // Baseline values
+      const savedSpeedValue = Number(this.system.abilities.speed.value) || 0;
+      let speedBase = Number(this.system.abilities.speed.base);
       let stability = Number(
-        this.system.abilities.stability.base ??
-          this.system.abilities.stability.value
+        this.system.abilities.stability.base ?? this.system.abilities.stability.value
       ) || 0;
       let ram = this.system.ramBase || "0";
       let armor = this.system.armorBase || "0";
       let cargo = Number(this.system.cargoBase) || 0;
       let structureMax = Number(this.system.hp.base) || 0;
-      let structureVal =
-        Number(this.system.hp.value ?? this.system.hp.base) || 0;
+      let structureVal = Number(this.system.hp.value ?? this.system.hp.base) || 0;
 
-      this.system.abilities.speed.value = speed;
-      this.system.abilities.stability.value = stability;
+      const ramSources = [{ label: game.i18n.localize("MB.Base"), value: ram }];
+      const armorSources = [{ label: game.i18n.localize("MB.Base"), value: armor }];
+      const speedSources = [{ label: game.i18n.localize("MB.Base"), value: String(Number.isFinite(speedBase) ? speedBase : 0) }];
 
-      const ramSources = [
-        { label: game.i18n.localize("MB.Base"), value: ram }
-      ];
-      const armorSources = [
-        { label: game.i18n.localize("MB.Base"), value: armor }
-      ];
-
+      // Collect upgrade modifiers first (don’t mutate speed yet)
+      let upgradeSpeedSum = 0;
       for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped)) {
-        speed += rollTotalSync(String(item.system.speed || 0));
+        const sp = rollTotalSync(String(item.system.speed || 0));
+        upgradeSpeedSum += sp;
+        if (sp) speedSources.push({ label: item.name, value: String(sp) });
         stability += rollTotalSync(String(item.system.stability || 0));
         if (item.system.ram) {
           if (ram === "0" || ram === "") {
@@ -201,20 +196,35 @@ export class MBActor extends Actor {
         }
       }
 
+      // Validate draft followers and compute their speed contribution
       let draftIds = Array.from(new Set(this.system.draft || []));
       draftIds = draftIds.filter((id) => game.actors?.has(id));
       if (draftIds.length !== (this.system.draft || []).length) {
         this.updateSource({ "system.draft": draftIds });
       }
+      let followerSpeedSum = 0;
       for (const id of draftIds) {
         const follower = game.actors?.get(id);
         if (follower) {
-          speed += rollTotalSync(String(follower.system?.carriageSpeed || 0));
+          const sp = rollTotalSync(String(follower.system?.carriageSpeed || 0));
+          followerSpeedSum += sp;
+          if (sp) speedSources.push({ label: follower.name, value: String(sp) });
         }
       }
 
-      this.system.abilities.speed.value = speed;
+      // If no explicit base exists (legacy actors), reconstruct a base once
+      if (!Number.isFinite(speedBase)) {
+        const reconstructed = savedSpeedValue - upgradeSpeedSum - followerSpeedSum;
+        speedBase = Number.isFinite(reconstructed) ? reconstructed : 0;
+        // Do not persist value speed from derived data; we only migrate base if needed
+        // this.updateSource({ "system.abilities.speed.base": speedBase }); // optional migration
+      }
+
+      const finalSpeed = (Number(speedBase) || 0) + upgradeSpeedSum + followerSpeedSum;
+
+      this.system.abilities.speed.value = finalSpeed;
       this.system.abilities.stability.value = stability;
+      this.system.speedSources = speedSources;
       this.system.ram = ram;
       this.system.ramSources = ramSources;
       this.system.armor = armor;

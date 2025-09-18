@@ -420,7 +420,9 @@ MB.scvmFactory = {
     // Resurrected Svmpscum
     "Compendium.crysborg.crys-borg-items.Item.QQlzaPlaKWpBMmNf",
     // Mycelial Symbiont
-    "Compendium.crysborg.crys-borg-items.Item.CbFVpN6BRUWLJDAX"
+    "Compendium.crysborg.crys-borg-items.Item.CbFVpN6BRUWLJDAX",
+    // Barbarister, the incredible horse
+    "Compendium.crysborg.crys-borg-items.Item.LMAmN1EryWo9IJ5A"
   ],
 };
 
