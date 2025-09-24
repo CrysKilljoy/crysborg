@@ -422,7 +422,13 @@ MB.scvmFactory = {
     // Mycelial Symbiont
     "Compendium.crysborg.crys-borg-items.Item.CbFVpN6BRUWLJDAX",
     // Barbarister, the incredible horse
-    "Compendium.crysborg.crys-borg-items.Item.LMAmN1EryWo9IJ5A"
+    "Compendium.crysborg.crys-borg-items.Item.LMAmN1EryWo9IJ5A",
+    // Ashborne Apostle
+    "Compendium.crysborg.crys-borg-items.Item.aEHrS70FjaAUNt20",
+    // Bloodsalt Miner
+    "Compendium.crysborg.crys-borg-items.Item.XqMkfeBBUzEtD8yM",
+    // Sun-Scorched Symbiote
+    "Compendium.crysborg.crys-borg-items.Item.Llh9ThGwIyd5Pjh3"
   ],
 };
 
