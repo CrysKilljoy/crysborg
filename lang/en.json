@@ -90,7 +90,7 @@
   "MB.FollowerSpeciality": "Speciality",
   "MB.FollowerTrait": "Trait",
   "MB.FollowerValue": "Value",
-  "MB.FollowerCarriageSpeed": "Carriage Speed",
+  "MB.ActorSpeed": "Speed",
   "MB.GetBetter": "Get Better",
   "MB.HandedOne": "One-handed",
   "MB.HandedTwo": "Two-handed",

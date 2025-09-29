@@ -28,7 +28,8 @@
         "hp": {
           "max": 1,
           "value": 1
-        }
+        },
+        "speed": 0
       }
     },
     "character": {
@@ -57,7 +58,8 @@
         "value": 0
       },
       "description": "",
-      "price": ""
+      "price": "",
+      "speed": 0
     },
     "creature": {
       "templates": ["common"],
@@ -74,8 +76,7 @@
       "silver": 0,
       "speciality": "",
       "trait": "",
-      "value": "",
-      "carriageSpeed": 0
+      "value": ""
     },
     "carriage": {
       "abilities": {

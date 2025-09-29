@@ -119,6 +119,34 @@ export class MBActor extends Actor {
     }
   }
 
+  /**
+   * Derive the speed value that this actor contributes when drafting a carriage.
+   *
+   * @returns {number}
+   */
+  getDraftSpeed() {
+    if (this.type === "carriage" || this.type === "misery-tracker") {
+      return 0;
+    }
+
+    if (this.type === "character") {
+      const strength = this.system?.abilities?.strength?.value ?? 0;
+      return rollTotalSync(String(strength || 0));
+    }
+
+    const explicitSpeed = this.system?.speed;
+    if (explicitSpeed !== undefined && explicitSpeed !== null) {
+      return rollTotalSync(String(explicitSpeed));
+    }
+
+    const legacySpeed = this.system?.carriageSpeed;
+    if (legacySpeed !== undefined && legacySpeed !== null) {
+      return rollTotalSync(String(legacySpeed));
+    }
+
+    return 0;
+  }
+
   /** @override */
   prepareDerivedData() {
     super.prepareDerivedData();
@@ -135,6 +163,22 @@ export class MBActor extends Actor {
     if (this.system?.calculatesContainerSpace) {
       this.system.containerSpace = this.containerSpace();
     }
+
+    if (!["carriage", "misery-tracker", "character"].includes(this.type)) {
+      const hasSpeedProperty = Object.prototype.hasOwnProperty.call(
+        this.system,
+        "speed"
+      );
+      if (!hasSpeedProperty) {
+        const draftSpeed = this.getDraftSpeed();
+        this.system.speed = draftSpeed;
+        this.updateSource({ "system.speed": draftSpeed });
+      } else if (this.system.speed === undefined || this.system.speed === null) {
+        this.system.speed = 0;
+        this.updateSource({ "system.speed": 0 });
+      }
+    }
+
     if (this.type === "carriage") {
       // Ensure ability and structure fields exist
       this.system.abilities ??= {};
@@ -204,11 +248,19 @@ export class MBActor extends Actor {
       }
       let followerSpeedSum = 0;
       for (const id of draftIds) {
-        const follower = game.actors?.get(id);
-        if (follower) {
-          const sp = rollTotalSync(String(follower.system?.carriageSpeed || 0));
-          followerSpeedSum += sp;
-          if (sp) speedSources.push({ label: follower.name, value: String(sp) });
+        const draftActor = game.actors?.get(id);
+        if (draftActor) {
+          const draftSpeed =
+            typeof draftActor.getDraftSpeed === "function"
+              ? draftActor.getDraftSpeed()
+              : rollTotalSync(String(draftActor.system?.speed || 0));
+          followerSpeedSum += draftSpeed;
+          if (draftSpeed) {
+            speedSources.push({
+              label: draftActor.name,
+              value: String(draftSpeed),
+            });
+          }
         }
       }
 

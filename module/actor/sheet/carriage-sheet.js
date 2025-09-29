@@ -138,8 +138,8 @@ export class MBCarriageSheet extends MBActorSheet {
       .find("button.structure-decrement")
       .on("click", this._onStructureDecrement.bind(this));
 
-    html.find(".follower-open").on("click", this._onOpenFollower.bind(this));
-    html.find(".follower-remove").on("click", this._onRemoveFollower.bind(this));
+    html.find(".draft-open").on("click", this._onOpenDraftActor.bind(this));
+    html.find(".draft-remove").on("click", this._onRemoveDraftActor.bind(this));
   }
 
   _onStructureIncrement(event) {
@@ -297,24 +297,24 @@ export class MBCarriageSheet extends MBActorSheet {
     await defend(this.actor);
   }
 
-  _onOpenFollower(event) {
+  _onOpenDraftActor(event) {
     event.preventDefault();
     const li = $(event.currentTarget).parents(".item");
-    const followerId = li.data("followerId");
-    const follower = game.actors?.get(followerId);
-    follower?.sheet?.render(true);
+    const draftActorId = li.data("draftActorId");
+    const draftActor = game.actors?.get(draftActorId);
+    draftActor?.sheet?.render(true);
   }
 
-  async _onRemoveFollower(event) {
+  async _onRemoveDraftActor(event) {
     event.preventDefault();
     const li = $(event.currentTarget).parents(".item");
-    const followerId = li.data("followerId");
-    const follower = game.actors?.get(followerId);
-    if (!follower) return;
+    const draftActorId = li.data("draftActorId");
+    const draftActor = game.actors?.get(draftActorId);
+    if (!draftActor) return;
 
     const confirmed = await Dialog.confirm({
       title: game.i18n.localize("MB.ReleaseDraftTitle"),
-      content: game.i18n.format("MB.ReleaseDraftContent", { name: follower.name }),
+      content: game.i18n.format("MB.ReleaseDraftContent", { name: draftActor.name }),
       yes: () => true,
       no: () => false,
       defaultYes: false,
@@ -322,7 +322,7 @@ export class MBCarriageSheet extends MBActorSheet {
     if (!confirmed) return;
 
     const draft = Array.from(this.actor.system.draft || []).filter(
-      (id) => id !== followerId
+      (id) => id !== draftActorId
     );
     await this.actor.update({ "system.draft": draft });
   }
@@ -331,7 +331,12 @@ export class MBCarriageSheet extends MBActorSheet {
     const data = TextEditor.getDragEventData(event);
     if (data.type === "Actor") {
       const droppedActor = await fromUuid(data.uuid);
-      if (droppedActor?.type === "follower") {
+      const eligibleTypes = new Set(["character", "creature", "follower", "container"]);
+      if (
+        droppedActor &&
+        eligibleTypes.has(droppedActor.type) &&
+        droppedActor.id !== this.actor.id
+      ) {
         const draft = Array.from(this.actor.system.draft || []);
         if (draft.length >= 2) {
           ui.notifications.warn(game.i18n.localize("MB.DraftFull"));
