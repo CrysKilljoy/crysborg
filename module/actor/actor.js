@@ -21,11 +21,30 @@ export class MBActor extends Actor {
         foundry.utils.setProperty(changed, "system.hp.base", sys.hp.max);
       }
       if (sys.abilities?.speed?.value !== undefined) {
-        foundry.utils.setProperty(
-          changed,
-          "system.abilities.speed.base",
-          sys.abilities.speed.value
-        );
+        const baseProvided = sys.abilities.speed.base !== undefined;
+        if (!baseProvided) {
+          const existingModifiers =
+            this.system?.abilities?.speed?.modifiers ?? [];
+          const modifierTotal = existingModifiers.reduce((sum, mod) => {
+            const numeric = Number(mod?.value);
+            return sum + (Number.isFinite(numeric) ? numeric : 0);
+          }, 0);
+          const newValueNumber = Number(sys.abilities.speed.value);
+          if (Number.isFinite(newValueNumber)) {
+            const newBase = newValueNumber - modifierTotal;
+            foundry.utils.setProperty(
+              changed,
+              "system.abilities.speed.base",
+              newBase
+            );
+          } else if (sys.abilities.speed.value != null) {
+            foundry.utils.setProperty(
+              changed,
+              "system.abilities.speed.base",
+              sys.abilities.speed.value
+            );
+          }
+        }
       }
       if (sys.abilities?.stability?.value !== undefined) {
         foundry.utils.setProperty(
@@ -183,6 +202,7 @@ export class MBActor extends Actor {
       // Ensure ability and structure fields exist
       this.system.abilities ??= {};
       this.system.abilities.speed ??= { value: 0, base: 0 };
+      this.system.abilities.speed.modifiers = [];
       this.system.abilities.stability ??= { value: 100, base: 100 };
       if (this.system.abilities.stability.base == null) {
         this.system.abilities.stability.base = 100;
@@ -207,14 +227,27 @@ export class MBActor extends Actor {
 
       const ramSources = [{ label: game.i18n.localize("MB.Base"), value: ram }];
       const armorSources = [{ label: game.i18n.localize("MB.Base"), value: armor }];
-      const speedSources = [{ label: game.i18n.localize("MB.Base"), value: String(Number.isFinite(speedBase) ? speedBase : 0) }];
+      const speedSources = [
+        {
+          label: game.i18n.localize("MB.Base"),
+          value: String(Number.isFinite(speedBase) ? speedBase : 0),
+        },
+      ];
+      const speedModifiers = [];
+      let speedModifierTotal = 0;
+      const addSpeedModifier = (label, value, context = {}) => {
+        const numericValue = Number(value);
+        if (!Number.isFinite(numericValue) || numericValue === 0) return;
+        speedModifierTotal += numericValue;
+        const modifierEntry = { label, value: numericValue, ...context };
+        speedModifiers.push(modifierEntry);
+        speedSources.push({ label, value: String(numericValue) });
+      };
 
       // Collect upgrade modifiers first (don’t mutate speed yet)
-      let upgradeSpeedSum = 0;
       for (const item of this.items.filter((i) => i.type === CONFIG.MB.itemTypes.carriageUpgrade && i.system.equipped)) {
         const sp = rollTotalSync(String(item.system.speed || 0));
-        upgradeSpeedSum += sp;
-        if (sp) speedSources.push({ label: item.name, value: String(sp) });
+        addSpeedModifier(item.name, sp, { type: "item", itemId: item.id });
         stability += rollTotalSync(String(item.system.stability || 0));
         if (item.system.ram) {
           if (ram === "0" || ram === "") {
@@ -246,7 +279,6 @@ export class MBActor extends Actor {
       if (draftIds.length !== (this.system.draft || []).length) {
         this.updateSource({ "system.draft": draftIds });
       }
-      let followerSpeedSum = 0;
       for (const id of draftIds) {
         const draftActor = game.actors?.get(id);
         if (draftActor) {
@@ -254,27 +286,25 @@ export class MBActor extends Actor {
             typeof draftActor.getDraftSpeed === "function"
               ? draftActor.getDraftSpeed()
               : rollTotalSync(String(draftActor.system?.speed || 0));
-          followerSpeedSum += draftSpeed;
-          if (draftSpeed) {
-            speedSources.push({
-              label: draftActor.name,
-              value: String(draftSpeed),
-            });
-          }
+          addSpeedModifier(draftActor.name, draftSpeed, {
+            type: "actor",
+            actorId: draftActor.id,
+          });
         }
       }
 
       // If no explicit base exists (legacy actors), reconstruct a base once
       if (!Number.isFinite(speedBase)) {
-        const reconstructed = savedSpeedValue - upgradeSpeedSum - followerSpeedSum;
+        const reconstructed = savedSpeedValue - speedModifierTotal;
         speedBase = Number.isFinite(reconstructed) ? reconstructed : 0;
         // Do not persist value speed from derived data; we only migrate base if needed
         // this.updateSource({ "system.abilities.speed.base": speedBase }); // optional migration
       }
 
-      const finalSpeed = (Number(speedBase) || 0) + upgradeSpeedSum + followerSpeedSum;
+      const finalSpeed = (Number(speedBase) || 0) + speedModifierTotal;
 
       this.system.abilities.speed.value = finalSpeed;
+      this.system.abilities.speed.modifiers = speedModifiers;
       this.system.abilities.stability.value = stability;
       this.system.speedSources = speedSources;
       this.system.ram = ram;
