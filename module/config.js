@@ -281,7 +281,8 @@ MB.scrollTypes = {
     unclean: "MB.ScrollTypeUnclean",
     chaotic: "MB.ScrollTypeChaotic",
     svmp: "MB.ScrollTypeSvmp",
-    shroom: "MB.ScrollTypeShroom"
+    shroom: "MB.ScrollTypeShroom",
+    lost: "MB.ScrollTypeLost",
 };
 
 MB.weaponTypes = {
