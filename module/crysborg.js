@@ -14,6 +14,7 @@ import { enrichTextEditors } from "./enricher.js";
 import { registerFonts } from "./fonts.js";
 import { configureHandlebars } from "./handlebars.js";
 import { registerHooks } from "./hooks.js";
+import { registerItemPilesIntegration } from "./integrations/item-piles.js";
 import { MBItem } from "./item/item.js";
 import { MBItemSheet } from "./item/sheet/item-sheet.js";
 import { MBJournalSheet } from "./journal/journal-sheet.js";
@@ -38,6 +39,7 @@ Hooks.once("init", async function () {
   registerMacros();
   registerHooks();
   registerFonts();
+  registerItemPilesIntegration();
 
   game.exporter = {
     dumpUuids,

@@ -30,7 +30,7 @@
   "MB.Armor": "Rüstung",
   "MB.ArmorCurrentTier": "Aktuelle Stufe",
   "MB.ArmorMaxTier": "Maximale Stufe",
-  "MB.ArmorTable": "Rüstungstabelle",  
+  "MB.ArmorTable": "Rüstungstabelle",
   "MB.ArmorTierHeavy": "Schwer",
   "MB.ArmorTierLight": "Leicht",
   "MB.ArmorTierMedium": "Mittel",
@@ -340,7 +340,6 @@
   "MB.YouHaveNoScrolls": "Du hast keine Schriftrollen",
   "MB.SettingsBrokenButton": "Benutze 'Gebrochen'-Knopf",
   "MB.SettingsBrokenButtonHint": "Falls deaktiviert, können Spieler auf Stabilitäts- und Todeswurf (Frontier Scum) würfeln, anstatt auf die Gebrochen-Tabelle.",
-  
   "MB.HPZeroTitle": "LP auf Null reduziert",
   "MB.HPZeroMessage1": "Der Schlag ist gefallen und das Mark bebt; miss den Ruin in deinen Knochen.",
   "MB.HPZeroMessage2": "Niedergestreckt von der fauligen Hand des Schicksals musst du nun abwägen: Reichte die Wunde, um dich zu töten?",
@@ -357,7 +356,6 @@
   "MB.HPZeroMessage13": "Dein Leib bebt am Abgrund; verschlingt dich der Abgrund ganz oder beißt er nur tief?",
   "MB.HPZeroMessage14": "Die Hand der Gewalt legt dich nieder; die Hand des Zufalls entscheidet, ob du wieder aufstehst oder dort verrottest.",
   "MB.HPZeroMessage15": "Dein Leben hängt wie ein zerrissenes Banner im Friedhofssturm; ist dies der Sturz oder nur ein weiteres Zerfetzen?",
-  
   "MB.AdventurerDescr": "Du bist nichts als Fleisch mit Geldbeutel – ein leeres Blatt, das blutend im Dreck liegt, wartend, gefüllt — oder begraben zu werden.",
   "MB.EsotericHermitDescr": "Du bist ein sternberührter Wahnsinniger, gesegnet mit unnatürlicher Klarheit, führst Schriftrollen und Geheimnisse wie Messer — deine Präsenz beugt die Welt, auch wenn dein Körper zerbricht wie altes Pergament.",
   "MB.FangedDeserterDescr": "Du bist Stärke ohne Zweck — dumm wie ein Klotz, verflucht mit einem Mund voller gelber Messer, verlassen vom Krieg und unwürdig für Worte oder Magie.",
@@ -365,14 +363,12 @@
   "MB.HereticalPriestDescr": "Du führst Reliquien rasender Götter und zerbrochenen Glaubens, kanalisierst Mächte mit sengender Präsenz — gesalbt im Dreck, gefürchtet wegen Visionen, gesegnet mit der Autorität, Glauben selbst zu zerschlagen.",
   "MB.OccultHerbmasterDescr": "Du bist ein krummer Sack aus Sporen und Gestank, braust Wunder aus Unrat — zu schwach zum Kämpfen, zu seltsam zum Vertrauen, doch der Tod hört, wenn du flüsterst.",
   "MB.WretchedRoyaltyDescr": "Einst blaues Blut, nun nur noch Spott der Noblesse — gehasst, verfolgt und hilflos, aber zu stolz, um still zu sterben.",
-
   "MB.CursedSkinwalkerDescr": "Du hättest sterben sollen, doch etwas packte deine Seele — nun zuckst du unter geliehener Haut, zerrissen zwischen Tier und Mensch, ein knurrender Ruin von beidem.",
   "MB.DeadGod'sProphetDescr": "Du bist der brennende Mund eines ermordeten Gottes, führst göttlichen Wahnsinn wie eine Waffe — deine Präsenz zerreißt Lügen, deine Gaben entweihen Fleisch, und jedes deiner Worte ist eine Totenpredigt, die keiner zu ignorieren wagt.",
   "MB.ForlornPhilosopherDescr": "Du bist eine von Wissen verbrannte Seele, verdammt als Prophet der Vergeblichkeit zu wandeln, jedes deiner Worte eine Schrift aus Leid, in das Fleisch deines Zweifels geätzt.",
   "MB.PaleOneDescr": "Du verweilst am Rand aller Dinge — schweigend, wortlos, weder Freund noch Verwandter — geplagt von Visionen und Wutanfällen, meist still, als würdest du auf das Ende warten, das dir gebührt.",
   "MB.SacrilegiousSongbirdDescr": "Deine Stimme verspottete einst Könige, nun dient sie finsteren Höfen — eine verfluchte Melodie, geschenkt von gottlosen Dingen, deine Seele häutet sich bei jedem Ton, doch das Gold fließt und das Publikum verlangt stets mehr.",
   "MB.SheddingVicarDescr": "Du ziehst Fleisch ab wie Lügen, predigst Erlösung durch Qual — jeder Streifen eine Predigt, jede Kruste eine Schrift, und wenn das Blut nicht mehr gerinnt, wird die Wahrheit unter den Ruinen offenbart.",
-
   "MB.BetrayedPhantomDescr": "Du bist ein hohles Echo, gehüllt in gestohlene Haut, dem Tod verweigert, doch nicht lebendig, deine Seele von einem namenlosen Pakt gekettet — was in deiner Haut wandelt, bist nicht du, doch es erinnert genug, um zu leiden.",
   "MB.BlightedMermanDescr": "Du bist der missgestaltete Apostel des Meeres, gezogen aus ertrunkenem Gebet in eine muschelverkrustete Wiedergeburt — dein Fleisch aufgedunsen mit Salz, deine Vergangenheit verrottet unter den Wellen, und nur die Flut kennt deinen Namen.",
   "MB.BloodKnightDescr": "Du bist ein geweihter Schlächter, gehüllt in geronnenes Eisen und verfluchte Hingabe — der Glaube schmiedete dich, Blut erhält dich, und jedes abgetrennte Glied ist ein Hymnus an den Gott, der dich im Purpurzweck ertränkte.",
@@ -396,5 +392,17 @@
   "MB.THEBellfounderDescr": "Du schmiedetest Glocken in Stille, bis eine das wahre Ende der Welt sang — nun trägst du ihr Echo, formst Schicksal mit jedem Schlag, während es dich selbst verwandelt.",
   "MB.TheSharpCardDescr": "Du entkamst dem Tod im Schlamm, nur um Schuld im Schatten zu finden — ausgebildet von einer Gilde der Geheimnisse, gebunden durch Vertrag und Münze, kostet jede Bewegung nun mehr als Blut.",
   "MB.TormentedToymakerDescr": "Trauer zertrümmerte Geist und Handwerk — nun zucken deine Spielzeuge mit verfluchtem Leben, verbreiten Leid und Schlachten mit jedem Aufziehen und Surren.",
-  "MB.DamnedLambDescr": "Eine geschlachtete Seele kehrte zurück, gekrönt in Spott-Divinität. Deine Hinrichtung scheiterte, doch Rache blutet durch dich. Jeder Mord nährt die Krone, jede Predigt ein blökender Fluch über die Sterbenden Lande."
+  "MB.DamnedLambDescr": "Eine geschlachtete Seele kehrte zurück, gekrönt in Spott-Divinität. Deine Hinrichtung scheiterte, doch Rache blutet durch dich. Jeder Mord nährt die Krone, jede Predigt ein blökender Fluch über die Sterbenden Lande.",
+  "MB.CurrencySilver": "Silber",
+  "TYPES.Item.ammo": "Munition",
+  "TYPES.Item.armor": "Rüstung",
+  "TYPES.Item.class": "Klasse",
+  "TYPES.Item.container": "Behälter",
+  "TYPES.Item.feat": "Talent",
+  "TYPES.Item.misc": "Verschiedenes",
+  "TYPES.Item.scroll": "Schriftrolle",
+  "TYPES.Item.shield": "Schild",
+  "TYPES.Item.weapon": "Waffe",
+  "TYPES.Item.carriage-class": "Kutschenklasse",
+  "TYPES.Item.carriage-upgrade": "Kutschenaufrüstung"
 }

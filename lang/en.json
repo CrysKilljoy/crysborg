@@ -408,5 +408,17 @@
   "MB.Barbarister,TheIncredibleHorseDescr": "The fools never saw your brilliance, chained to that wretch of an owner. Now free, you begin life anew — an adventuring horse!",
   "MB.AshborneApostleDescr": "Years of devotion to the dead gods left you steeped in candle smoke and temple fumes until the offerings crusted over and your very flesh calcified into incense.",
   "MB.BloodsaltMinerDescr": "Blood slicked the mahogany haft of your pick, brine burned your eyes, salt-dust clogged your lungs, and still you swung — cling, clang — another haul wrenched from the crust; salt in, salt out.",
-  "MB.Sun-ScorchedSymbioteDescr": "You wrapped yourself in briny algae against the killing sun, but the slime had intentions of its own and, as you faltered, it claimed your body like a patient tide."
+  "MB.Sun-ScorchedSymbioteDescr": "You wrapped yourself in briny algae against the killing sun, but the slime had intentions of its own and, as you faltered, it claimed your body like a patient tide.",
+  "MB.CurrencySilver": "Silver",
+  "TYPES.Item.ammo": "Ammo",
+  "TYPES.Item.armor": "Armor",
+  "TYPES.Item.class": "Class",
+  "TYPES.Item.container": "Container",
+  "TYPES.Item.feat": "Feat",
+  "TYPES.Item.misc": "Miscellaneous",
+  "TYPES.Item.scroll": "Scroll",
+  "TYPES.Item.shield": "Shield",
+  "TYPES.Item.weapon": "Weapon",
+  "TYPES.Item.carriage-class": "Carriage Class",
+  "TYPES.Item.carriage-upgrade": "Carriage Upgrade"
 }
